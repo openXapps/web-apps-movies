@@ -1,37 +1,26 @@
 // import { useState } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
+import { RouteItems } from "@/lib/types";
 import { ModeToggle } from "./ModeToggle";
-import { buttonVariants } from "@/components/ui/button"
-import Container from './Container';
+import NavDesktop from "./NavDesktop";
 
-const navigation = [
-  { name: 'Now Showing', route: '/' },
-  { name: 'On DVD', route: '/ondvd' },
-  { name: 'Favourites', route: '/favourites' },
-]
+const navigation: RouteItems = {
+  items: [
+    { route: 'Now Showing', href: '/' },
+    { route: 'On DVD', href: '/ondvd' },
+    { route: 'Favourites', href: '/favourites' },
+  ]
+}
+
+// https://hawkapps.io/responsive-navbar-in-react-using-shadcn-ui-and-tailwind-css/
 
 export default function Header() {
 
-
-
   return (
-    <header className="flex items-center justify-between py-1 px-2 md:py-3 md:px-4 border-b">
-      <Container>
-          <h1 className="text-xl font-bold">Movies</h1>
-          <nav className="flex items-center space-x-2 lg:space-x-4">
-            {navigation.map((item, index) => {
-              return (
-                <Link key={index} to={item.route} className={buttonVariants({ variant: "outline" })}>{item.name}</Link>
-              )
-            })}
-          </nav>
-          <ModeToggle></ModeToggle>
-      </Container>
+    <header className="fixed top-0 w-full h-14 flex items-center py-1 px-2 border-b gap-2 bg-slate-100 dark:bg-slate-800">
+      <h1 className="text-xl font-bold grow">Movies</h1>
+      <NavDesktop routes={navigation} />
+      <ModeToggle></ModeToggle>
     </header>
   )
 }
-
-{/* <p className="grow">Movies</p>
-        <div className="flex gap-x-2">
-          
-        </div> */}

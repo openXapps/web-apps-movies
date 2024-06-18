@@ -3,9 +3,10 @@ import Header from "../components/Header";
 
 export default function Layout() {
   return (
-    <>
-      <Header title='Movies' />
+    <div className="mx-auto max-w-7xl">
+      <Header />
+      <div className="w-full h-14" />
       <Outlet />
-    </>
+    </div>
   );
 };

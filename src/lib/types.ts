@@ -1,8 +1,15 @@
-import { EVariant } from './enums';
+/**
+ * Router item type
+ */
+export type RouteItem = {
+  href: string;
+  route: string;
+}
 
 /**
- * Generic component variants
+ * Router items type
  */
-export type TVariant = {
-  variant: EVariant;
+export type RouteItems = {
+  items: RouteItem[];
 }
+

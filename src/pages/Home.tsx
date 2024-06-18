@@ -12,6 +12,7 @@ export default function Home() {
   return (
     <div className="p-10">
       <p className="">{location.pathname}</p>
+      <div style={{height: '1000px'}} className="w-full bg-slate-300"></div>
     </div>
   )
 }
