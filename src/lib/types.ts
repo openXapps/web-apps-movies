@@ -4,6 +4,7 @@
 export type RouteItem = {
   href: string;
   route: string;
+  title?: string;
 }
 
 /**

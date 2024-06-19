@@ -1,24 +1,26 @@
 import { useLocation } from "react-router-dom";
 import { RouteItems } from "@/lib/types";
 import { Link } from "react-router-dom";
-import { buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
+import { twMerge } from "tailwind-merge";
 
-type NavDesktopProps = { routes: RouteItems };
+type NavDesktopProps = React.ComponentPropsWithoutRef<'nav'> & {
+  routes: RouteItems;
+};
 
-export default function NavDesktop({ routes }: NavDesktopProps) {
+export default function NavDesktop({ routes, ...rest }: NavDesktopProps) {
   const { pathname } = useLocation();
 
   return (
-    <nav className="flex">
-      {routes.items.map((v, i) => {
-        return (
+    <nav className={twMerge('flex gap-1', rest.className)}>
+      {routes.items.map((v, i) => (
+        <Button key={i} asChild variant={pathname === v.href ? 'default' : 'link'}>
           <Link
-            key={i}
             to={v.href}
-            className={buttonVariants({ variant: pathname === v.href ? 'default' : 'ghost' })}
+            className={pathname === v.href ? 'pointer-events-none' : 'pointer-events-auto'}
           >{v.route}</Link>
-        );
-      })}
+        </Button>
+      ))}
     </nav>
   );
 }

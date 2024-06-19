@@ -1,12 +1,15 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
+import Toolbar from "@/components/Toolbar";
 
 export default function Layout() {
   return (
-    <div className="mx-auto max-w-7xl">
+    <>
       <Header />
-      <div className="w-full h-14" />
-      <Outlet />
-    </div>
+      <Toolbar />
+      <div className="mx-auto max-w-7xl">
+        <Outlet />
+      </div>
+    </>
   );
 };
