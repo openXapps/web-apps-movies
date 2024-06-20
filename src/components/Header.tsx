@@ -20,14 +20,13 @@ export default function Header() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    let title = navigation.items.filter((v) => pathname === v.href);
-    setHeaderTitle(title[0].title);
-    // console.log(title);
-
+    if (window.matchMedia("(max-width: 640px)").matches) {
+      let title = navigation.items.filter((v) => pathname === v.href);
+      setHeaderTitle(title[0].title);
+    }
 
     return () => { }
   }, [pathname])
-
 
   return (
     <header className="fixed top-0 left-0 w-full h-14 border-b bg-slate-100 dark:bg-gray-900">

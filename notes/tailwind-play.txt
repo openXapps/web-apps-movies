@@ -1,0 +1,27 @@
+https://play.tailwindcss.com/
+
+CSS
+================
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card {
+    @apply w-full sm:w-[300px] md:w-[240px] text-center text-5xl border-2;
+  }
+}
+
+HTML
+================
+<div class="max-w-[1024px] mx-auto grid grid-cols-1 justify-items-center gap-2 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border border-cyan-400 m-2">
+  <div class="card"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="X"></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="X"></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="X"></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="X"></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="X"></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="X"></div>
+  <div class="card"><img src="https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg" alt="X"></div>
+</div>
+
+
