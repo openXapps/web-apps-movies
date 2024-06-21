@@ -20,7 +20,8 @@ export default function Card({ children }: CardProps) {
         alt="X"
         onClick={handleImgClick}
       />
-      <div className="absolute bottom-0 h-20 w-full max-[500px] p-3 bg-gradient-to-t from-white dark:from-black">
+      {/* <div className="absolute bottom-0 h-20 w-full max-[500px] p-3 bg-gradient-to-t from-white dark:from-black"> */}
+      <div className="absolute bottom-0 h-12 w-full max-[500px] px-2 bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-30">
         <Heart />
       </div>
       </div>
