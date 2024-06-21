@@ -7,7 +7,7 @@ export default function Layout() {
     <>
       <Header />
       <Toolbar />
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-[1024px]">
         <Outlet />
       </div>
     </>

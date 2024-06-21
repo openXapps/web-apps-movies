@@ -21,7 +21,7 @@ export default function App() {
       <Route index element={<Home />} />
       <Route path="ondvd" element={<Home />} />
       <Route path="favourites" element={<Home />} />
-      <Route path="movie" element={<Movie />} />
+      <Route path="movie/:id" element={<Movie />} />
       <Route path="*" element={<NoPage />} />
     </Route >
   ), { basename: home });
