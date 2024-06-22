@@ -8,5 +8,6 @@ export const navigation: RouteItems = {
     { route: 'Now Showing', href: '/', title: 'Movies Now Showing' },
     { route: 'On DVD', href: '/ondvd', title: 'Movies On DVD' },
     { route: 'Favourites', href: '/favourites', title: 'Favourite Movies' },
+    { route: 'Movie Biography', href: '/movie/', title: 'Movie Biography' },
   ]
 }
