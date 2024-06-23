@@ -1,26 +1,29 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RouteItems } from "@/lib/types";
-import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { twMerge } from "tailwind-merge";
 
-type NavDesktopProps = React.ComponentPropsWithoutRef<'nav'> & {
+type NavDesktopProps = {
   routes: RouteItems;
-  isSmall?: boolean;
+  className: string;
 };
 
-export default function NavDesktop({ routes, isSmall, ...rest }: NavDesktopProps) {
+export default function NavDesktop({ routes, className }: NavDesktopProps) {
   const { pathname } = useLocation();
+  const rrNavigate = useNavigate();
+
+  const handleButtonClick = (href: string) => {
+    rrNavigate(href, { replace: true });
+  };
 
   return (
-    <nav className={twMerge('flex gap-1', rest.className)}>
-      {routes.items.map((v, i) => (i < 3 &&
-        <Button key={i} asChild variant={pathname === v.href ? 'default' : 'link'}>
-          <Link
-            to={v.href}
-            className={pathname === v.href ? 'pointer-events-none' : 'pointer-events-auto'}
-          >{v.route}</Link>
-        </Button>
+    <nav className={twMerge('flex gap-1', className)}>
+      {routes.map((v, i) => (i < 3 &&
+        <Button
+          key={i}
+          variant={pathname === v.href ? 'default' : 'link'}
+          onClick={() => handleButtonClick(v.href)}
+        >{v.route}</Button>
       ))}
     </nav>
   );

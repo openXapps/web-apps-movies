@@ -4,14 +4,14 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/s
 import { RouteItems } from "@/lib/types";
 import { MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
-// import { Link } from "react-router-dom";
 
-type NavDesktopProps = React.ComponentPropsWithoutRef<'nav'> & {
-  routes: RouteItems;
-};
+// type NavDesktopProps = {
+//   routes: RouteItems;
+//   className: string;
+// };
 
-export default function NavMobile({ routes, className }: NavDesktopProps) {
-  const [open, setOpen] = useState(false);
+export default function NavMobile({ routes, className }: { routes: RouteItems, className: string }) {
+  const [open, setOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
   const rrNavigate = useNavigate();
 
@@ -33,7 +33,7 @@ export default function NavMobile({ routes, className }: NavDesktopProps) {
         <SheetContent side="left" className="w-[300px]" aria-description="mobile menu" aria-describedby={undefined}>
           <SheetTitle className="">Filter By</SheetTitle>
           <div className="flex flex-col items-start gap-4 mr-6 mt-5">
-            {routes.items.map((v, i) => (i < 3 &&
+            {routes.map((v, i) => (i < 3 &&
               <Button
                 key={i}
                 className="w-full"
@@ -48,11 +48,3 @@ export default function NavMobile({ routes, className }: NavDesktopProps) {
     </div>
   );
 }
-
-{/* <Button key={i} asChild variant={pathname === v.href ? 'default' : 'link'} className="w-full">
-                <Link
-                  to={v.href}
-                  className={pathname === v.href ? 'pointer-events-none' : 'pointer-events-auto'}
-                  onClick={() => setOpen(false)}
-                >{v.route}</Link>
-              </Button> */}

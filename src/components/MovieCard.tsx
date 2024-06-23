@@ -1,14 +1,18 @@
 import { useNavigate } from "react-router-dom";
-import { Heart } from 'lucide-react';
+import { HeartIcon } from 'lucide-react';
+import { twMerge } from "tailwind-merge";
+import { useState } from "react";
 
 type CardProps = React.ComponentPropsWithoutRef<'div'> & {
   movieId: string;
   movieTitle: string;
   movieImage: string;
+  favourite: boolean;
 };
 
-export default function MovieCard({ movieId, movieImage, movieTitle }: CardProps) {
+export default function MovieCard({ movieId, movieImage, movieTitle, favourite }: CardProps) {
   const navigate = useNavigate();
+  const [isFav, setIsFav] = useState(favourite);
 
   const handleImgClick = () => {
     // navigate('/movie/1E5baAaEse26fej7uHcjOgEE2t2')
@@ -28,7 +32,12 @@ export default function MovieCard({ movieId, movieImage, movieTitle }: CardProps
         {/* <div className="absolute bottom-0 h-20 w-full max-[500px] p-3 bg-gradient-to-t from-white dark:from-black"> */}
         <div className="absolute bottom-0 h-12 mx-auto w-full px-3 flex items-center justify-between bg-white dark:bg-black bg-opacity-50 dark:bg-opacity-30">
           <p>2022-01-25</p>
-          <Heart className="cursor-pointer" />
+          <HeartIcon
+            className={twMerge('cursor-pointer', isFav && 'text-orange-500')}
+            strokeWidth={isFav ? 4 : 2}
+            // fill="#111" not working
+            onClick={() => (setIsFav(!isFav))}
+          />
         </div>
       </div>
     </div>

@@ -1,16 +1,18 @@
 /**
- * Router item type
- */
-export type RouteItem = {
-  href: string;
-  route: string;
-  title?: string;
-}
-
-/**
  * Router items type
  */
 export type RouteItems = {
-  items: RouteItem[];
-}
+  href: string;
+  route: string;
+  title?: string;
+}[]
 
+/**
+ * Movie data type
+ */
+export type Movies = {
+  key: number;
+  id: string;
+  title: string;
+  favourite: boolean;
+}[]

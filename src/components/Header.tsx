@@ -15,8 +15,8 @@ export default function Header() {
 
   useEffect(() => {
     if (isSmall) {
-      let title = navigation.items.filter((v) => (
-        pathname === v.href || 
+      let title = navigation.filter((v) => (
+        pathname === v.href ||
         (v.href.length > 1 && pathname.startsWith(v.href))
       ));
       setHeaderTitle(title[0].title);
@@ -26,10 +26,10 @@ export default function Header() {
   }, [pathname, isSmall])
 
   return (
-    <header className="fixed top-0 left-0 w-full h-14 border-b bg-slate-100 dark:bg-gray-900">
+    <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-80 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
       <div className="flex items-center gap-1 sm:gap-2 py-2 px-2 mx-auto max-w-[1024px]">
         <h1 className="text-xl font-bold grow">{headerTitle}</h1>
-        <NavDesktop routes={navigation} isSmall={isSmall} className="hidden sm:block" />
+        <NavDesktop routes={navigation} className="hidden sm:block" />
         <NavMobile routes={navigation} className="block sm:hidden" />
         <ModeToggle />
       </div>
