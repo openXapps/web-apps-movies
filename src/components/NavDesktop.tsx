@@ -3,12 +3,7 @@ import { RouteItems } from "@/lib/types";
 import { Button } from "./ui/button";
 import { twMerge } from "tailwind-merge";
 
-type NavDesktopProps = {
-  routes: RouteItems;
-  className: string;
-};
-
-export default function NavDesktop({ routes, className }: NavDesktopProps) {
+export default function NavDesktop({ routes, className }: { routes: RouteItems, className: string }) {
   const { pathname } = useLocation();
   const rrNavigate = useNavigate();
 
@@ -23,7 +18,8 @@ export default function NavDesktop({ routes, className }: NavDesktopProps) {
           key={i}
           variant={pathname === v.href ? 'default' : 'link'}
           onClick={() => handleButtonClick(v.href)}
-        >{v.route}</Button>
+          disabled={pathname === v.href}
+        >{v.route}<span className="sr-only">{`navigate ${v.route}`}</span></Button>
       ))}
     </nav>
   );

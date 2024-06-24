@@ -5,11 +5,6 @@ import { RouteItems } from "@/lib/types";
 import { MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
 
-// type NavDesktopProps = {
-//   routes: RouteItems;
-//   className: string;
-// };
-
 export default function NavMobile({ routes, className }: { routes: RouteItems, className: string }) {
   const [open, setOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
@@ -39,7 +34,8 @@ export default function NavMobile({ routes, className }: { routes: RouteItems, c
                 className="w-full"
                 variant={pathname === v.href ? 'default' : 'link'}
                 onClick={() => handleButtonClick(v.href)}
-              >{v.route}</Button>
+                disabled={pathname === v.href}
+              >{v.route}<span className="sr-only">{`navigate ${v.route}`}</span></Button>
             ))}
           </div>
         </SheetContent>

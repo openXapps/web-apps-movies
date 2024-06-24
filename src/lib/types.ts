@@ -2,9 +2,11 @@
  * Router items type
  */
 export type RouteItems = {
+  id: string;
   href: string;
   route: string;
-  title?: string;
+  title: string;
+  navBack: boolean;
 }[]
 
 /**

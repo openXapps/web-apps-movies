@@ -1,0 +1,6 @@
+
+Vite setup env
+https://vitejs.dev/guide/env-and-mode
+
+Get movie list example
+https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=??
