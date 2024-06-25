@@ -13,7 +13,7 @@ import Movie from '@/pages/Movie';
 import NoPage from '@/pages/NoPage';
 
 export default function App() {
-  const home:string = '/apps/movies';
+  const home: string = '/apps/movies';
   // const home = '/';
 
   const router = createBrowserRouter(createRoutesFromElements(
@@ -25,6 +25,21 @@ export default function App() {
       <Route path="*" element={<NoPage />} />
     </Route >
   ), { basename: home });
+
+  // This does not fucken work !!!!!
+  // const r = createBrowserRouter([
+  //   {
+  //     path: '/',
+  //     element: <Layout />,
+  //     errorElement: <NoPage />,
+  //     children: [
+  //       { index: true, element: <Home /> },
+  //       { path: 'ondvd', element: <Home /> },
+  //       { path: 'favourites', element: <Home /> },
+  //       { path: 'movie/:id', element: <Movie /> }
+  //     ],
+  //   },
+  // ], { basename: home })
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
