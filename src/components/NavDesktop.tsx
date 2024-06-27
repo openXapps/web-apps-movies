@@ -8,7 +8,7 @@ export default function NavDesktop({ routes, className }: { routes: RouteItems, 
   const rrNavigate = useNavigate();
 
   const handleButtonClick = (href: string) => {
-    rrNavigate(href, { replace: true });
+    pathname !== href && rrNavigate(href, { replace: true });
   };
 
   return (
@@ -18,7 +18,8 @@ export default function NavDesktop({ routes, className }: { routes: RouteItems, 
           key={i}
           variant={pathname === v.href ? 'default' : 'link'}
           onClick={() => handleButtonClick(v.href)}
-          disabled={pathname === v.href}
+          className={twMerge(pathname === v.href ? 'cursor-context-menu' : 'cursor-pointer')}
+          // disabled={pathname === v.href}
         >{v.route}<span className="sr-only">{`navigate ${v.route}`}</span></Button>
       ))}
     </nav>

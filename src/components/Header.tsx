@@ -33,7 +33,7 @@ export default function Header() {
         <h1 className="text-xl font-bold grow">{headerTitle}</h1>
         {showBackButton ? (
           <Button variant="ghost" size="icon" onClick={() => rrNavigate(-1)}>
-            <ArrowLeft className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <ArrowLeft className="h-[1.2rem] w-[1.2rem]" />
             <span className="sr-only">navigate back</span>
           </Button>
         ) : (

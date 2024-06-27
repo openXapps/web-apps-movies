@@ -4,6 +4,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/s
 import { RouteItems } from "@/lib/types";
 import { MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
+import { twMerge } from "tailwind-merge";
 
 export default function NavMobile({ routes, className }: { routes: RouteItems, className: string }) {
   const [open, setOpen] = useState<boolean>(false);
@@ -11,8 +12,10 @@ export default function NavMobile({ routes, className }: { routes: RouteItems, c
   const rrNavigate = useNavigate();
 
   const handleButtonClick = (href: string) => {
-    setOpen(false);
-    rrNavigate(href, { replace: true });
+    if (pathname !== href) {
+      setOpen(false);
+      rrNavigate(href, { replace: true });
+    }
   };
 
   return (
@@ -31,10 +34,10 @@ export default function NavMobile({ routes, className }: { routes: RouteItems, c
             {routes.map((v, i) => (i < 3 &&
               <Button
                 key={i}
-                className="w-full"
+                className={twMerge(pathname === v.href ? 'cursor-context-menu' : 'cursor-pointer', 'w-full')}
                 variant={pathname === v.href ? 'default' : 'link'}
                 onClick={() => handleButtonClick(v.href)}
-                disabled={pathname === v.href}
+              // disabled={pathname === v.href}
               >{v.route}<span className="sr-only">{`navigate ${v.route}`}</span></Button>
             ))}
           </div>
