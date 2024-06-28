@@ -7,7 +7,7 @@ type CardProps = React.ComponentPropsWithoutRef<'div'> & {
   movieId: string;
   movieTitle: string;
   movieImage: string;
-  favourite: boolean;
+  favourite?: boolean;
 };
 
 export default function MovieCard({ movieId, movieImage, movieTitle, favourite }: CardProps) {
