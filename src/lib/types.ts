@@ -10,9 +10,23 @@ export type RouteItems = {
 }[]
 
 /**
- * Movies data type
+ * Movie list response
  */
-export type TmdbMoviesData = {
+export type TmdbMovieList = {
+  dates: {
+    maximum: string;
+    minumum: string;
+  };
+  page: number;
+  results: TmdbMovieListResults;
+  total_pages: string;
+  total_results: string;
+}
+
+/**
+ * Movie list results object
+ */
+export type TmdbMovieListResults = {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -32,7 +46,7 @@ export type TmdbMoviesData = {
 /**
  * Movie data type
  */
-export type TmdbMovieData = {
+type TmdbMovieData = {
   "adult": false,
   "backdrop_path": "/ww1eIoywghjoMzRLRIcbJLuKnJH.jpg",
   "belongs_to_collection": {
