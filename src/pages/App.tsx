@@ -21,8 +21,17 @@ export default function App() {
       errorElement: <NoPage />,
       children: [
         { index: true, element: <Home />, loader: loaderTrending },
-        { path: 'ondvd', element: <Home />, loader: loaderOnDvD },
-        { path: 'favourites', element: <Home />, loader: loaderFavourites },
+        { path: ':page', element: <Home />, loader: loaderOnDvD },
+        {
+          path: 'ondvd', element: <Home />, loader: loaderOnDvD, children: [{
+            path: ':page', element: <Home />, loader: loaderOnDvD
+          }]
+        },
+        {
+          path: 'favourites', element: <Home />, loader: loaderFavourites, children: [{
+            path: ':page', element: <Home />, loader: loaderFavourites
+          }]
+        },
         { path: 'movie/:id', element: <Movie /> },
       ],
     },
