@@ -8,7 +8,7 @@ import { ThemeProvider } from '@/context/theme-provider';
 import Layout from '@/pages/Layout';
 import Home, { loaderTrending, loaderOnDvD, loaderFavourites } from '@/pages/Home';
 import Movie from '@/pages/Movie';
-import NoPage from '@/pages/NoPage';
+// import NoPage from '@/pages/NoPage';
 
 export default function App() {
   const home: string = '/apps/movies';
@@ -18,10 +18,10 @@ export default function App() {
     {
       path: '/',
       element: <Layout />,
-      errorElement: <NoPage />,
+      // errorElement: <NoPage />,
       children: [
         { index: true, element: <Home />, loader: loaderTrending },
-        { path: ':page', element: <Home />, loader: loaderOnDvD },
+        { path: ':page', element: <Home />, loader: loaderTrending },
         {
           path: 'ondvd', element: <Home />, loader: loaderOnDvD, children: [{
             path: ':page', element: <Home />, loader: loaderOnDvD

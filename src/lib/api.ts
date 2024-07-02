@@ -6,7 +6,7 @@ import moment from 'moment';
  * Fetching movies from TMDb
  * @returns Array of movies
  */
-export async function getMovies(query: string, page: string) {
+export async function getMovies(query: string, page: string | undefined) {
   // console.log(query);
   let response: any;
   let url = import.meta.env.VITE_API_BASE_URL;
@@ -35,7 +35,7 @@ export async function getMovies(query: string, page: string) {
       break;
   }
   url += `&api_key=${import.meta.env.VITE_API_KEY}`;
-  url += `&page=${page}`;
+  url += `&page=${page || '1'}`;
 
   response = await fetch(url);
 
