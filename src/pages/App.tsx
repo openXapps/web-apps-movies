@@ -11,31 +11,21 @@ import Movie from '@/pages/Movie';
 // import NoPage from '@/pages/NoPage';
 
 export default function App() {
-  const home: string = '/apps/movies';
-  // const home = '/';
-
   const router = createBrowserRouter([
     {
       path: '/',
       element: <Layout />,
-      // errorElement: <NoPage />,
+      // loader: loaderTrending,
       children: [
         { index: true, element: <Home />, loader: loaderTrending },
-        { path: ':page', element: <Home />, loader: loaderTrending },
-        {
-          path: 'ondvd', element: <Home />, loader: loaderOnDvD, children: [{
-            path: ':page', element: <Home />, loader: loaderOnDvD
-          }]
-        },
-        {
-          path: 'favourites', element: <Home />, loader: loaderFavourites, children: [{
-            path: ':page', element: <Home />, loader: loaderFavourites
-          }]
-        },
+        { path: 'trending/:page?', element: <Home />, loader: loaderTrending },
+        { path: 'ondvd/:page?', element: <Home />, loader: loaderOnDvD },
+        { path: 'favourites', element: <Home />, loader: loaderFavourites },
         { path: 'movie/:id', element: <Movie /> },
       ],
+      // errorElement: <NoPage />,
     },
-  ], { basename: home })
+  ], { basename: '/apps/movies' })
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

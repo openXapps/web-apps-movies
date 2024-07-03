@@ -1,31 +1,32 @@
-import { useLocation, useMatch, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { RouteItems } from "@/lib/types";
-import { Button } from "./ui/button";
 import { twMerge } from "tailwind-merge";
+import { Button } from "./ui/button";
+import useRoute from "@/hooks/useRoute";
 
-export default function NavDesktop({ routes, className }: { routes: RouteItems, className: string }) {
-  const { pathname } = useLocation();
+export default function NavDesktop({ routes }: { routes: RouteItems }) {
   const rrNavigate = useNavigate();
-  // const rrMatch = useMatch(pathname);
+  const { pathname } = useLocation();
+  const route = useRoute(pathname);
 
-  // console.log(`x:${pathname.slice(0, pathname.lastIndexOf('/'))}:`);
-  
   const handleButtonClick = (href: string) => {
     rrNavigate(href, { replace: true });
   };
 
   return (
-    <nav className={twMerge('flex gap-1', className)}>
-      {routes.map((v, i) => (i < 3 &&
-        <Button
-          key={i}
-          // variant={pathname.search(/\/\d/g) > -1 ? 'default' : 'link'}
-          // variant={ ? 'default' : 'link'}
-          onClick={() => handleButtonClick(v.href)}
-          className={twMerge(pathname === v.href ? 'cursor-context-menu' : 'cursor-pointer')}
+    <nav className="hidden sm:flex">
+      {routes.map((v, i) => {
+        const isActive = route === v.href
+        return (i < 3 &&
+          <Button
+            key={i}
+            variant={isActive ? 'outline' : 'link'}
+            onClick={() => handleButtonClick(v.href)}
+            className={twMerge(isActive ? 'pointer-events-none' : '')}
           // disabled={pathname === v.href}
-        >{v.route}<span className="sr-only">{`navigate ${v.route}`}</span></Button>
-      ))}
+          >{v.route}<span className="sr-only">{`navigate to ${v.route}`}</span></Button>
+        )
+      })}
     </nav>
   );
 }

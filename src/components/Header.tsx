@@ -15,15 +15,15 @@ export default function Header() {
   const isSmall = useMediaQuery('640');
   const [showBackButton, setShowBackButton] = useState<boolean>(false);
   const rrNavigate = useNavigate();
-  const routeId = useMatches().at(-1)?.id;
+  // const routeId = useMatches().at(-1)?.id;
 
-  useEffect(() => {
-    let arr = navigation.filter(v => v.id === routeId);
-    isSmall ? setHeaderTitle(arr[0].title) : setHeaderTitle('Movies');
+  // useEffect(() => {
+    // let arr = navigation.filter(v => v.id === routeId);
+    // isSmall ? setHeaderTitle(arr[0].title) : setHeaderTitle('Movies');
     // setShowBackButton(arr[0].navBack);
 
-    return () => { }
-  }, [isSmall, routeId])
+  //   return () => { }
+  // }, [isSmall, routeId])
 
   // console.log('Render ', new Date());
 
@@ -38,7 +38,7 @@ export default function Header() {
           </Button>
         ) : (
           <>
-            <NavDesktop routes={navigation} className="hidden sm:block" />
+            <NavDesktop routes={navigation} />
             <NavMobile routes={navigation} className="block sm:hidden" />
           </>
         )}

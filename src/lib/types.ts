@@ -2,7 +2,7 @@
  * Router items type
  */
 export type RouteItems = {
-  id: string;
+  // id: string;
   href: string;
   route: string;
   title: string;

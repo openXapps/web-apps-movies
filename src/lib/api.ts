@@ -18,6 +18,10 @@ export async function getMovies(query: string, page: string | undefined) {
       url += '/movie/now_playing'
       url += `?language=en-US&region=US`
       break;
+    case '/trending':
+      url += '/movie/now_playing'
+      url += `?language=en-US&region=US`
+      break;
     case '/ondvd':
       // 90 days back for 50 days duration
       const fromSeconds = (new Date().getTime() / 1000) - (60 * 60 * 24 * 90);
@@ -37,10 +41,12 @@ export async function getMovies(query: string, page: string | undefined) {
   url += `&api_key=${import.meta.env.VITE_API_KEY}`;
   url += `&page=${page || '1'}`;
 
+  console.log('utl: ', url);
+
   response = await fetch(url);
 
   if (!response.ok) {
-    throw { message: 'Cannot fetch movies', status: 500 };
+    throw { message: `query=${query}, page=${page}`, status: 500 };
   }
 
   // useLoaderData will call .json() on the response
