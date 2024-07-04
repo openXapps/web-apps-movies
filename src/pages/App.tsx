@@ -15,10 +15,9 @@ export default function App() {
     {
       path: '/',
       element: <Layout />,
-      // loader: loaderTrending,
       children: [
         { index: true, element: <Home />, loader: loaderTrending },
-        { path: 'trending/:page?', element: <Home />, loader: loaderTrending },
+        { path: ':page?', element: <Home />, loader: loaderTrending },
         { path: 'ondvd/:page?', element: <Home />, loader: loaderOnDvD },
         { path: 'favourites', element: <Home />, loader: loaderFavourites },
         { path: 'movie/:id', element: <Movie /> },

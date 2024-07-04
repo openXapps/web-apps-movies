@@ -25,7 +25,7 @@ export default function Home() {
 }
 
 export function loaderTrending({ params }: { params: any }) {
-  return getMovies('/trending', params.page || '1');
+  return getMovies('/', params.page || '1');
 }
 
 export function loaderOnDvD({ params }: { params: any }) {

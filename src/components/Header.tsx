@@ -28,7 +28,7 @@ export default function Header() {
   // console.log('Render ', new Date());
 
   return (
-    <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-80 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
+    <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-90 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
       <div className="flex items-center gap-1 sm:gap-2 py-2 px-2 mx-auto max-w-[1024px]">
         <h1 className="text-xl font-bold grow">{headerTitle}</h1>
         {showBackButton ? (

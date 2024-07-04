@@ -7,18 +7,11 @@ import moment from 'moment';
  * @returns Array of movies
  */
 export async function getMovies(query: string, page: string | undefined) {
-  // console.log(query);
   let response: any;
   let url = import.meta.env.VITE_API_BASE_URL;
 
-  // console.log('API page# ', page);
-
   switch (query) {
     case '/':
-      url += '/movie/now_playing'
-      url += `?language=en-US&region=US`
-      break;
-    case '/trending':
       url += '/movie/now_playing'
       url += `?language=en-US&region=US`
       break;
@@ -40,8 +33,6 @@ export async function getMovies(query: string, page: string | undefined) {
   }
   url += `&api_key=${import.meta.env.VITE_API_KEY}`;
   url += `&page=${page || '1'}`;
-
-  console.log('utl: ', url);
 
   response = await fetch(url);
 

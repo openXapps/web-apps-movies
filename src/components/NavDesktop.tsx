@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { RouteItems } from "@/lib/types";
 import { twMerge } from "tailwind-merge";
 import { Button } from "./ui/button";
@@ -7,7 +7,8 @@ import useRoute from "@/hooks/useRoute";
 export default function NavDesktop({ routes }: { routes: RouteItems }) {
   const rrNavigate = useNavigate();
   const { pathname } = useLocation();
-  const route = useRoute(pathname);
+  const { page } = useParams();
+  const route = useRoute(pathname, page);
 
   const handleButtonClick = (href: string) => {
     rrNavigate(href, { replace: true });

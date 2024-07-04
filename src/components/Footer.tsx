@@ -6,21 +6,17 @@ export default function Footer() {
   const rrNavigate = useNavigate();
   const { pathname } = useLocation();
   const { page } = useParams();
-  const route = useRoute(pathname);
-
-  // console.log('pathname =', pathname);
-  // console.log('page     =', page);
-  // console.log('route    =', route);
+  const route = useRoute(pathname, page);
 
   const handlePagerClick = (navType: string, jump: number) => {
     // const totalPages = movies.total_pages;
     const totalPages = '500';
     window.scrollTo(0, 0);
-
+    
     if (navType === 'PAGE_ONE' && page) {
       Number(page) > 1 && rrNavigate(`${route}/1`);
     }
-    if (navType === 'PAGE_NEXT' && route === '/' && !page) {
+    if (navType === 'PAGE_NEXT' && !page) {
       rrNavigate(`${route}/2`);
     }
     if (navType === 'PAGE_NEXT' && page) {
