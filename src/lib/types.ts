@@ -18,7 +18,7 @@ export type TmdbMovieList = {
     minumum: string;
   };
   page: number;
-  results: TmdbMovieListResults;
+  results: TmdbMovieListResults[];
   total_pages: string;
   total_results: string;
 }
@@ -41,7 +41,7 @@ export type TmdbMovieListResults = {
   video: false;
   vote_average: number;
   vote_count: number;
-}[]
+}
 
 /**
  * Movie data type

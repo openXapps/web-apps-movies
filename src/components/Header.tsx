@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useMatches, useNavigate } from "react-router-dom";
+import { useLocation, useMatches, useNavigate, useParams } from "react-router-dom";
 import { ModeToggle } from "./ModeToggle";
 import { ArrowLeft } from "lucide-react";
 import NavDesktop from "./NavDesktop";
@@ -7,25 +7,27 @@ import NavMobile from "./NavMobile";
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { navigation } from '@/lib/data';
 import { Button } from './ui/button';
+import useRoute from '@/hooks/useRoute';
+import { RouteItems } from '@/lib/types';
 
 // https://hawkapps.io/responsive-navbar-in-react-using-shadcn-ui-and-tailwind-css/
 
 export default function Header() {
-  const [headerTitle, setHeaderTitle] = useState<string | undefined>('Movies');
-  const isSmall = useMediaQuery('640');
-  const [showBackButton, setShowBackButton] = useState<boolean>(false);
   const rrNavigate = useNavigate();
-  // const routeId = useMatches().at(-1)?.id;
+  const rrParams = useParams();
+  const {pathname} = useLocation();
+  const isSmall = useMediaQuery('640');
+  const [headerTitle, setHeaderTitle] = useState<string | undefined>('Movies');
+  const [showBackButton, setShowBackButton] = useState<boolean>(false);
+  const route = useRoute(pathname, rrParams.page);
 
-  // useEffect(() => {
-    // let arr = navigation.filter(v => v.id === routeId);
-    // isSmall ? setHeaderTitle(arr[0].title) : setHeaderTitle('Movies');
-    // setShowBackButton(arr[0].navBack);
+  useEffect(() => {
+    let arr: RouteItems = navigation.filter(v => v.href === route);
+    isSmall ? setHeaderTitle(arr[0].title) : setHeaderTitle('Movies');
+    setShowBackButton(arr[0].navBack);
 
-  //   return () => { }
-  // }, [isSmall, routeId])
-
-  // console.log('Render ', new Date());
+    return () => { }
+  }, [isSmall, route])
 
   return (
     <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-90 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
