@@ -1,10 +1,8 @@
 /**
- * Variant constants
+ * Enumerated navigation
  */
-export enum EVariant {
-  PRIMARY = 'primary',
-  SECONDAY = 'secondary',
-  WARNING = 'warning',
-  SUCCESS = 'success',
-  ERROR = 'error'
+export enum ENav {
+  PAGE_ONE = 0,
+  PAGE_NEXT = 1,
+  PAGE_PREV = 2,
 }

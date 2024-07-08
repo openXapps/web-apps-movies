@@ -19,7 +19,7 @@ export default function Header() {
   const isSmall = useMediaQuery('640');
   const [headerTitle, setHeaderTitle] = useState<string | undefined>('Movies');
   const [showBackButton, setShowBackButton] = useState<boolean>(false);
-  const route = useRoute(pathname, rrParams.page);
+  const route = useRoute(pathname, rrParams.page || rrParams.id);
 
   useEffect(() => {
     let arr: RouteItems = navigation.filter(v => v.href === route);

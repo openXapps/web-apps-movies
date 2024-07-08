@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Button } from "./ui/button";
 import useRoute from "@/hooks/useRoute";
 import useRouteData from "@/hooks/useRouteData";
+import { ENav } from '@/lib/enums'
 
 export default function Footer() {
   const rrNavigate = useNavigate();
@@ -17,18 +18,18 @@ export default function Footer() {
     str: typeof total_pages === 'undefined' ? '0' : total_pages.toString(),
     num: typeof total_pages === 'undefined' ? 0 : Number(total_pages)
   };
-  
+
   // console.log('currentPage :', currentPage);
   // console.log('totalPages  :', totalPages);
 
-  const handlePagerClick = (navType: string, jump: number) => {
+  const handlePagerClick = (navType: number, jump: number) => {
     window.scrollTo(0, 0);
 
-    if (navType === 'PAGE_ONE' && currentPage.num > 1)
+    if (navType === ENav.PAGE_ONE && currentPage.num > 1)
       rrNavigate(`${route}/1`);
-    if (navType === 'PAGE_NEXT' && currentPage.num < totalPages.num)
+    if (navType === ENav.PAGE_NEXT && currentPage.num < totalPages.num)
       rrNavigate(`${route}/${currentPage.num + jump}`);
-    if (navType === 'PAGE_PREV' && currentPage.num > 1)
+    if (navType === ENav.PAGE_PREV && currentPage.num > 1)
       rrNavigate(`${route}/${currentPage.num + (jump)}`);
   }
 
@@ -37,17 +38,17 @@ export default function Footer() {
       <div className="flex items-center gap-1 sm:gap-2 py-2 px-2 mx-auto max-w-[1024px]">
         <Button
           className=""
-          onClick={() => handlePagerClick('PAGE_ONE', 0)}
+          onClick={() => handlePagerClick(ENav.PAGE_ONE, 0)}
           disabled={currentPage.num < 2}
-        >Page 1</Button>
+        >First Page</Button>
         <Button
           className="w-full"
-          onClick={() => handlePagerClick('PAGE_PREV', -1)}
+          onClick={() => handlePagerClick(ENav.PAGE_PREV, -1)}
           disabled={currentPage.num < 2}
         >Previous Page</Button>
         <Button
           className="w-full"
-          onClick={() => handlePagerClick('PAGE_NEXT', 1)}
+          onClick={() => handlePagerClick(ENav.PAGE_NEXT, 1)}
           disabled={currentPage.num >= totalPages.num}
         >Next Page</Button>
       </div>

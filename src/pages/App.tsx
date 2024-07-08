@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/context/theme-provider';
 // Route components
 import Layout from '@/pages/Layout';
 import Home, { loaderTrending, loaderOnDvD, loaderFavourites } from '@/pages/Home';
-import Movie from '@/pages/Movie';
+import Movie, { loaderMovie } from '@/pages/Movie';
 // import NoPage from '@/pages/NoPage';
 
 export default function App() {
@@ -20,7 +20,7 @@ export default function App() {
         { path: ':page?', element: <Home />, loader: loaderTrending },
         { path: 'ondvd/:page?', element: <Home />, loader: loaderOnDvD },
         { path: 'favourites', element: <Home />, loader: loaderFavourites },
-        { path: 'movie/:id', element: <Movie /> },
+        { path: 'movie/:id', element: <Movie />, loader: loaderMovie },
       ],
       // errorElement: <NoPage />,
     },
