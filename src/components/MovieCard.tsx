@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function MovieCard(movie: TmdbMovieListData) {
   const navigate = useNavigate();
+  const posterUrl = import.meta.env.VITE_API_POSTER_URL;
   // const [isFav, setIsFav] = useState(favourite);
 
   return (
@@ -14,7 +15,7 @@ export default function MovieCard(movie: TmdbMovieListData) {
       <div>
         <img
           className="mx-auto cursor-pointer"
-          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          src={`${posterUrl}/${movie.poster_path}`}
           alt={movie.title}
           onClick={() => navigate(`/movie/${movie.id}`)}
         />

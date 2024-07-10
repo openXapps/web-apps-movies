@@ -1,6 +1,4 @@
-import type { TmdbMovieDetailsData, TmdbMovieList } from './types';
 import { buildMovieDetailsUrl, buildMovieListUrl } from './helper';
-import { LoaderFunction } from 'react-router-dom';
 
 // https://medium.com/@bobjunior542/master-the-react-router-6-useloaderdata-hook-a-comprehensive-guide-38eca47eaf25
 
@@ -10,9 +8,9 @@ import { LoaderFunction } from 'react-router-dom';
  * @param {string} page Page to query next
  * @returns Array of movies
  */
-export async function getMovies(query: string, page: string | undefined): Promise<TmdbMovieList> {
+export async function getMovies(query: string, page: string | undefined): Promise<{} | null> {
 
-  const result = (await fetch(buildMovieListUrl(query, page)));
+  const result = await fetch(buildMovieListUrl(query, page));
 
   if (!result.ok) throw new Error('Failed to fetch movies');
 
@@ -25,10 +23,10 @@ export async function getMovies(query: string, page: string | undefined): Promis
  * @param {string} id TMDb movie unique Id
  * @returns Array of movies
  */
-// export async function getMovie(query: string, id: string): Promise<TmdbMovieDetailsData> {
-  export async function getMovie(query: string, id: string): Promise<TmdbMovieDetailsData> {
+export async function getMovie(query: string, id: string | undefined) {
+console.log(buildMovieDetailsUrl(query, id));
 
-  const result = (await fetch(buildMovieDetailsUrl(query, id)));
+  const result = await fetch(buildMovieDetailsUrl(query, id));
 
   if (!result.ok) throw new Error('Failed to fetch movie');
 

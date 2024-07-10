@@ -1,5 +1,5 @@
 import { useLoaderData } from 'react-router-dom';
-import { TmdbMovieList } from '@/lib/types';
+import { LoaderFunctionProps, TmdbMovieList } from '@/lib/types';
 import { getMovies } from '@/lib/api';
 import MovieCard from "@/components/MovieCard";
 import Toolbar from '@/components/Toolbar';
@@ -19,11 +19,11 @@ export default function Home() {
   )
 }
 
-export function loaderTrending({ params }: { params: { page: string } }) {
+export function loaderTrending({ params }: LoaderFunctionProps) {
   return getMovies('/', params.page);
 }
 
-export function loaderOnDvD({ params }: { params: { page: string } }) {
+export function loaderOnDvD({ params }: LoaderFunctionProps) {
   return getMovies('/ondvd', params.page);
 }
 

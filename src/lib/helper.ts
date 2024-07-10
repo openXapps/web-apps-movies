@@ -42,7 +42,7 @@ export function buildMovieListUrl(query: string, page: string | undefined): stri
  * @param {string} id TMDb unique move Id
  * @returns Fetch-ready URL
  */
-export function buildMovieDetailsUrl(query: string, id: string): string {
+export function buildMovieDetailsUrl(query: string, id: string | undefined): string {
   let url = import.meta.env.VITE_API_BASE_URL;
 
   switch (query) {
@@ -58,7 +58,7 @@ export function buildMovieDetailsUrl(query: string, id: string): string {
     default:
       break;
   }
-  url += `&api_key=${import.meta.env.VITE_API_KEY}`;
+  url += `?api_key=${import.meta.env.VITE_API_KEY}`;
 
   return url;
 }

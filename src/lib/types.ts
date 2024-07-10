@@ -1,3 +1,11 @@
+export type LoaderFunctionProps = {
+  params: {
+    page?: string;
+    id?: string;
+  };
+  request?: Request;
+}
+
 /**
  * Router items type
  */
