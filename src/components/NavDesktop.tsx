@@ -18,7 +18,7 @@ export default function NavDesktop({ routes }: { routes: RouteItems }) {
     <nav className="hidden sm:flex">
       {routes.map((v, i) => {
         const isActive = route === v.href
-        return (i < 2 &&
+        return (i < 5 &&
           <Button
             key={i}
             variant={isActive ? 'outline' : 'link'}

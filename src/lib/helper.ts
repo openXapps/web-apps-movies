@@ -14,6 +14,18 @@ export function buildMovieListUrl(query: string, page: string | undefined): stri
       url += '/movie/now_playing'
       url += `?language=en-US&region=US`
       break;
+    case '/popular':
+      url += '/movie/popular'
+      url += `?language=en-US&region=US`
+      break;
+    case '/toprated':
+      url += '/movie/top_rated'
+      url += `?language=en-US&region=US`
+      break;
+    case '/upcoming':
+      url += '/movie/upcoming'
+      url += `?language=en-US&region=US`
+      break;
     case '/ondvd':
       // 90 days back for 50 days duration
       const fromSeconds = (new Date().getTime() / 1000) - (60 * 60 * 24 * 90);

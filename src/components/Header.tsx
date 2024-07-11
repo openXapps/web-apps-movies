@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation, useMatches, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ModeToggle } from "./ModeToggle";
 import { ArrowLeft } from "lucide-react";
 import NavDesktop from "./NavDesktop";
@@ -23,7 +23,7 @@ export default function Header() {
 
   useEffect(() => {
     let arr: RouteItems = navigation.filter(v => v.href === route);
-    isSmall ? setHeaderTitle(arr[0].title) : setHeaderTitle('Movies');
+    isSmall ? setHeaderTitle(arr[0].header) : setHeaderTitle('Movies');
     setShowBackButton(arr[0].navBack);
 
     return () => { }

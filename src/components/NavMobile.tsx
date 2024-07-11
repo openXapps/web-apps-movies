@@ -36,7 +36,7 @@ export default function NavMobile({ routes, className }: { routes: RouteItems, c
           <div className="flex flex-col items-start gap-4 mr-6 mt-5">
             {routes.map((v, i) => {
               const isActive = route === v.href
-              return (i < 2 &&
+              return (i < 5 &&
                 <Button
                   key={i}
                   variant={isActive ? 'default' : 'link'}

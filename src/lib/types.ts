@@ -3,7 +3,7 @@ export type LoaderFunctionProps = {
     page?: string;
     id?: string;
   };
-  request?: Request;
+  request: Request;
 }
 
 /**
@@ -13,7 +13,7 @@ export type RouteItems = {
   // id: string;
   href: string;
   route: string;
-  title: string;
+  header: string;
   navBack: boolean;
 }[]
 
