@@ -23,7 +23,7 @@ export default function Header() {
 
   useEffect(() => {
     let arr: RouteItems = navigation.filter(v => v.href === route);
-    isSmall ? setHeaderTitle(arr[0].header) : setHeaderTitle('Movies');
+    isSmall || arr[0].navBack ? setHeaderTitle(arr[0].header) : setHeaderTitle('Movies');
     setShowBackButton(arr[0].navBack);
 
     return () => { }

@@ -9,7 +9,6 @@ import { buildMovieDetailsUrl, buildMovieListUrl } from './helper';
  * @returns Array of movies
  */
 export async function getMovies(query: string, page: string | undefined): Promise<{} | null> {
-
   const result = await fetch(buildMovieListUrl(query, page));
 
   if (!result.ok) throw new Error('Failed to fetch movies');
@@ -24,8 +23,6 @@ export async function getMovies(query: string, page: string | undefined): Promis
  * @returns Array of movies
  */
 export async function getMovie(query: string, id: string | undefined) {
-console.log(buildMovieDetailsUrl(query, id));
-
   const result = await fetch(buildMovieDetailsUrl(query, id));
 
   if (!result.ok) throw new Error('Failed to fetch movie');
