@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 // import { HeartIcon } from 'lucide-react';
 // import { twMerge } from "tailwind-merge";
 // import { useState } from "react";
-import noPoster from '@/assets/ghost-poster.svg';
+// import noPoster from '@/assets/ghost-poster.svg';
 
 export default function MovieCard(movie: TmdbMovieListData) {
   const navigate = useNavigate();
-  const posterUrl = import.meta.env.VITE_API_POSTER_URL;
-  const poster = movie.poster_path ? `${posterUrl}/${movie.poster_path}` : noPoster;
+  // const posterUrl = import.meta.env.VITE_API_POSTER_URL;
+  // const poster = movie.poster_path ? `${posterUrl}/${movie.poster_path}` : noPoster;
   // const [isFav, setIsFav] = useState(favourite);
   // console.log(`${posterUrl}/${movie.poster_path}`);
   
@@ -19,7 +19,7 @@ export default function MovieCard(movie: TmdbMovieListData) {
       <div className="relative">
         <img
           className="mx-auto cursor-pointer"
-          src={poster}
+          src={`${import.meta.env.VITE_API_POSTER_URL}/${movie.poster_path}`}
           alt={movie.title}
           onClick={() => navigate(`/movie/${movie.id}`)}
         />

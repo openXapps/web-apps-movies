@@ -28,11 +28,11 @@ export default function Movie() {
           </div>
           <div className="flex gap-2">
             <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Rating:</p>
-            <p className="text-orange-800 dark:text-orange-400 flex-1">{`${Number(movie.vote_average).toFixed()} (${movie.vote_count} votes)`}</p>
+            <p className="text-orange-800 dark:text-orange-400 flex-1">{`${movie.vote_average.toFixed()} (${movie.vote_count} votes)`}</p>
           </div>
           <div className="flex gap-2">
             <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Runtime:</p>
-            <p className="text-orange-800 dark:text-orange-400 flex-1">{`${movie.runtime} minutes`}</p>
+            <p className="text-orange-800 dark:text-orange-400 flex-1">{`${Math.floor(movie.runtime / 60)}hr ${movie.runtime % 60}min`}</p>
           </div>
           <div className="flex gap-2">
             <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Explore:</p>
