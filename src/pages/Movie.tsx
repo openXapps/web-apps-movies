@@ -46,7 +46,7 @@ export default function Movie() {
         <div className="mt-3 flex gap-2">
           <div>
             <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Story:</p>
-            <div className="w-7 h-7" onClick={() => alert('Torrent!')} />
+            <div className="w-10 h-10 bg-slate-400" onClick={() => alert('Torrent!')} />
           </div>
           <p className="text-orange-800 dark:text-orange-400 flex-1">{movie.overview}</p>
         </div>
