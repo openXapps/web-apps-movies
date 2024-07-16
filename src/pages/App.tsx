@@ -15,7 +15,7 @@ import Home, {
   loaderFavourites
 } from '@/pages/Home';
 import Movie, { loaderMovie } from '@/pages/Movie';
-// import NoPage from '@/pages/NoPage';
+import NoPage from '@/pages/NoPage';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -32,7 +32,7 @@ export default function App() {
         { path: 'favourites', element: <Home />, loader: loaderFavourites },
         { path: 'movie/:id', element: <Movie />, loader: loaderMovie },
       ],
-      // errorElement: <NoPage />,
+      errorElement: <NoPage />,
     },
   ], { basename: '/apps/movies' })
 
