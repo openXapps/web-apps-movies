@@ -1,4 +1,6 @@
 import moment from 'moment';
+// https://www.npmjs.com/package/crypto-js
+import CryptoJs from 'crypto-js';
 
 /**
  * Helper function to build a Fetch ready URL for movie list
@@ -74,3 +76,39 @@ export function buildMovieDetailsUrl(query: string, id: string | undefined): str
 
   return url;
 }
+
+/**
+ * Helper function to decrypt cipher with CryptoJS
+ * @param {string} cipher Encrypted cipher to descrypt
+ * @returns Decrypted string value
+ */
+export const decryptCipher = (cipher: string): string => {
+  const secret: string = import.meta.env.VITE_T_SECRET;
+  let response: string = '';
+  try {
+    const bytes: CryptoJs.lib.WordArray = CryptoJs.AES.decrypt(cipher, secret);
+    response = bytes.toString(CryptoJs.enc.Utf8);
+    if (response.length === 0) {
+      throw new Error('Invalid secret');
+    }
+  } catch (error) {
+    throw new Error('Could not decrypt cipher');;
+  }
+  return response;
+};
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API
+/**
+ * Helper function to copy a string to memory
+ * @param {string} text String to copy into memory
+ * @returns Boolean of success or failed
+ */
+export const copyToClipboard = async (text: string) => {
+  let response = false;
+  // Doesn't work on IP URL, only localhost and HTTPS
+  // stackoverflow.com/questions/51805395/navigator-clipboard-is-undefined
+  await navigator.clipboard.writeText(text)
+    .then(() => { response = true })
+    .catch(() => (response = false));
+  return response;
+};

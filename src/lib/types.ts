@@ -110,3 +110,23 @@ export type TmdbMovieDetailsData = {
   vote_average: number;
   vote_count: number;
 }
+
+/**
+ * T details response object
+ */
+export type TMovieListData = {
+  url: string;
+  hash: string;
+  quality: string;
+  type: string;
+  is_repack: number;
+  video_codec: string;
+  bit_depth: number;
+  audio_channels: number;
+  seeds: number;
+  peers: number;
+  size: string;
+  size_bytes: number;
+  date_uploaded: string;
+  date_uploaded_unix: number;
+}
