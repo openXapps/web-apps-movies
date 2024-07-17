@@ -15,7 +15,7 @@ import { RouteItems } from '@/lib/types';
 export default function Header() {
   const rrNavigate = useNavigate();
   const rrParams = useParams();
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const isSmall = useMediaQuery('640');
   const [headerTitle, setHeaderTitle] = useState<string | undefined>('Movies');
   const [showBackButton, setShowBackButton] = useState<boolean>(false);

@@ -23,14 +23,14 @@ export default function Footer() {
   // console.log('totalPages  :', totalPages);
 
   const handlePagerClick = (navType: number, jump: number) => {
-    window.scrollTo(0, 0);
-
     if (navType === ENav.PAGE_ONE && currentPage.num > 1)
       rrNavigate(`${route}/1`);
     if (navType === ENav.PAGE_NEXT && currentPage.num < totalPages.num)
       rrNavigate(`${route}/${currentPage.num + jump}`);
     if (navType === ENav.PAGE_PREV && currentPage.num > 1)
       rrNavigate(`${route}/${currentPage.num + (jump)}`);
+
+    window.scrollTo(0, 0);
   }
 
   return (

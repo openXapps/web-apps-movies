@@ -62,7 +62,7 @@ export default function Movie() {
             <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Runtime:</p>
             <p className="text-orange-800 dark:text-orange-400 flex-1">{`${Math.floor(movie.runtime / 60)}hr ${movie.runtime % 60}min`}</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Explore:</p>
             <div className="flex gap-2">
               <Button variant="secondary" size="sm" asChild>
