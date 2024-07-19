@@ -44,7 +44,41 @@ export default function Movie() {
       <div className="max-w-[1024px] mx-auto my-2 p-2">
         <p className="text-orange-800 dark:text-orange-400 font-bold text-xl sm:text-3xl text-ellipsis overflow-hidden text-nowrap">{movie.title}</p>
         {/* <img className="" src={`${posterUrl}/${movie.poster_path}`} alt="X" /> */}
+        <p className="text-gray-500 dark:text-gray-400">{movie.tagline}</p>
         <img className="w-full mt-2" src={`${backdropUrl}/${movie.backdrop_path}`} alt={movie.title} />
+        <div className="mt-3 flex gap-2 items-center">
+          <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Explore:</p>
+          <div className="flex gap-2 flex-wrap">
+            <Button variant="secondary" size="sm" asChild>
+              <a
+                href={`https://www.imdb.com/title/${movie.imdb_id}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >IMDb</a>
+            </Button>
+            <Button variant="secondary" size="sm" asChild>
+              <a
+                href={`https://www.themoviedb.org/movie/${movie.id}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >TMDb</a>
+            </Button>
+            <Button variant="secondary" size="sm" asChild>
+              <a
+                href={`https://www.youtube.com/results?search_query=${encodeURI(movie.title)} trailer`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >YouTube</a>
+            </Button>
+            {movie.homepage && <Button variant="secondary" size="sm" asChild>
+              <a
+                href={movie.homepage}
+                target="_blank"
+                rel="noopener noreferrer"
+              >Homepage</a>
+            </Button>}
+          </div>
+        </div>
         <div className="mt-3 grid gap-3 grid-cols-1 sm:grid-cols-2">
           <div className="flex gap-2">
             <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Genre:</p>
@@ -62,31 +96,13 @@ export default function Movie() {
             <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Runtime:</p>
             <p className="text-orange-800 dark:text-orange-400 flex-1">{`${Math.floor(movie.runtime / 60)}hr ${movie.runtime % 60}min`}</p>
           </div>
-          <div className="flex gap-2 items-center">
-            <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Explore:</p>
-            <div className="flex gap-2">
-              <Button variant="secondary" size="sm" asChild>
-                <a
-                  href={`https://www.imdb.com/title/${movie.imdb_id}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >IMDb</a>
-              </Button>
-              <Button variant="secondary" size="sm" asChild>
-                <a
-                  href={`https://www.themoviedb.org/movie/${movie.id}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >TMDb</a>
-              </Button>
-              <Button variant="secondary" size="sm" asChild>
-                <a
-                  href={`https://www.youtube.com/results?search_query=${encodeURI(movie.title)} trailer`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >YouTube</a>
-              </Button>
-            </div>
+          <div className="flex gap-2">
+            <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Country:</p>
+            <p className="text-orange-800 dark:text-orange-400 flex-1">{movie.production_countries.map(v => v.iso_3166_1).join(', ')}</p>
+          </div>
+          <div className="flex gap-2">
+            <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Status:</p>
+            <p className="text-orange-800 dark:text-orange-400 flex-1">{movie.status}</p>
           </div>
         </div>
         <div className="mt-3 flex gap-2">
@@ -117,7 +133,7 @@ export default function Movie() {
               : (
                 <div className="mt-4 flex gap-2">
                   <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Result:</p>
-                  <p className="text-orange-800 dark:text-orange-400 flex-1">No Data</p>
+                  <p className="text-orange-800 dark:text-orange-400 flex-1">Movie is too new 😊</p>
                 </div>
               )
             )
