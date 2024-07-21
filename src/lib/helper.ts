@@ -10,6 +10,7 @@ import CryptoJs from 'crypto-js';
  */
 export function buildMovieListUrl(query: string, page: string | undefined): string {
   let url = import.meta.env.VITE_API_BASE_URL;
+  const key = decryptCipher(import.meta.env.VITE_API_KEY);
 
   switch (query) {
     case '/':
@@ -44,7 +45,7 @@ export function buildMovieListUrl(query: string, page: string | undefined): stri
     default:
       break;
   }
-  url += `&api_key=${import.meta.env.VITE_API_KEY}`;
+  url += `&api_key=${key}`;
   url += `&page=${page || '1'}`;
 
   return url;
@@ -58,6 +59,7 @@ export function buildMovieListUrl(query: string, page: string | undefined): stri
  */
 export function buildMovieDetailsUrl(query: string, id: string | undefined): string {
   let url = import.meta.env.VITE_API_BASE_URL;
+  const key = decryptCipher(import.meta.env.VITE_API_KEY);
 
   switch (query) {
     case 'MOVIE':
@@ -72,7 +74,7 @@ export function buildMovieDetailsUrl(query: string, id: string | undefined): str
     default:
       break;
   }
-  url += `?api_key=${import.meta.env.VITE_API_KEY}`;
+  url += `?api_key=${key}`;
 
   return url;
 }
@@ -83,7 +85,7 @@ export function buildMovieDetailsUrl(query: string, id: string | undefined): str
  * @returns Decrypted string value
  */
 export const decryptCipher = (cipher: string): string => {
-  const secret: string = import.meta.env.VITE_T_SECRET;
+  const secret: string = import.meta.env.VITE_CIPHER_KEY;
   let response: string = '';
   try {
     const bytes: CryptoJs.lib.WordArray = CryptoJs.AES.decrypt(cipher, secret);
