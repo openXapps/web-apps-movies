@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { useState } from "react";
 import { Button } from "./ui/button";
 import type { TMovieListData, TmdbMovieDetailsData } from "@/lib/types";
 import { copyToClipboard, decryptCipher } from "@/lib/helper";
