@@ -5,10 +5,10 @@ import { copyToClipboard, decryptCipher } from "@/lib/helper";
 import LoadingSpinner from "./ui/loader";
 
 type MovieInfoProps = {
-  movie: TmdbMovieDetailsData;
+  movieInfo: TmdbMovieDetailsData;
 }
 
-export default function MovieInfo({ movie }: MovieInfoProps) {
+export default function MovieInfo({ movieInfo }: MovieInfoProps) {
   const [tHide, setTHide] = useState(true);
   const [tLoading, setTLoading] = useState(false);
   const [tData, setTData] = useState<TMovieListData[]>([]);
@@ -17,7 +17,7 @@ export default function MovieInfo({ movie }: MovieInfoProps) {
     window.scrollTo(0, document.body.scrollHeight);
     setTHide(false);
     setTLoading(true);
-    fetch(decryptCipher(import.meta.env.VITE_T_URL) + movie.imdb_id)
+    fetch(decryptCipher(import.meta.env.VITE_T_URL) + movieInfo.imdb_id)
       .then((response) => {
         if (response.ok) return response.json();
         throw new Error('Problem fetching T.');
@@ -44,28 +44,28 @@ export default function MovieInfo({ movie }: MovieInfoProps) {
         <div className="flex gap-2 flex-wrap">
           <Button variant="secondary" size="sm" asChild>
             <a
-              href={`https://www.imdb.com/title/${movie.imdb_id}/`}
+              href={`https://www.imdb.com/title/${movieInfo.imdb_id}/`}
               target="_blank"
               rel="noopener noreferrer"
             >IMDb</a>
           </Button>
           <Button variant="secondary" size="sm" asChild>
             <a
-              href={`https://www.themoviedb.org/movie/${movie.id}/`}
+              href={`https://www.themoviedb.org/movie/${movieInfo.id}/`}
               target="_blank"
               rel="noopener noreferrer"
             >TMDb</a>
           </Button>
           <Button variant="secondary" size="sm" asChild>
             <a
-              href={`https://www.youtube.com/results?search_query=${encodeURI(movie.title)} trailer`}
+              href={`https://www.youtube.com/results?search_query=${encodeURI(movieInfo.title)} trailer`}
               target="_blank"
               rel="noopener noreferrer"
             >YouTube</a>
           </Button>
-          {movie.homepage && <Button variant="secondary" size="sm" asChild>
+          {movieInfo.homepage && <Button variant="secondary" size="sm" asChild>
             <a
-              href={movie.homepage}
+              href={movieInfo.homepage}
               target="_blank"
               rel="noopener noreferrer"
             >Homepage</a>
@@ -75,27 +75,27 @@ export default function MovieInfo({ movie }: MovieInfoProps) {
       <div className="mt-3 grid gap-3 grid-cols-1 sm:grid-cols-2">
         <div className="flex gap-2">
           <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Genre:</p>
-          <p className="text-orange-800 dark:text-orange-400 flex-1">{movie.genres.map(v => v.name).join(', ')}</p>
+          <p className="text-orange-800 dark:text-orange-400 flex-1">{movieInfo.genres.map(v => v.name).join(', ')}</p>
         </div>
         <div className="flex gap-2">
           <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Released:</p>
-          <p className="text-orange-800 dark:text-orange-400 flex-1">{movie.release_date}</p>
+          <p className="text-orange-800 dark:text-orange-400 flex-1">{movieInfo.release_date}</p>
         </div>
         <div className="flex gap-2">
           <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Rating:</p>
-          <p className="text-orange-800 dark:text-orange-400 flex-1">{`${movie.vote_average.toFixed()} (${movie.vote_count} votes)`}</p>
+          <p className="text-orange-800 dark:text-orange-400 flex-1">{`${movieInfo.vote_average.toFixed()} (${movieInfo.vote_count} votes)`}</p>
         </div>
         <div className="flex gap-2">
           <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Runtime:</p>
-          <p className="text-orange-800 dark:text-orange-400 flex-1">{`${Math.floor(movie.runtime / 60)}hr ${movie.runtime % 60}min`}</p>
+          <p className="text-orange-800 dark:text-orange-400 flex-1">{`${Math.floor(movieInfo.runtime / 60)}hr ${movieInfo.runtime % 60}min`}</p>
         </div>
         <div className="flex gap-2">
           <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Country:</p>
-          <p className="text-orange-800 dark:text-orange-400 flex-1">{movie.production_countries.map(v => v.iso_3166_1).join(', ')}</p>
+          <p className="text-orange-800 dark:text-orange-400 flex-1">{movieInfo.production_countries.map(v => v.iso_3166_1).join(', ')}</p>
         </div>
         <div className="flex gap-2">
           <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Status:</p>
-          <p className="text-orange-800 dark:text-orange-400 flex-1">{movie.status}</p>
+          <p className="text-orange-800 dark:text-orange-400 flex-1">{movieInfo.status}</p>
         </div>
       </div>
       <div className="mt-3 flex gap-2">
@@ -103,7 +103,7 @@ export default function MovieInfo({ movie }: MovieInfoProps) {
           <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Story:</p>
           <div className="w-10 h-10" onClick={handleTClick} />
         </div>
-        <p className="text-orange-800 dark:text-orange-400 flex-1">{movie.overview}</p>
+        <p className="text-orange-800 dark:text-orange-400 flex-1">{movieInfo.overview}</p>
       </div>
       {tHide ? null : (
         tLoading

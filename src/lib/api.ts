@@ -1,4 +1,4 @@
-import { buildMovieDetailsUrl, buildMovieListUrl } from './helper';
+import { buildMovieDetailsUrl, buildMovieListUrl, MovieQueryProps } from './helper';
 
 // https://medium.com/@bobjunior542/master-the-react-router-6-useloaderdata-hook-a-comprehensive-guide-38eca47eaf25
 
@@ -18,11 +18,11 @@ export async function getMovies(query: string, page: string | undefined): Promis
 
 /**
  * Fetching movie details from TMDb
- * @param {string} query User selection from UI
+ * @param {MovieQueryProps} query User selection from UI
  * @param {string} id TMDb movie unique Id
  * @returns Array of movies
  */
-export async function getMovie(query: string, id: string | undefined) {
+export async function getMovie(query: MovieQueryProps, id: string | undefined) {
   const result = await fetch(buildMovieDetailsUrl(query, id));
 
   if (!result.ok) throw new Error('Failed to fetch movie');

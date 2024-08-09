@@ -51,13 +51,15 @@ export function buildMovieListUrl(query: string, page: string | undefined): stri
   return url;
 }
 
+export type MovieQueryProps = 'MOVIE' | 'CAST' | 'SIMILAR' | undefined;
+
 /**
  * Helper function to build a Fetch ready URL for movie details
- * @param {string} query User selection from UI
+ * @param {MovieQueryProps} query User selection from UI
  * @param {string} id TMDb unique move Id
  * @returns Fetch-ready URL
  */
-export function buildMovieDetailsUrl(query: string, id: string | undefined): string {
+export function buildMovieDetailsUrl(query: MovieQueryProps, id: string | undefined): string {
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
 
@@ -66,11 +68,14 @@ export function buildMovieDetailsUrl(query: string, id: string | undefined): str
       url += `/movie/${id}`
       break;
     case 'CAST':
-      url += '/movie/path_to_cast_details';
+      url += `/movie/${id}/credits`;
       break;
-    case 'DIRECTOR':
-      url += '/movie/path_to_director_details'
+    case 'SIMILAR':
+      url += `/movie/${id}/similar`
       break;
+    // case 'DIRECTOR':
+    //   url += '/movie/path_to_director_details'
+    //   break;
     default:
       break;
   }

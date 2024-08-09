@@ -112,6 +112,51 @@ export type TmdbMovieDetailsData = {
 }
 
 /**
+ * Movie cast object
+ */
+export type TmdbMovieCastData = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  order: number;
+}
+
+/**
+ * Movie crew object
+ */
+export type TmdbMovieCrewData = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  credit_id: string;
+  department: string;
+  job: string;
+}
+
+/**
+ * Movie credits response object
+ */
+export type TmdbMovieCreditsData = {
+  id: number;
+  cast: TmdbMovieCastData[];
+  crew: TmdbMovieCrewData[];
+}
+
+
+/**
  * T details response object
  */
 export type TMovieListData = {
