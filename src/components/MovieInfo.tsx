@@ -39,7 +39,7 @@ export default function MovieInfo({ movie }: MovieInfoProps) {
 
   return (
     <div>
-      <div className="mt-3 flex gap-2 items-center">
+      <div className="flex gap-2 items-center">
         <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Explore:</p>
         <div className="flex gap-2 flex-wrap">
           <Button variant="secondary" size="sm" asChild>

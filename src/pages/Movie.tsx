@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { twMerge } from "tailwind-merge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 
 import MovieInfo from "@/components/MovieInfo";
 import MovieCast from "@/components/MovieCast";
@@ -9,6 +7,8 @@ import MovieRating from "@/components/MovieRating";
 import Toolbar from "@/components/Toolbar";
 import { getMovie } from "@/lib/api";
 import { LoaderFunctionProps, TmdbMovieDetailsData } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 type ActiveTabProps = {
   tabName: 'info' | 'cast' | 'rating';
@@ -28,40 +28,30 @@ export default function Movie() {
         {/* <img className="" src={`${posterUrl}/${movie.poster_path}`} alt="X" /> */}
         <p className="text-gray-500 dark:text-gray-400">{movie.tagline}</p>
         <img className="w-full mt-2" src={`${backdropUrl}/${movie.backdrop_path}`} alt={movie.title} />
-        <Tabs defaultValue="info" className="mt-3">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger
-              value="info"
-              className={twMerge(
-                activeTab.tabName === 'info'
-                  ? activeTab.tabCSS
-                  : 'text-gray-500 dark:text-gray-400',
-                'font-bold')}
-              onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'info' }))}
-            >Info</TabsTrigger>
-            <TabsTrigger
-              value="cast"
-              className={twMerge(
-                activeTab.tabName === 'cast'
-                  ? activeTab.tabCSS
-                  : 'text-gray-500 dark:text-gray-400',
-                'font-bold')}
-              onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'cast' }))}
-            >Cast</TabsTrigger>
-            <TabsTrigger
-              value="rating"
-              className={twMerge(
-                activeTab.tabName === 'rating'
-                  ? activeTab.tabCSS
-                  : 'text-gray-500 dark:text-gray-400',
-                'font-bold')}
-              onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'rating' }))}
-            >Rating</TabsTrigger>
-          </TabsList>
-          <TabsContent value="info"><MovieInfo movie={movie} /></TabsContent>
-          <TabsContent value="cast"><MovieCast /></TabsContent>
-          <TabsContent value="rating"><MovieRating /></TabsContent>
-        </Tabs>
+        <div className="mt-3 flex gap-3 justify-between flex-nowrap">
+          {/* <Button className={twMerge(activeTab ? '' : '', 'w-full')}>Info</Button> */}
+          <Button
+            className="w-full"
+            variant={activeTab.tabName === 'info' ? 'default' : 'ghost'}
+            onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'info' }))}
+          >Info</Button>
+          <Button
+            className="w-full"
+            variant={activeTab.tabName === 'cast' ? 'default' : 'ghost'}
+            onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'cast' }))}
+          >Cast</Button>
+          <Button
+            className="w-full"
+            variant={activeTab.tabName === 'rating' ? 'default' : 'ghost'}
+            onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'rating' }))}
+          >Rating</Button>
+        </div>
+        <Separator orientation="horizontal" className="my-3" />
+        <div>
+          {activeTab.tabName === 'info' && <MovieInfo movie={movie} />}
+          {activeTab.tabName === 'cast' && <MovieCast />}
+          {activeTab.tabName === 'rating' && <MovieRating />}
+        </div>
         < Toolbar />
       </div>
     </div>

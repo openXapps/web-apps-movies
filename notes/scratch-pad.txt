@@ -97,3 +97,42 @@ export function ModeToggle() {
     </DropdownMenu>
   )
 }
+
+
+// =========================================================================
+// Broken tabs
+
+<Tabs defaultValue="info" className="mt-3">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger
+              value="info"
+              className={twMerge(
+                activeTab.tabName === 'info'
+                  ? activeTab.tabCSS
+                  : 'text-gray-500 dark:text-gray-400',
+                'font-bold')}
+              onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'info' }))}
+            >Info</TabsTrigger>
+            <TabsTrigger
+              value="cast"
+              className={twMerge(
+                activeTab.tabName === 'cast'
+                  ? activeTab.tabCSS
+                  : 'text-gray-500 dark:text-gray-400',
+                'font-bold')}
+              onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'cast' }))}
+            >Cast</TabsTrigger>
+            <TabsTrigger
+              value="rating"
+              className={twMerge(
+                activeTab.tabName === 'rating'
+                  ? activeTab.tabCSS
+                  : 'text-gray-500 dark:text-gray-400',
+                'font-bold')}
+              onClick={() => setActiveTab(prevState => ({ ...prevState, tabName: 'rating' }))}
+            >Rating</TabsTrigger>
+          </TabsList>
+          <TabsContent value="info"><MovieInfo movie={movie} /></TabsContent>
+          <TabsContent value="cast"><MovieCast /></TabsContent>
+          <TabsContent value="rating"><MovieRating /></TabsContent>
+        </Tabs>
