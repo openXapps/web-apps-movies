@@ -1,33 +1,49 @@
 import moment from 'moment';
 // https://www.npmjs.com/package/crypto-js
 import CryptoJs from 'crypto-js';
+import { RouteItem } from './types';
+
+/**
+ * Helper type to define props for Movie List URL Builder
+ * @param {string} query URL query path
+ * @param {string} page URL query page
+ * @param {string} id URL movie Id
+ */
+export type BuildMovieListURLProps = {
+  route: RouteItem;
+  page: string | undefined;
+  id: string | undefined;
+}
 
 /**
  * Helper function to build a Fetch ready URL for movie list
- * @param {string} query User selection from UI
- * @param {string} page Page to query next
+ * @param {BuildMovieListURLProps} props Function props
  * @returns Fetch-ready URL
  */
-export function buildMovieListUrl(query: string, page: string | undefined): string {
+export function buildMovieListUrl({ route, page, id }: BuildMovieListURLProps): string {
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
 
-  switch (query) {
+  switch (route.href) {
     case '/':
-      url += '/movie/now_playing'
-      url += `?language=en-US&region=US`
+      url += '/movie/now_playing';
+      url += `?language=en-US&region=US`;
+      url += '&';
       break;
     case '/popular':
-      url += '/movie/popular'
-      url += `?language=en-US&region=US`
+      url += '/movie/popular';
+      url += `?language=en-US&region=US`;
+      url += '&';
       break;
     case '/toprated':
-      url += '/movie/top_rated'
-      url += `?language=en-US&region=US`
+      url += '/movie/top_rated';
+      url += `?language=en-US&region=US`;
+      url += '&';
       break;
     case '/upcoming':
-      url += '/movie/upcoming'
-      url += `?language=en-US&region=US`
+      url += '/movie/upcoming';
+      url += `?language=en-US&region=US`;
+      url += '&';
       break;
     case '/ondvd':
       // 90 days back for 50 days duration
@@ -37,21 +53,27 @@ export function buildMovieListUrl(query: string, page: string | undefined): stri
       url += '?include_adult=false&language=en-US&region=US&vote_count.gte=5&sort_by=popularity.desc';
       url += `&primary_release_date.gte=${moment.unix(fromSeconds - toSeconds).format('YYYY-MM-DD')}`;
       url += `&primary_release_date.lte=${moment.unix(fromSeconds).format('YYYY-MM-DD')}`;
+      url += '&';
       break;
-    case '/favourites':
-      url += '/movie/now_playing'
-      url += `?language=en-US&region=US`
+    case '/similar':
+      url += `/movie/${id}/similar`;
+      url += '?';
       break;
+    // case '/favourites':
+    //   url += '/movie/now_playing';
+    //   url += `?language=en-US&region=US`;
+    //   url += '&';
+    //   break;
     default:
       break;
   }
-  url += `&api_key=${key}`;
+  url += `api_key=${key}`;
   url += `&page=${page || '1'}`;
 
   return url;
 }
 
-export type MovieQueryProps = 'MOVIE' | 'CAST' | 'SIMILAR' | undefined;
+export type MovieQueryProps = 'MOVIE' | 'CREDITS' | undefined;
 
 /**
  * Helper function to build a Fetch ready URL for movie details
@@ -67,15 +89,9 @@ export function buildMovieDetailsUrl(query: MovieQueryProps, id: string | undefi
     case 'MOVIE':
       url += `/movie/${id}`
       break;
-    case 'CAST':
+    case 'CREDITS':
       url += `/movie/${id}/credits`;
       break;
-    case 'SIMILAR':
-      url += `/movie/${id}/similar`
-      break;
-    // case 'DIRECTOR':
-    //   url += '/movie/path_to_director_details'
-    //   break;
     default:
       break;
   }

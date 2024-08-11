@@ -8,21 +8,21 @@ import useMediaQuery from '@/hooks/useMediaQuery';
 import { navigation } from '@/lib/data';
 import { Button } from './ui/button';
 import useRoute from '@/hooks/useRoute';
-import { RouteItems } from '@/lib/types';
+import { RouteItem } from '@/lib/types';
 
 // https://hawkapps.io/responsive-navbar-in-react-using-shadcn-ui-and-tailwind-css/
 
 export default function Header() {
   const rrNavigate = useNavigate();
-  const rrParams = useParams();
   const { pathname } = useLocation();
+  const rrParams = useParams();
   const isSmall = useMediaQuery('640');
   const [headerTitle, setHeaderTitle] = useState<string | undefined>('Movies');
   const [showBackButton, setShowBackButton] = useState<boolean>(false);
-  const route = useRoute(pathname, rrParams.page || rrParams.id);
+  const route = useRoute(pathname, rrParams);
 
   useEffect(() => {
-    let arr: RouteItems = navigation.filter(v => v.href === route);
+    let arr: RouteItem = navigation.filter(v => route.startsWith(v.href));
     isSmall || arr[0].navBack ? setHeaderTitle(arr[0].header) : setHeaderTitle('Movies');
     setShowBackButton(arr[0].navBack);
 

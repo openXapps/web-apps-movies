@@ -4,11 +4,7 @@ import type { TMovieListData, TmdbMovieDetailsData } from "@/lib/types";
 import { copyToClipboard, decryptCipher } from "@/lib/helper";
 import LoadingSpinner from "./ui/loader";
 
-type MovieInfoProps = {
-  movieInfo: TmdbMovieDetailsData;
-}
-
-export default function MovieInfo({ movieInfo }: MovieInfoProps) {
+export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsData }) {
   const [tHide, setTHide] = useState(true);
   const [tLoading, setTLoading] = useState(false);
   const [tData, setTData] = useState<TMovieListData[]>([]);

@@ -9,13 +9,14 @@ export type LoaderFunctionProps = {
 /**
  * Router items type
  */
-export type RouteItems = {
-  // id: string;
+export type RouteItem = {
+  routeId: number;
+  path: string;
+  menuItem: string;
   href: string;
-  route: string;
   header: string;
   navBack: boolean;
-}[]
+}
 
 /**
  * Movie list response

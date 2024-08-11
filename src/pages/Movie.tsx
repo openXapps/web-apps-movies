@@ -2,20 +2,20 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import MovieInfo from "@/components/MovieInfo";
-import MovieCast from "@/components/MovieCast";
-import MovieRating from "@/components/MovieRating";
+import MovieActor from "@/components/MovieActor";
+// import MovieRating from "@/components/MovieRating";
 import Toolbar from "@/components/Toolbar";
 import { getMovie } from "@/lib/api";
 import { LoaderFunctionProps, TmdbMovieDetailsData } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-type ActiveTabProps = 'info' | 'cast' | 'rating';
+type ActiveTabProps = 'info' | 'actors' | 'rating';
 
 export default function Movie() {
   const [activeTab, setActiveTab] = useState<ActiveTabProps>('info');
   const movieInfo = useLoaderData() as TmdbMovieDetailsData;
-  const backdropUrl = import.meta.env.VITE_API_BACKDROP_URL;
+  const backdropUrl = import.meta.env.VITE_API_MOVIE_BACKDROP_URL;
 
   return (
     <div className="mt-2">
@@ -31,20 +31,20 @@ export default function Movie() {
           >Info</Button>
           <Button
             className="w-full"
-            variant={activeTab === 'cast' ? 'default' : 'ghost'}
-            onClick={() => setActiveTab('cast')}
-          >Cast</Button>
-          <Button
+            variant={activeTab === 'actors' ? 'default' : 'ghost'}
+            onClick={() => setActiveTab('actors')}
+          >Actors</Button>
+          {/* <Button
             className="w-full"
             variant={activeTab === 'rating' ? 'default' : 'ghost'}
             onClick={() => setActiveTab('rating')}
-          >Rating</Button>
+          >Rating</Button> */}
         </div>
         <Separator orientation="horizontal" className="my-3" />
         <div>
           {activeTab === 'info' && <MovieInfo movieInfo={movieInfo} />}
-          {activeTab === 'cast' && <MovieCast movieId={String(movieInfo.id)} />}
-          {activeTab === 'rating' && <MovieRating />}
+          {activeTab === 'actors' && <MovieActor movieId={String(movieInfo.id)} />}
+          {/* {activeTab === 'rating' && <MovieRating />} */}
         </div>
         < Toolbar />
       </div>

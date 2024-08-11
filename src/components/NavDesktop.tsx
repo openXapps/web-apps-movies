@@ -7,8 +7,8 @@ import useRoute from "@/hooks/useRoute";
 export default function NavDesktop({ routes }: { routes: RouteItems }) {
   const rrNavigate = useNavigate();
   const { pathname } = useLocation();
-  const { page } = useParams();
-  const route = useRoute(pathname, page);
+  const rrParams = useParams();
+  const route = useRoute(pathname, rrParams);
 
   const handleButtonClick = (href: string) => {
     rrNavigate(href, { replace: true });

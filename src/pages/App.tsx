@@ -12,10 +12,12 @@ import Home, {
   loaderTopRated,
   loaderUpcoming,
   loaderOnDvD,
-  loaderFavourites
+  loaderFavourites,
+  loaderSimilar
 } from '@/pages/Home';
 import Movie, { loaderMovie } from '@/pages/Movie';
 import NoPage from '@/pages/NoPage';
+import { routes } from '@/lib/data';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -24,13 +26,14 @@ export default function App() {
       element: <Layout />,
       children: [
         { index: true, element: <Home />, loader: loaderNowPlaying },
-        { path: ':page?', element: <Home />, loader: loaderNowPlaying },
-        { path: 'popular/:page?', element: <Home />, loader: loaderPopular },
-        { path: 'toprated/:page?', element: <Home />, loader: loaderTopRated },
-        { path: 'upcoming/:page?', element: <Home />, loader: loaderUpcoming },
-        { path: 'ondvd/:page?', element: <Home />, loader: loaderOnDvD },
-        { path: 'favourites', element: <Home />, loader: loaderFavourites },
-        { path: 'movie/:id', element: <Movie />, loader: loaderMovie },
+        { path: routes[0].path, element: <Home />, loader: loaderNowPlaying },
+        { path: routes[1].path, element: <Home />, loader: loaderPopular },
+        { path: routes[2].path, element: <Home />, loader: loaderTopRated },
+        { path: routes[3].path, element: <Home />, loader: loaderUpcoming },
+        { path: routes[4].path, element: <Home />, loader: loaderOnDvD },
+        { path: routes[5].path, element: <Home />, loader: loaderSimilar },
+        { path: routes[6].path, element: <Home />, loader: loaderFavourites },
+        { path: routes[7].path, element: <Movie />, loader: loaderMovie },
       ],
       errorElement: <NoPage />,
     },

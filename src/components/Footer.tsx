@@ -6,13 +6,12 @@ import { ENav } from '@/lib/enums'
 
 export default function Footer() {
   const rrNavigate = useNavigate();
-  const { pathname } = useLocation();
-  const { page } = useParams();
+  const rrParams = useParams();
   const { total_pages } = useRouteData();
-  const route = useRoute(pathname, page);
+  const route = useRoute();
   const currentPage = {
-    str: page || '1',
-    num: typeof page === 'undefined' ? 1 : Number(page)
+    str: rrParams.page || '1',
+    num: typeof rrParams.page === 'undefined' ? 1 : Number(rrParams.page)
   };
   const totalPages = {
     str: typeof total_pages === 'undefined' ? '0' : total_pages.toString(),

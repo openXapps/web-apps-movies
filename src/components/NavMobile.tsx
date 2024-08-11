@@ -11,8 +11,8 @@ export default function NavMobile({ routes, className }: { routes: RouteItems, c
   const [open, setOpen] = useState<boolean>(false);
   const rrNavigate = useNavigate();
   const { pathname } = useLocation();
-  const { page } = useParams();
-  const route = useRoute(pathname, page);
+  const rrParams = useParams();
+  const route = useRoute(pathname, rrParams);
 
   const handleButtonClick = (href: string) => {
     if (pathname !== href) {
