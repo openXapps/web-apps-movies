@@ -1,10 +1,8 @@
 import { useLoaderData } from 'react-router-dom';
-import { LoaderFunctionProps, TmdbMovieList } from '@/lib/types';
-import { getMovies } from '@/lib/api';
+import { TmdbMovieList } from '@/lib/types';
 import MovieCard from "@/components/MovieCard";
 import Toolbar from '@/components/Toolbar';
 import Footer from '@/components/Footer';
-import { routes } from '@/lib/data';
 
 export default function Home() {
   const movies = useLoaderData() as TmdbMovieList;
@@ -20,30 +18,3 @@ export default function Home() {
   )
 }
 
-export function loaderNowPlaying({ params }: LoaderFunctionProps) {
-  return getMovies({ route: routes[0], page: params.page, id: '' },);
-}
-
-export function loaderPopular({ params }: LoaderFunctionProps) {
-  return getMovies({ route: routes[1], page: params.page, id: '' },);
-}
-
-export function loaderTopRated({ params }: LoaderFunctionProps) {
-  return getMovies({ route: routes[2], page: params.page, id: '' },);
-}
-
-export function loaderUpcoming({ params }: LoaderFunctionProps) {
-  return getMovies({ route: routes[3], page: params.page, id: '' },);
-}
-
-export function loaderOnDvD({ params }: LoaderFunctionProps) {
-  return getMovies({ route: routes[4], page: params.page, id: '' },);
-}
-
-export function loaderSimilar({ params }: LoaderFunctionProps) {
-  return getMovies({ route: routes[5], page: params.page, id: params.id },);
-}
-
-export function loaderFavourites() {
-  return getMovies({ route: routes[6], page: '', id: '' },);
-}

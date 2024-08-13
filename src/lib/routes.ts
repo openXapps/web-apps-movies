@@ -1,4 +1,5 @@
-import { RouteItem } from "./types";
+import { getMovies } from "./api";
+import { LoaderFunctionProps, RouteItem } from "./types";
 
 /**
  * Route navigation data object
@@ -14,3 +15,30 @@ export const routes: RouteItem[] = [
   { routeId: 7, path: 'movie/:id', menuItem: 'Movie Biography', href: '/movie', header: 'Movie Biography', navBack: true },
 ]
 
+export function loaderNowPlaying({ params }: LoaderFunctionProps) {
+  return getMovies({ route: routes[0], page: params.page, id: '' },);
+}
+
+export function loaderPopular({ params }: LoaderFunctionProps) {
+  return getMovies({ route: routes[1], page: params.page, id: '' },);
+}
+
+export function loaderTopRated({ params }: LoaderFunctionProps) {
+  return getMovies({ route: routes[2], page: params.page, id: '' },);
+}
+
+export function loaderUpcoming({ params }: LoaderFunctionProps) {
+  return getMovies({ route: routes[3], page: params.page, id: '' },);
+}
+
+export function loaderOnDvD({ params }: LoaderFunctionProps) {
+  return getMovies({ route: routes[4], page: params.page, id: '' },);
+}
+
+export function loaderSimilar({ params }: LoaderFunctionProps) {
+  return getMovies({ route: routes[5], page: params.page, id: params.id },);
+}
+
+export function loaderFavourites() {
+  return getMovies({ route: routes[6], page: '', id: '' },);
+}
