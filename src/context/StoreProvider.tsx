@@ -1,30 +1,48 @@
-import { createContext, useReducer } from 'react';
-
+import {
+  createContext,
+  useReducer,
+  // useMemo, 
+  // useState 
+} from 'react';
 import StoreReducer from './StoreReducer';
+// import useContextWrapper from '@/hooks/useContextWrapper';
 
-export type StoreContextType = {
+// https://medium.com/@nitinjha5121/mastering-react-context-with-typescript-a-comprehensive-tutorial-5bab5ef48a3b
+
+// https://www.youtube.com/watch?v=05ZM4ymK9Nc
+
+export type TStoreState = {
   route: number;
   routePage: number;
 }
 
 // Initialize context data
-const contextData: StoreContextType = {
+const initState: TStoreState = {
   route: 0,
-  routePage: 1
+  routePage: 1,
 };
 
-export const context: React.Context<StoreContextType> = createContext<StoreContextType>(contextData);
+// type TStoreContextState = {
+//   store: TStoreState;
+//   setStore: React.Dispatch<React.SetStateAction<TStoreState>>;
+// }
 
-/**
- * Context store wrapper for entire app used in index.js
- * @param {any} props Child components to be wrapped
- * @returns Returns a React Context Provider
- */
-export default function StoreProvider(props) {
-  const [state, dispatch] = useReducer(StoreReducer, contextData);
+const StoreContext = createContext<TStoreState>(initState);
+
+export function StoreContextProvider({ children }: React.PropsWithChildren<{}>): JSX.Element {
+  const [storeState, storeDispatch] = useReducer(StoreReducer, initState);
+  // const [store, setStore] = useState<TStoreContextState['store']>(initState);
+  // const value = useMemo(() => ({ store, setStore }), [store]);
+
   return (
-    <context.Provider value={[state, dispatch]}>
-      {props.children}
-    </context.Provider>
+    // <StoreContext.Provider value={value.store}>{children}</StoreContext.Provider>
+    <StoreContext.Provider value={[storeState, storeDispatch]}>{children}</StoreContext.Provider>
   );
-};
+}
+
+// export function useStoreContext() {
+//   useContextWrapper(StoreContext, {
+//     contextName: useStoreContext.name,
+//     providerName: StoreContextProvider.name,
+//   })
+// }

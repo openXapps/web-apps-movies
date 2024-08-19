@@ -1,4 +1,4 @@
-import { navigation } from "@/lib/data";
+import { routes } from "@/lib/routes";
 import { RouteItem } from "@/lib/types";
 import { useLocation } from "react-router-dom";
 
@@ -8,8 +8,8 @@ import { useLocation } from "react-router-dom";
  */
 export default function useRoute(): RouteItem {
   const { pathname } = useLocation();
-  let route: RouteItem = navigation[0];
-  const nav = navigation.filter(v => pathname.startsWith(v.href));
+  let route: RouteItem = routes[0];
+  const nav = routes.filter(v => pathname.startsWith(v.href));
 
   if (nav.length > 0) route = nav[0];
 

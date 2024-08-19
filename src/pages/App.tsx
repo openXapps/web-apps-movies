@@ -6,18 +6,20 @@ import { ThemeProvider } from '@/context/theme-provider';
 
 // Route components
 import Layout from '@/pages/Layout';
-import Home, {
+import Home from '@/pages/Home';
+import Movie, { loaderMovie } from '@/pages/Movie';
+import NoPage from '@/pages/NoPage';
+import {
+  routes,
   loaderNowPlaying,
   loaderPopular,
   loaderTopRated,
   loaderUpcoming,
   loaderOnDvD,
   loaderFavourites,
-  loaderSimilar
-} from '@/pages/Home';
-import Movie, { loaderMovie } from '@/pages/Movie';
-import NoPage from '@/pages/NoPage';
-import { routes } from '@/lib/data';
+  loaderSimilar,
+} from '@/lib/routes';
+import { StoreContextProvider } from '@/context/StoreProvider';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -41,7 +43,9 @@ export default function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <RouterProvider router={router} />
+      <StoreContextProvider>
+        <RouterProvider router={router} />
+      </StoreContextProvider>
     </ThemeProvider>
   );
 }

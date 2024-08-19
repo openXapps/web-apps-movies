@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import NavDesktop from "./NavDesktop";
 import NavMobile from "./NavMobile";
 import useMediaQuery from '@/hooks/useMediaQuery';
-import { navigation } from '@/lib/data';
+import { routes } from '@/lib/routes';
 import { Button } from './ui/button';
 import useRoute from '@/hooks/useRoute';
 import { RouteItem } from '@/lib/types';
@@ -19,15 +19,15 @@ export default function Header() {
   const isSmall = useMediaQuery('640');
   const [headerTitle, setHeaderTitle] = useState<string | undefined>('Movies');
   const [showBackButton, setShowBackButton] = useState<boolean>(false);
-  const route = useRoute(pathname, rrParams);
+  // const route = useRoute(pathname, rrParams);
 
-  useEffect(() => {
-    let arr: RouteItem = navigation.filter(v => route.startsWith(v.href));
-    isSmall || arr[0].navBack ? setHeaderTitle(arr[0].header) : setHeaderTitle('Movies');
-    setShowBackButton(arr[0].navBack);
+  // useEffect(() => {
+  //   let arr: RouteItem = routes.filter(v => route.startsWith(v.href));
+  //   isSmall || arr[0].navBack ? setHeaderTitle(arr[0].header) : setHeaderTitle('Movies');
+  //   setShowBackButton(arr[0].navBack);
 
-    return () => { }
-  }, [isSmall, route])
+  //   return () => { }
+  // }, [isSmall, route])
 
   return (
     <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-90 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
@@ -40,8 +40,8 @@ export default function Header() {
           </Button>
         ) : (
           <>
-            <NavDesktop routes={navigation} />
-            <NavMobile routes={navigation} className="block sm:hidden" />
+            <NavDesktop routes={routes} />
+            <NavMobile routes={routes} className="block sm:hidden" />
           </>
         )}
         <ModeToggle />
