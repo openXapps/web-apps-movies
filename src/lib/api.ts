@@ -1,33 +1,36 @@
+import { useContext } from 'react';
+import { RouteContext } from '@/context/RouteProvider';
 import {
   buildMovieDetailsUrl,
+  BuildMovieDetailsUrlProps,
   buildMovieListUrl,
-  BuildMovieListURLProps,
-  MovieQueryProps
+  BuildMovieListUrlProps,
 } from './helper';
 
 // https://medium.com/@bobjunior542/master-the-react-router-6-useloaderdata-hook-a-comprehensive-guide-38eca47eaf25
 
 /**
  * Fetching movies from TMDb
- * @param {BuildMovieListURLProps} props Function props
+ * @param {BuildMovieListUrlProps} props Function props
  * @returns Array of movies
  */
-export async function getMovies({ route, page, id }: BuildMovieListURLProps): Promise<{} | null> {
-  const result = await fetch(buildMovieListUrl({ route: route, page: page, id: id }));
+export async function getMovies({ routeId, page, movieId }: BuildMovieListUrlProps): Promise<{} | null> {
+  const { routeDispatch } = useContext(RouteContext);
+  const result = await fetch(buildMovieListUrl({ routeId: routeId, page: page, movieId: movieId }));
 
   if (!result.ok) throw new Error('Failed to fetch movies');
 
+  routeDispatch({ type: 'SET_ROUTE', payload: routeId })
   return result.json();
 }
 
 /**
  * Fetching movie details from TMDb
- * @param {MovieQueryProps} query User selection from UI
- * @param {string} id TMDb movie unique Id
+ * @param {BuildMovieDetailsUrlProps} props Function props
  * @returns Array of movies
  */
-export async function getMovie(query: MovieQueryProps, id: string | undefined) {
-  const result = await fetch(buildMovieDetailsUrl(query, id));
+export async function getMovie({ query, movieId }: BuildMovieDetailsUrlProps) {
+  const result = await fetch(buildMovieDetailsUrl({ query, movieId }));
 
   if (!result.ok) throw new Error('Failed to fetch movie');
 

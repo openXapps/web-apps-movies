@@ -1,21 +1,55 @@
+/**
+ * Route context state type
+ */
+export type RouteContextState = {
+  routeId: number;
+  routePage: number;
+}
+
+type RouteReducerSetRoute = {
+  type: 'SET_ROUTE';
+  payload: number;
+}
+
+type RouteReducerSetPage = {
+  type: 'PAGE_INCREMENT' | 'PAGE_DECREMENT';
+}
+
+/**
+ * Route reducer action type
+ */
+export type RouteReducerActions = RouteReducerSetRoute | RouteReducerSetPage;
+
+/**
+ * Route items type
+ */
+export type RouteItem = {
+  routeId: number;
+  path: string;
+  href: string;
+  menuItem: string;
+  header: string;
+  loader: ({ params }: LoaderFunctionProps) => Promise<{} | null>;
+  navBack: boolean;
+}
+
+/**
+ * Route context type
+ */
+export type RouteContextType = {
+  routeState: RouteContextState;
+  routeDispatch: React.Dispatch<RouteReducerActions>;
+}
+
+/**
+ * Route loader function props
+ */
 export type LoaderFunctionProps = {
   params: {
     page?: string;
     id?: string;
   };
   request: Request;
-}
-
-/**
- * Router items type
- */
-export type RouteItem = {
-  routeId: number;
-  path: string;
-  menuItem: string;
-  href: string;
-  header: string;
-  navBack: boolean;
 }
 
 /**

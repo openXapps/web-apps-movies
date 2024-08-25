@@ -1,33 +1,39 @@
-import { useState, useEffect } from 'react'
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate } from "react-router-dom";
 import { ModeToggle } from "./ModeToggle";
 import { ArrowLeft } from "lucide-react";
+import { routes } from '@/lib/routes';
+import { getRoute } from '@/lib/helper';
+import { Button } from './ui/button';
+import { RouteContext } from '@/context/RouteProvider';
+
 import NavDesktop from "./NavDesktop";
 import NavMobile from "./NavMobile";
-import useMediaQuery from '@/hooks/useMediaQuery';
-import { routes } from '@/lib/routes';
-import { Button } from './ui/button';
-import useRoute from '@/hooks/useRoute';
-import { RouteItem } from '@/lib/types';
+// import useRoute from '@/hooks/useRoute';
+// import useMediaQuery from '@/hooks/useMediaQuery';
+// import { RouteItem } from '@/lib/types';
 
 // https://hawkapps.io/responsive-navbar-in-react-using-shadcn-ui-and-tailwind-css/
 
 export default function Header() {
+  const { routeState } = useContext(RouteContext);
+  const [route, setRoute] = useState(getRoute(routeState.routeId));
+  const [headerTitle, setHeaderTitle] = useState<string>(route.header);
+  const [showBackButton, setShowBackButton] = useState<boolean>(route.navBack);
   const rrNavigate = useNavigate();
-  const { pathname } = useLocation();
-  const rrParams = useParams();
-  const isSmall = useMediaQuery('640');
-  const [headerTitle, setHeaderTitle] = useState<string | undefined>('Movies');
-  const [showBackButton, setShowBackButton] = useState<boolean>(false);
-  // const route = useRoute(pathname, rrParams);
 
-  // useEffect(() => {
-  //   let arr: RouteItem = routes.filter(v => route.startsWith(v.href));
-  //   isSmall || arr[0].navBack ? setHeaderTitle(arr[0].header) : setHeaderTitle('Movies');
-  //   setShowBackButton(arr[0].navBack);
+  useEffect(() => {
+    setRoute(getRoute(routeState.routeId));
+    
+    return () => { };
+  }, [routeState.routeId])
 
-  //   return () => { }
-  // }, [isSmall, route])
+  useEffect(() => {
+    setHeaderTitle(route.header);
+    setShowBackButton(route.navBack);
+
+    return () => { }
+  }, [route])
 
   return (
     <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-90 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">

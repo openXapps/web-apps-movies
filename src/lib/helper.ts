@@ -2,6 +2,7 @@ import moment from 'moment';
 // https://www.npmjs.com/package/crypto-js
 import CryptoJs from 'crypto-js';
 import { RouteItem } from './types';
+import { routes } from './routes';
 
 /**
  * Helper type to define props for Movie List URL Builder
@@ -9,20 +10,21 @@ import { RouteItem } from './types';
  * @param {string} page URL query page
  * @param {string} id URL movie Id
  */
-export type BuildMovieListURLProps = {
-  route: RouteItem;
+export type BuildMovieListUrlProps = {
+  routeId: number;
   page: string | undefined;
-  id: string | undefined;
+  movieId: string | undefined;
 }
 
 /**
  * Helper function to build a Fetch ready URL for movie list
- * @param {BuildMovieListURLProps} props Function props
+ * @param {BuildMovieListUrlProps} props Function props
  * @returns Fetch-ready URL
  */
-export function buildMovieListUrl({ route, page, id }: BuildMovieListURLProps): string {
+export function buildMovieListUrl({ routeId, page, movieId }: BuildMovieListUrlProps): string {
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
+  const route = getRoute(routeId);
 
   switch (route.href) {
     case '/':
@@ -56,7 +58,7 @@ export function buildMovieListUrl({ route, page, id }: BuildMovieListURLProps): 
       url += '&';
       break;
     case '/similar':
-      url += `/movie/${id}/similar`;
+      url += `/movie/${movieId}/similar`;
       url += '?';
       break;
     // case '/favourites':
@@ -73,24 +75,26 @@ export function buildMovieListUrl({ route, page, id }: BuildMovieListURLProps): 
   return url;
 }
 
-export type MovieQueryProps = 'MOVIE' | 'CREDITS' | undefined;
+export type BuildMovieDetailsUrlProps = {
+  query: 'MOVIE' | 'CREDITS' | undefined;
+  movieId: string | undefined;
+}
 
 /**
  * Helper function to build a Fetch ready URL for movie details
- * @param {MovieQueryProps} query User selection from UI
- * @param {string} id TMDb unique move Id
+ * @param {BuildMovieDetailsUrlProps} props Function props
  * @returns Fetch-ready URL
  */
-export function buildMovieDetailsUrl(query: MovieQueryProps, id: string | undefined): string {
+export function buildMovieDetailsUrl({ query, movieId }: BuildMovieDetailsUrlProps): string {
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
 
   switch (query) {
     case 'MOVIE':
-      url += `/movie/${id}`
+      url += `/movie/${movieId}`
       break;
     case 'CREDITS':
-      url += `/movie/${id}/credits`;
+      url += `/movie/${movieId}/credits`;
       break;
     default:
       break;
@@ -135,3 +139,15 @@ export const copyToClipboard = async (text: string) => {
     .catch(() => (response = false));
   return response;
 };
+
+/**
+ * Helper function to fetch a route object by ID
+ * @param routeId Route ID to fetch
+ * @returns Returns a route object
+ */
+export function getRoute(routeId: number): RouteItem {
+  let newRoute: RouteItem = routes[0];
+  const newRouteArr = routes.filter(v => v.routeId === routeId);
+  if (newRouteArr.length === 1) newRoute = newRouteArr[0];
+  return newRoute;
+}

@@ -5,8 +5,7 @@ import MovieInfo from "@/components/MovieInfo";
 import MovieActor from "@/components/MovieActor";
 // import MovieRating from "@/components/MovieRating";
 import Toolbar from "@/components/Toolbar";
-import { getMovie } from "@/lib/api";
-import { LoaderFunctionProps, TmdbMovieDetailsData } from "@/lib/types";
+import { TmdbMovieDetailsData } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
@@ -52,6 +51,3 @@ export default function Movie() {
   );
 }
 
-export function loaderMovie({ params }: LoaderFunctionProps) {
-  return getMovie('MOVIE', params.id);
-}
