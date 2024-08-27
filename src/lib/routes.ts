@@ -22,6 +22,7 @@ export function loaderOnDvD({ params }: LoaderFunctionProps) {
 }
 
 export function loaderSimilar({ params }: LoaderFunctionProps) {
+  console.log(params);
   return getMovies({ routeId: RouteId.SIMILAR, page: params.page, movieId: params.movieid },);
 }
 
@@ -95,7 +96,7 @@ export const routes: RouteItem[] = [
   },
   {
     routeId: RouteId.SIMILAR,
-    path: 'similar/:id/:page?',
+    path: 'similar/:movieid/:page?',
     href: '/similar',
     menuItem: 'Similar',
     header: 'Similar Movies',

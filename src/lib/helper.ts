@@ -2,7 +2,7 @@ import moment from 'moment';
 // https://www.npmjs.com/package/crypto-js
 import CryptoJs from 'crypto-js';
 import { RouteItem } from './types';
-import { routes } from './routes';
+import { RouteId, routes } from './routes';
 
 /**
  * Helper type to define props for Movie List URL Builder
@@ -24,30 +24,30 @@ export type BuildMovieListUrlProps = {
 export function buildMovieListUrl({ routeId, page, movieId }: BuildMovieListUrlProps): string {
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
-  const route = getRoute(routeId);
+  // const route = getRoute(routeId);
 
-  switch (route.href) {
-    case '/':
+  switch (routeId) {
+    case RouteId.NOW_PAYING:
       url += '/movie/now_playing';
       url += `?language=en-US&region=US`;
       url += '&';
       break;
-    case '/popular':
+    case RouteId.POPULAR:
       url += '/movie/popular';
       url += `?language=en-US&region=US`;
       url += '&';
       break;
-    case '/toprated':
+    case RouteId.TOP_RATED:
       url += '/movie/top_rated';
       url += `?language=en-US&region=US`;
       url += '&';
       break;
-    case '/upcoming':
+    case RouteId.UPCOMING:
       url += '/movie/upcoming';
       url += `?language=en-US&region=US`;
       url += '&';
       break;
-    case '/ondvd':
+    case RouteId.ON_DVD:
       // 90 days back for 50 days duration
       const fromSeconds = (new Date().getTime() / 1000) - (60 * 60 * 24 * 90);
       const toSeconds = (60 * 60 * 24 * 50);
@@ -57,7 +57,7 @@ export function buildMovieListUrl({ routeId, page, movieId }: BuildMovieListUrlP
       url += `&primary_release_date.lte=${moment.unix(fromSeconds).format('YYYY-MM-DD')}`;
       url += '&';
       break;
-    case '/similar':
+    case RouteId.SIMILAR:
       url += `/movie/${movieId}/similar`;
       url += '?';
       break;

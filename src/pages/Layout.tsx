@@ -1,19 +1,26 @@
-import { Outlet, ScrollRestoration, useMatches, useMatch } from "react-router-dom";
+import { Outlet, ScrollRestoration, useMatch } from "react-router-dom";
 import Header from "../components/Header";
 import Toolbar from "@/components/Toolbar";
+import { routes } from "@/lib/routes";
+import { useContext, useEffect } from "react";
+import { AppContext } from "@/context/AppProvider";
 
 export default function Layout() {
-  const rrMatches = useMatches();
-  const rrMatch = useMatch('/2');
+  const { appDispatch } = useContext(AppContext);
+  const rrMatch = routes.filter(v => useMatch(v.path) ? true : false);
 
-  // console.log(rrMatches);
-  console.log(rrMatch);
-  
+  useEffect(() => {
+    if (Array.isArray(rrMatch) && rrMatch.length > 0) {
+      appDispatch({ type: 'SET_ROUTEID', payload: rrMatch[0].routeId });
+    }
+    return () => { }
+  }, [])
+
   return (
     <>
       <ScrollRestoration
         getKey={(location) => {
-          const paths = ["/"];
+          const paths = ['/'];
           return paths.includes(location.pathname)
             ? // Root restore by pathname
             location.pathname
