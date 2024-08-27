@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { routes } from '@/lib/routes';
 import { getRoute } from '@/lib/helper';
 import { Button } from './ui/button';
-import { RouteContext } from '@/context/RouteProvider';
+import { AppContext } from '@/context/AppProvider';
 
 import NavDesktop from "./NavDesktop";
 import NavMobile from "./NavMobile";
@@ -16,17 +16,17 @@ import NavMobile from "./NavMobile";
 // https://hawkapps.io/responsive-navbar-in-react-using-shadcn-ui-and-tailwind-css/
 
 export default function Header() {
-  const { routeState } = useContext(RouteContext);
-  const [route, setRoute] = useState(getRoute(routeState.routeId));
+  const { appState } = useContext(AppContext);
+  const [route, setRoute] = useState(getRoute(appState.routeId));
   const [headerTitle, setHeaderTitle] = useState<string>(route.header);
   const [showBackButton, setShowBackButton] = useState<boolean>(route.navBack);
   const rrNavigate = useNavigate();
 
   useEffect(() => {
-    setRoute(getRoute(routeState.routeId));
+    setRoute(getRoute(appState.routeId));
     
     return () => { };
-  }, [routeState.routeId])
+  }, [appState.routeId])
 
   useEffect(() => {
     setHeaderTitle(route.header);

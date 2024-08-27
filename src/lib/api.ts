@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { RouteContext } from '@/context/RouteProvider';
+// import { useContext } from 'react';
+// import { RouteContext } from '@/context/RouteProvider';
 import {
   buildMovieDetailsUrl,
   BuildMovieDetailsUrlProps,
@@ -15,12 +15,12 @@ import {
  * @returns Array of movies
  */
 export async function getMovies({ routeId, page, movieId }: BuildMovieListUrlProps): Promise<{} | null> {
-  const { routeDispatch } = useContext(RouteContext);
+  // const { routeDispatch } = useContext(RouteContext);
   const result = await fetch(buildMovieListUrl({ routeId: routeId, page: page, movieId: movieId }));
 
   if (!result.ok) throw new Error('Failed to fetch movies');
 
-  routeDispatch({ type: 'SET_ROUTE', payload: routeId })
+  // routeDispatch({ type: 'SET_ROUTE', payload: routeId })
   return result.json();
 }
 

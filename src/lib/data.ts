@@ -1,7 +1,6 @@
-import { RouteContextState } from "./types";
+import { AppContextState } from "./types";
 
 // Initial route context state
-export const initRouteContextState: RouteContextState = {
+export const initAppContextState: AppContextState = {
   routeId: 0,
-  routePage: 1,
 };

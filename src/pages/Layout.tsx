@@ -1,8 +1,14 @@
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useMatches, useMatch } from "react-router-dom";
 import Header from "../components/Header";
 import Toolbar from "@/components/Toolbar";
 
 export default function Layout() {
+  const rrMatches = useMatches();
+  const rrMatch = useMatch('/2');
+
+  // console.log(rrMatches);
+  console.log(rrMatch);
+  
   return (
     <>
       <ScrollRestoration

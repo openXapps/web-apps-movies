@@ -22,7 +22,7 @@ export function loaderOnDvD({ params }: LoaderFunctionProps) {
 }
 
 export function loaderSimilar({ params }: LoaderFunctionProps) {
-  return getMovies({ routeId: RouteId.SIMILAR, page: params.page, movieId: params.id },);
+  return getMovies({ routeId: RouteId.SIMILAR, page: params.page, movieId: params.movieid },);
 }
 
 export function loaderFavourites() {
@@ -30,7 +30,7 @@ export function loaderFavourites() {
 }
 
 export function loaderMovieBiography({ params }: LoaderFunctionProps) {
-  return getMovie({ query: 'MOVIE', movieId: params.id });
+  return getMovie({ query: 'MOVIE', movieId: params.movieid });
 }
 
 /**
@@ -113,7 +113,7 @@ export const routes: RouteItem[] = [
   },
   {
     routeId: RouteId.MOVIE_BIOGRAPHY,
-    path: 'movie/:id',
+    path: 'movie/:movieid',
     href: '/movie',
     menuItem: 'Movie Biography',
     header: 'Movie Biography',

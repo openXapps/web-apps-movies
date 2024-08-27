@@ -1,14 +1,19 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Button } from "./ui/button";
-import useRoute from "@/hooks/useRoute";
+import { useContext } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import useRouteData from "@/hooks/useRouteData";
+import { Button } from "./ui/button";
 import { ENav } from '@/lib/enums'
+import { AppContext } from '@/context/AppProvider';
+import { getRoute } from '@/lib/helper';
 
 export default function Footer() {
+  const { appState } = useContext(AppContext);
   const rrNavigate = useNavigate();
   const rrParams = useParams();
   const { total_pages } = useRouteData();
-  const route = useRoute();
+  const route = getRoute(appState.routeId).href;
+  
+  const currentMovieId = rrParams.movieid ? '/' + rrParams.movieid : '';
   const currentPage = {
     str: rrParams.page || '1',
     num: typeof rrParams.page === 'undefined' ? 1 : Number(rrParams.page)
@@ -23,11 +28,11 @@ export default function Footer() {
 
   const handlePagerClick = (navType: number, jump: number) => {
     if (navType === ENav.PAGE_ONE && currentPage.num > 1)
-      rrNavigate(`${route}/1`);
+      rrNavigate(`${route}${currentMovieId}/1`);
     if (navType === ENav.PAGE_NEXT && currentPage.num < totalPages.num)
-      rrNavigate(`${route}/${currentPage.num + jump}`);
+      rrNavigate(`${route}${currentMovieId}/${currentPage.num + jump}`);
     if (navType === ENav.PAGE_PREV && currentPage.num > 1)
-      rrNavigate(`${route}/${currentPage.num + (jump)}`);
+      rrNavigate(`${route}${currentMovieId}/${currentPage.num + (jump)}`);
 
     window.scrollTo(0, 0);
   }

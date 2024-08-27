@@ -8,10 +8,10 @@ import { ThemeProvider } from '@/context/theme-provider';
 import Layout from '@/pages/Layout';
 import Home from '@/pages/Home';
 import Movie from '@/pages/Movie';
-import NoPage from '@/pages/NoPage';
+// import NoPage from '@/pages/NoPage';
 
 import { routes, RouteId } from '@/lib/routes';
-import { RouteProvider } from '@/context/RouteProvider';
+import { AppProvider } from '@/context/AppProvider';
 
 /**
  * TODO
@@ -35,15 +35,15 @@ export default function App() {
         { path: routes[RouteId.FAVOURITES].path, element: <Home />, loader: routes[RouteId.FAVOURITES].loader },
         { path: routes[RouteId.MOVIE_BIOGRAPHY].path, element: <Movie />, loader: routes[RouteId.MOVIE_BIOGRAPHY].loader },
       ],
-      errorElement: <NoPage />,
+      // errorElement: <NoPage />,
     },
   ], { basename: '/apps/movies' })
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <RouteProvider>
+      <AppProvider>
         <RouterProvider router={router} />
-      </RouteProvider>
+      </AppProvider>
     </ThemeProvider>
   );
 }

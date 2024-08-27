@@ -1,24 +1,31 @@
 /**
- * Route context state type
+ * App context state type
  */
-export type RouteContextState = {
+export type AppContextState = {
   routeId: number;
-  routePage: number;
 }
 
-type RouteReducerSetRoute = {
-  type: 'SET_ROUTE';
+type AppReducerSetRoute = {
+  type: 'SET_ROUTEID';
   payload: number;
 }
 
-type RouteReducerSetPage = {
-  type: 'PAGE_INCREMENT' | 'PAGE_DECREMENT';
+type AppReducerSetPage = {
+  type: 'SOME_ACTION_WITHOUT_PAYLOAD';
 }
 
 /**
- * Route reducer action type
+ * App reducer action type
  */
-export type RouteReducerActions = RouteReducerSetRoute | RouteReducerSetPage;
+export type AppReducerActions = AppReducerSetRoute | AppReducerSetPage;
+
+/**
+ * App context type
+ */
+export type AppContextType = {
+  appState: AppContextState;
+  appDispatch: React.Dispatch<AppReducerActions>;
+}
 
 /**
  * Route items type
@@ -34,20 +41,12 @@ export type RouteItem = {
 }
 
 /**
- * Route context type
- */
-export type RouteContextType = {
-  routeState: RouteContextState;
-  routeDispatch: React.Dispatch<RouteReducerActions>;
-}
-
-/**
  * Route loader function props
  */
 export type LoaderFunctionProps = {
   params: {
     page?: string;
-    id?: string;
+    movieid?: string;
   };
   request: Request;
 }
