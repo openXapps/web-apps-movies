@@ -8,16 +8,10 @@ import { ThemeProvider } from '@/context/theme-provider';
 import Layout from '@/pages/Layout';
 import Home from '@/pages/Home';
 import Movie from '@/pages/Movie';
-// import NoPage from '@/pages/NoPage';
+import NoPage from '@/pages/NoPage';
 
 import { routes, RouteId } from '@/lib/routes';
 import { AppProvider } from '@/context/AppProvider';
-
-/**
- * TODO
- * Need to implement getRoute() on children routes
- * and not fixed array positioning
- */
 
 export default function App() {
   const router = createBrowserRouter([
@@ -35,7 +29,7 @@ export default function App() {
         { path: routes[RouteId.FAVOURITES].path, element: <Home />, loader: routes[RouteId.FAVOURITES].loader },
         { path: routes[RouteId.MOVIE_BIOGRAPHY].path, element: <Movie />, loader: routes[RouteId.MOVIE_BIOGRAPHY].loader },
       ],
-      // errorElement: <NoPage />,
+      errorElement: <NoPage />,
     },
   ], { basename: '/apps/movies' })
 

@@ -1,8 +1,10 @@
 import { useLoaderData } from 'react-router-dom';
-import { TmdbMovieList } from '@/lib/types';
+
 import MovieCard from "@/components/MovieCard";
 import Toolbar from '@/components/Toolbar';
 import Footer from '@/components/Footer';
+
+import { TmdbMovieList } from '@/lib/types';
 
 export default function Home() {
   const movies = useLoaderData() as TmdbMovieList;

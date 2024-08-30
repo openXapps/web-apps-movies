@@ -7,7 +7,7 @@ import { registerSW } from 'virtual:pwa-register';
 // add this to prompt for a refresh
 const updateSW = registerSW({
   onNeedRefresh() {
-    if (confirm("New content available. Reload?")) {
+    if (confirm(`New version (${import.meta.env.APP_VERSION}) is available. Reload App?`)) {
       updateSW(true);
     }
   },
