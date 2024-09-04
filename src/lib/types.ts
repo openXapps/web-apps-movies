@@ -3,6 +3,7 @@
  */
 export type AppContextState = {
   routeId: number;
+  prevRouteId: number;
 }
 
 type AppReducerSetRoute = {
@@ -36,6 +37,7 @@ export type RouteItem = {
   href: string;
   menuItem: string;
   header: string;
+  placement: 'HEADER' | 'SIDE_NAV' | 'NONE';
   loader: ({ params }: LoaderFunctionProps) => Promise<{} | null>;
   navBack: boolean;
 }

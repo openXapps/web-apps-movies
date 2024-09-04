@@ -1,10 +1,16 @@
-import { useState } from "react";
-import { Button } from "./ui/button";
-import type { TMovieListData, TmdbMovieDetailsData } from "@/lib/types";
-import { copyToClipboard, decryptCipher } from "@/lib/helper";
+import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+
 import LoadingSpinner from "./ui/loader";
+import { Button } from "./ui/button";
+
+import type { TMovieListData, TmdbMovieDetailsData } from "@/lib/types";
+import { copyToClipboard, decryptCipher, getRoute } from "@/lib/helper";
+import { RouteId } from "@/lib/routes";
+import { AppContext } from '@/context/AppProvider';
 
 export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsData }) {
+  const { appDispatch } = useContext(AppContext);
   const [tHide, setTHide] = useState(true);
   const [tLoading, setTLoading] = useState(false);
   const [tData, setTData] = useState<TMovieListData[]>([]);
@@ -66,6 +72,11 @@ export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsDa
               rel="noopener noreferrer"
             >Homepage</a>
           </Button>}
+          <Button variant="secondary" size="sm" asChild onClick={() => appDispatch({ type: 'SET_ROUTEID', payload: RouteId.SIMILAR })}>
+            <Link
+              to={`${getRoute(RouteId.SIMILAR).href}/${movieInfo.id}`}
+            >Similar</Link>
+          </Button>
         </div>
       </div>
       <div className="mt-3 grid gap-3 grid-cols-1 sm:grid-cols-2">

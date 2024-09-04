@@ -1,32 +1,86 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import { useNavigate } from "react-router-dom";
+import { twMerge } from 'tailwind-merge';
 
+// Shadcn/ui components
 import { Button } from './ui/button';
-import { ArrowLeft } from "lucide-react";
+import { Input } from './ui/input';
+import {
+  Sheet,
+  SheetHeader,
+  SheetTitle,
+  SheetContent,
+  SheetTrigger,
+  SheetDescription,
+} from "@/components/ui/sheet"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+// Lucide icons
+import { ArrowLeft, PanelLeft, Search } from "lucide-react";
+
+// Custom components
 import { ModeToggle } from "./ModeToggle";
-import NavDesktop from "./NavDesktop";
-import NavMobile from "./NavMobile";
 
-import { routes } from '@/lib/routes';
-import { getRoute } from '@/lib/helper';
 import { AppContext } from '@/context/AppProvider';
-
-// import useRoute from '@/hooks/useRoute';
-// import useMediaQuery from '@/hooks/useMediaQuery';
-// import { RouteItem } from '@/lib/types';
+import { getRoute } from '@/lib/helper';
+import { routes } from '@/lib/routes';
 
 // https://hawkapps.io/responsive-navbar-in-react-using-shadcn-ui-and-tailwind-css/
 
 export default function Header() {
-  const { appState } = useContext(AppContext);
+  const { appState, appDispatch } = useContext(AppContext);
   const [route, setRoute] = useState(getRoute(appState.routeId));
   const rrNavigate = useNavigate();
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [search, setSearch] = useState<string | undefined>('');
+  const [year, setYear] = useState<string | undefined>('');
+  const [yearList, setYearList] = useState<string[]>([]);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   useEffect(() => {
     setRoute(getRoute(appState.routeId));
 
     return () => { };
   }, [appState.routeId])
+
+  useEffect(() => {
+    function genYears(): string[] {
+      const today = new Date();
+      const year = today.getFullYear();
+      const yearList = [];
+      for (let n = 0; n < 110; n++) {
+        yearList.push(String(year - n));
+      }
+      return yearList;
+    };
+
+    setYearList(genYears());
+
+    return () => { };
+  }, [])
+
+  const handleSearchAction = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
+    e.preventDefault();
+    if (searchRef.current?.value && searchRef.current?.value.length > 3) {
+      setSearch(searchRef.current?.value);
+      setSheetOpen(false);
+    }
+  }
+
+  const handleYearSelection = () => {
+    if (year && year?.length > 0) setSheetOpen(false);
+  }
+
+  const handleNavButtonClick = (routeId: number) => {
+    appDispatch({ type: 'SET_ROUTEID', payload: routeId });
+    rrNavigate(routes[routeId].href, { replace: true });
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-90 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
@@ -39,8 +93,88 @@ export default function Header() {
           </Button>
         ) : (
           <>
-            <NavDesktop routes={routes} />
-            <NavMobile routes={routes} className="block sm:hidden" />
+            <div className="hidden md:flex gap-1">
+              {routes.map((v, i) => {
+                const isActive = v.routeId === appState.routeId
+                return (v.placement === 'HEADER' &&
+                  <Button
+                    key={i}
+                    variant={isActive ? 'outline' : 'link'}
+                    onClick={() => handleNavButtonClick(v.routeId)}
+                    className={twMerge(isActive ? 'pointer-events-none' : '')}
+                  >{v.menuItem}<span className="sr-only">{`navigate to ${v.menuItem}`}</span></Button>
+                )
+              })}
+            </div>
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <PanelLeft className="h-[1.2rem] w-[1.2rem]" />
+                  <span className="sr-only">toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left">
+                <SheetHeader>
+                  <SheetTitle>Filter Options</SheetTitle>
+                  <SheetDescription className="sr-only">App Side Menu</SheetDescription>
+                </SheetHeader>
+                <div className="flex gap-2 justify-between mt-5">
+                  <form onSubmit={handleSearchAction}>
+                    <div className="relative flex-1">
+                      <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        className="pl-8"
+                        type="search"
+                        placeholder="Search by movie title..."
+                        ref={searchRef}
+                      />
+                    </div>
+                  </form>
+                  <Button variant="outline" onClick={handleSearchAction}>Apply</Button>
+                </div>
+                <div className="flex gap-2 justify-between mt-3">
+                  <div className="flex-1">
+                    <Select value={year} onValueChange={setYear}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Search by year..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {yearList.map((v, i) => (
+                          <SelectItem key={i} value={v}>{v}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Button variant="outline" onClick={handleYearSelection}>Apply</Button>
+                </div>
+                <div className="flex flex-col gap-2 mt-5 md:hidden">
+                  {routes.map((v, i) => {
+                    const isActive = v.routeId === appState.routeId
+                    return (v.placement === 'HEADER' &&
+                      <Button
+                        key={i}
+                        variant={isActive ? 'outline' : 'default'}
+                        onClick={() => handleNavButtonClick(v.routeId)}
+                        className={twMerge(isActive ? 'pointer-events-none' : '')}
+                      >{v.menuItem}<span className="sr-only">{`navigate to ${v.menuItem}`}</span></Button>
+                    )
+                  })}
+                </div>
+                <div className="flex flex-col gap-2 mt-5">
+                  {routes.map((v, i) => {
+                    const isActive = v.routeId === appState.routeId
+                    return (v.placement === 'SIDE_NAV' &&
+                      <Button
+                        key={i}
+                        variant={isActive ? 'outline' : 'default'}
+                        onClick={() => handleNavButtonClick(v.routeId)}
+                        className={twMerge(isActive ? 'pointer-events-none' : '')}
+                      >{v.menuItem}<span className="sr-only">{`navigate to ${v.menuItem}`}</span></Button>
+                    )
+                  })}
+                </div>
+              </SheetContent>
+            </Sheet>
           </>
         )}
         <ModeToggle />

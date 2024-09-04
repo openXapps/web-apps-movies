@@ -58,21 +58,24 @@ export const routes: RouteItem[] = [
     href: '/',
     menuItem: 'Now Playing',
     header: 'Movies Now Playing',
+    placement: 'HEADER',
     loader: loaderNowPlaying,
     navBack: false
   }, {
     routeId: RouteId.POPULAR,
     path: 'popular/:page?',
     href: '/popular',
-    menuItem: 'Polular',
+    menuItem: 'Popular',
     header: 'Popular Movies',
+    placement: 'SIDE_NAV',
     loader: loaderPopular,
     navBack: false
   }, {
     routeId: RouteId.TOP_RATED,
     path: 'toprated/:page?',
-    menuItem: 'Top Rated',
     href: '/toprated',
+    menuItem: 'Top Rated',
+    placement: 'HEADER',
     header: 'Top Rated Moves',
     loader: loaderTopRated,
     navBack: false
@@ -82,6 +85,7 @@ export const routes: RouteItem[] = [
     href: '/upcoming',
     menuItem: 'Upcoming',
     header: 'Upcoming Moves',
+    placement: 'SIDE_NAV',
     loader: loaderUpcoming,
     navBack: false
   },
@@ -91,6 +95,7 @@ export const routes: RouteItem[] = [
     href: '/ondvd',
     menuItem: 'On DVD',
     header: 'Movies On DVD',
+    placement: 'HEADER',
     loader: loaderOnDvD,
     navBack: false
   },
@@ -100,6 +105,7 @@ export const routes: RouteItem[] = [
     href: '/similar',
     menuItem: 'Similar',
     header: 'Similar Movies',
+    placement: 'NONE',
     loader: loaderSimilar,
     navBack: false
   },
@@ -109,6 +115,7 @@ export const routes: RouteItem[] = [
     href: '/favourites',
     menuItem: 'Favourites',
     header: 'Favourite Movies',
+    placement: 'SIDE_NAV',
     loader: loaderFavourites,
     navBack: false
   },
@@ -118,6 +125,7 @@ export const routes: RouteItem[] = [
     href: '/movie',
     menuItem: 'Movie Biography',
     header: 'Movie Biography',
+    placement: 'NONE',
     loader: loaderMovieBiography,
     navBack: true
   },
