@@ -1,12 +1,12 @@
+import { useContext, useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 import MovieCard from "@/components/MovieCard";
 import Toolbar from '@/components/Toolbar';
 import Footer from '@/components/Footer';
 
-import { TmdbMovieList } from '@/lib/types';
-import { useContext, useEffect } from 'react';
 import { AppContext } from '@/context/AppProvider';
+import type { TmdbMovieList } from '@/lib/types';
 
 export default function Home({ routeId }: { routeId: number }) {
   const movies = useLoaderData() as TmdbMovieList;

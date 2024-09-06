@@ -3,13 +3,13 @@ import {
   useEffect,
   useContext,
   // useRef 
-} from 'react'
-import { useNavigate } from "react-router-dom";
+} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 // Shadcn/ui components
-import { Button } from './ui/button';
-// import { Input } from './ui/input';
+import { Button } from '@/components/ui/button';
+// import { Input } from '@/components/ui/input';
 import {
   Sheet,
   SheetHeader,
@@ -17,26 +17,28 @@ import {
   SheetContent,
   SheetTrigger,
   SheetDescription,
-} from "@/components/ui/sheet"
+} from '@/components/ui/sheet';
 // import {
 //   Select,
 //   SelectContent,
 //   SelectItem,
 //   SelectTrigger,
 //   SelectValue,
-// } from "@/components/ui/select"
+// } from '@/components/ui/select';
 
 // Lucide icons
-import { ArrowLeft, PanelLeft, Search } from "lucide-react";
+import {
+  ArrowLeft,
+  PanelLeft,
+  // Search 
+} from 'lucide-react';
 
 // Custom components
-import { ModeToggle } from "./ModeToggle";
+import ModeToggle from '@/components/ModeToggle';
 
 import { AppContext } from '@/context/AppProvider';
 import { getRoute } from '@/lib/helper';
 import { routes } from '@/lib/routes';
-
-// https://hawkapps.io/responsive-navbar-in-react-using-shadcn-ui-and-tailwind-css/
 
 export default function Header() {
   const { appState } = useContext(AppContext);
@@ -83,7 +85,6 @@ export default function Header() {
   // }
 
   const handleNavButtonClick = (routeId: number) => {
-    // appDispatch({ type: 'SET_ROUTEID', payload: routeId });
     setSheetOpen(false);
     rrNavigate(routes[routeId].href, { replace: true });
   };

@@ -3,7 +3,7 @@
  */
 export type AppContextState = {
   routeId: number;
-  // prevRouteId: number;
+  searchScope?: string;
 }
 
 type AppReducerSetRoute = {

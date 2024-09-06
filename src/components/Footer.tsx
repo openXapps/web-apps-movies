@@ -1,10 +1,12 @@
 import { useContext } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
+
 import useRouteData from "@/hooks/useRouteData";
-import { Button } from "./ui/button";
-import { ENav } from '@/lib/enums'
+
+import { Button } from '@/components/ui/button';
 import { AppContext } from '@/context/AppProvider';
 import { getRoute } from '@/lib/helper';
+import { ENav } from '@/lib/enums'
 
 export default function Footer() {
   const { appState } = useContext(AppContext);
@@ -12,7 +14,7 @@ export default function Footer() {
   const rrParams = useParams();
   const { total_pages } = useRouteData();
   const route = getRoute(appState.routeId).href;
-  
+
   const currentMovieId = rrParams.movieid ? '/' + rrParams.movieid : '';
   const currentPage = {
     str: rrParams.page || '1',

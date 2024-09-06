@@ -1,16 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import LoadingSpinner from "./ui/loader";
-import { Button } from "./ui/button";
+import { Button } from '@/components/ui/button';
+import LoadingSpinner from '@/components/ui/loader';
 
 import type { TMovieListData, TmdbMovieDetailsData } from "@/lib/types";
 import { copyToClipboard, decryptCipher, getRoute } from "@/lib/helper";
-import { RouteId } from "@/lib/routes";
-// import { AppContext } from '@/context/AppProvider';
+import { RouteId } from '@/lib/enums';
 
 export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsData }) {
-  // const { appDispatch } = useContext(AppContext);
   const [tHide, setTHide] = useState(true);
   const [tLoading, setTLoading] = useState(false);
   const [tData, setTData] = useState<TMovieListData[]>([]);
@@ -25,7 +23,6 @@ export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsDa
         throw new Error('Problem fetching T.');
       })
       .then((t) => {
-        // console.dir(t);
         setTimeout(() => {
           setTLoading(false);
           if (t.data.movie_count > 0) {

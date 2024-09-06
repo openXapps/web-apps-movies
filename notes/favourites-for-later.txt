@@ -1,0 +1,25 @@
+// App
+{
+  path: routes[RouteId.FAVOURITES].path,
+  element: <Home routeId={RouteId.FAVOURITES} />,
+  loader: routes[RouteId.FAVOURITES].loader
+},
+
+// routes
+{
+  routeId: RouteId.FAVOURITES,
+  path: 'favourites',
+  href: '/favourites',
+  menuItem: 'Favourites',
+  header: 'Favourite Movies',
+  placement: 'SIDE_NAV',
+  loader: loaderFavourites,
+  navBack: false
+},
+
+export function loaderFavourites() {
+  return getMovies({ routeId: RouteId.FAVOURITES, page: '', movieId: '' },);
+}
+
+
+

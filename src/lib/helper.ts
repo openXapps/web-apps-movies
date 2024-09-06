@@ -1,8 +1,10 @@
 import moment from 'moment';
 // https://www.npmjs.com/package/crypto-js
 import CryptoJs from 'crypto-js';
-import { RouteItem } from './types';
-import { RouteId, routes } from './routes';
+
+import { RouteItem } from '@/lib/types';
+import { RouteId } from '@/lib/enums';
+import { routes } from '@/lib/routes';
 
 /**
  * Helper type to define props for Movie List URL Builder
@@ -75,6 +77,11 @@ export function buildMovieListUrl({ routeId, page, movieId }: BuildMovieListUrlP
   return url;
 }
 
+/**
+ * Helper type to define props for Movie Details URL Builder
+ * @param {string} query URL query option
+ * @param {string} movieId URL movie Id
+ */
 export type BuildMovieDetailsUrlProps = {
   query: 'MOVIE' | 'CREDITS' | undefined;
   movieId: string | undefined;

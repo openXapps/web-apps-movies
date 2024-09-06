@@ -3,12 +3,14 @@ import { useLoaderData } from "react-router-dom";
 
 import MovieInfo from "@/components/MovieInfo";
 import MovieActor from "@/components/MovieActor";
-// import MovieRating from "@/components/MovieRating";
 import Toolbar from "@/components/Toolbar";
-import { TmdbMovieDetailsData } from "@/lib/types";
+// import MovieRating from "@/components/MovieRating";
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+
 import { AppContext } from "@/context/AppProvider";
+import type { TmdbMovieDetailsData } from "@/lib/types";
 
 type ActiveTabProps = 'info' | 'actors' | 'rating';
 
@@ -22,7 +24,7 @@ export default function Movie({ routeId }: { routeId: number }) {
     appDispatch({ type: 'SET_ROUTEID', payload: routeId });
     return () => { }
   }, [routeId])
-  
+
   return (
     <div className="mt-2">
       <div className="max-w-[1024px] mx-auto my-2 p-2">
