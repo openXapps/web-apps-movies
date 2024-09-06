@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import LoadingSpinner from "./ui/loader";
@@ -7,10 +7,10 @@ import { Button } from "./ui/button";
 import type { TMovieListData, TmdbMovieDetailsData } from "@/lib/types";
 import { copyToClipboard, decryptCipher, getRoute } from "@/lib/helper";
 import { RouteId } from "@/lib/routes";
-import { AppContext } from '@/context/AppProvider';
+// import { AppContext } from '@/context/AppProvider';
 
 export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsData }) {
-  const { appDispatch } = useContext(AppContext);
+  // const { appDispatch } = useContext(AppContext);
   const [tHide, setTHide] = useState(true);
   const [tLoading, setTLoading] = useState(false);
   const [tData, setTData] = useState<TMovieListData[]>([]);
@@ -72,7 +72,8 @@ export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsDa
               rel="noopener noreferrer"
             >Homepage</a>
           </Button>}
-          <Button variant="secondary" size="sm" asChild onClick={() => appDispatch({ type: 'SET_ROUTEID', payload: RouteId.SIMILAR })}>
+          {/* <Button variant="secondary" size="sm" asChild onClick={() => appDispatch({ type: 'SET_ROUTEID', payload: RouteId.SIMILAR })}> */}
+          <Button variant="secondary" size="sm" asChild>
             <Link
               to={`${getRoute(RouteId.SIMILAR).href}/${movieInfo.id}`}
             >Similar</Link>

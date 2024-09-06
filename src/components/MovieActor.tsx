@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
-import { TmdbMovieCastData, TmdbMovieCreditsData } from "@/lib/types"
 import { getMovie } from "@/lib/api"
+import type { TmdbMovieCastData, TmdbMovieCreditsData } from "@/lib/types"
 
 const initMovieCast: TmdbMovieCastData[] = [
   {

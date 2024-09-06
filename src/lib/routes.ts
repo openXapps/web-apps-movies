@@ -1,5 +1,5 @@
 import { getMovie, getMovies } from "./api";
-import { LoaderFunctionProps, RouteItem } from "./types";
+import type { LoaderFunctionProps, RouteItem } from "./types";
 
 export function loaderNowPlaying({ params }: LoaderFunctionProps) {
   return getMovies({ routeId: RouteId.NOW_PAYING, page: params.page, movieId: '' },);
@@ -22,7 +22,6 @@ export function loaderOnDvD({ params }: LoaderFunctionProps) {
 }
 
 export function loaderSimilar({ params }: LoaderFunctionProps) {
-  console.log(params);
   return getMovies({ routeId: RouteId.SIMILAR, page: params.page, movieId: params.movieid },);
 }
 
@@ -109,16 +108,16 @@ export const routes: RouteItem[] = [
     loader: loaderSimilar,
     navBack: false
   },
-  {
-    routeId: RouteId.FAVOURITES,
-    path: 'favourites',
-    href: '/favourites',
-    menuItem: 'Favourites',
-    header: 'Favourite Movies',
-    placement: 'SIDE_NAV',
-    loader: loaderFavourites,
-    navBack: false
-  },
+  // {
+  //   routeId: RouteId.FAVOURITES,
+  //   path: 'favourites',
+  //   href: '/favourites',
+  //   menuItem: 'Favourites',
+  //   header: 'Favourite Movies',
+  //   placement: 'SIDE_NAV',
+  //   loader: loaderFavourites,
+  //   navBack: false
+  // },
   {
     routeId: RouteId.MOVIE_BIOGRAPHY,
     path: 'movie/:movieid',

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import MovieInfo from "@/components/MovieInfo";
@@ -8,14 +8,21 @@ import Toolbar from "@/components/Toolbar";
 import { TmdbMovieDetailsData } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { AppContext } from "@/context/AppProvider";
 
 type ActiveTabProps = 'info' | 'actors' | 'rating';
 
-export default function Movie() {
+export default function Movie({ routeId }: { routeId: number }) {
+  const { appDispatch } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState<ActiveTabProps>('info');
   const movieInfo = useLoaderData() as TmdbMovieDetailsData;
   const backdropUrl = import.meta.env.VITE_API_MOVIE_BACKDROP_URL;
 
+  useEffect(() => {
+    appDispatch({ type: 'SET_ROUTEID', payload: routeId });
+    return () => { }
+  }, [routeId])
+  
   return (
     <div className="mt-2">
       <div className="max-w-[1024px] mx-auto my-2 p-2">

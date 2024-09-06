@@ -1,17 +1,17 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { TmdbMovieListData } from "@/lib/types";
 
-import { AppContext } from '@/context/AppProvider';
-import { RouteId } from "@/lib/routes";
+// import { AppContext } from '@/context/AppProvider';
+// import { RouteId } from "@/lib/routes";
 
 export default function MovieCard(movie: TmdbMovieListData) {
-  const { appDispatch } = useContext(AppContext);
+  // const { appDispatch } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleMovieClick = () => {
-    appDispatch({ type: 'SET_ROUTEID', payload: RouteId.MOVIE_BIOGRAPHY });
+    // appDispatch({ type: 'SET_ROUTEID', payload: RouteId.MOVIE_BIOGRAPHY });
     navigate(`/movie/${movie.id}`)
   }
 
