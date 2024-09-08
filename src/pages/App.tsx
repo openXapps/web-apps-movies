@@ -56,6 +56,16 @@ export default function App() {
           loader: routes[RouteId.SIMILAR].loader
         },
         {
+          path: routes[RouteId.FILTER_BY_YEAR].path,
+          element: <Home routeId={RouteId.FILTER_BY_YEAR} />,
+          loader: routes[RouteId.FILTER_BY_YEAR].loader
+        },
+        {
+          path: routes[RouteId.FILTER_BY_KEYWORD].path,
+          element: <Home routeId={RouteId.FILTER_BY_KEYWORD} />,
+          loader: routes[RouteId.FILTER_BY_KEYWORD].loader
+        },
+        {
           path: routes[RouteId.MOVIE_BIOGRAPHY].path,
           element: <Movie routeId={RouteId.MOVIE_BIOGRAPHY} />,
           loader: routes[RouteId.MOVIE_BIOGRAPHY].loader

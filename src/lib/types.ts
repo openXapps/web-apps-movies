@@ -11,14 +11,15 @@ type AppReducerSetRoute = {
   payload: number;
 }
 
-type AppReducerSetPage = {
-  type: 'SOME_ACTION_WITHOUT_PAYLOAD';
+type AppReducerSetScope = {
+  type: 'SET_SCOPE';
+  payload: string;
 }
 
 /**
  * App reducer action type
  */
-export type AppReducerActions = AppReducerSetRoute | AppReducerSetPage;
+export type AppReducerActions = AppReducerSetRoute | AppReducerSetScope;
 
 /**
  * App context type
@@ -48,7 +49,7 @@ export type RouteItem = {
 export type LoaderFunctionProps = {
   params: {
     page?: string;
-    movieid?: string;
+    id?: string;
   };
   request: Request;
 }

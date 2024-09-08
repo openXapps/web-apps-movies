@@ -18,5 +18,7 @@ export enum RouteId {
   ON_DVD = 4,
   SIMILAR = 5,
   MOVIE_BIOGRAPHY = 6,
-  FAVOURITES = 7,
+  FILTER_BY_YEAR = 7,
+  FILTER_BY_KEYWORD = 8,
+  FILTER_BY_CAST = 9,
 }

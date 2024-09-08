@@ -7,7 +7,7 @@ import { AppContextState, AppReducerActions } from "@/lib/types";
  */
 export default function AppReducer(state: AppContextState, action: AppReducerActions): AppContextState {
 
-  // console.log('reducer: state.......', state);
+  console.log('reducer: state.......', state);
   // console.log('reducer: action......', action);
 
   switch (action.type) {
@@ -15,11 +15,11 @@ export default function AppReducer(state: AppContextState, action: AppReducerAct
       return {
         ...state,
         routeId: action.payload,
-        // prevRouteId: action.payload !== state.routeId ? state.routeId : state.prevRouteId,
       };
-    case 'SOME_ACTION_WITHOUT_PAYLOAD':
+    case 'SET_SCOPE':
       return {
         ...state,
+        searchScope: action.payload,
       };
     default:
       return state;

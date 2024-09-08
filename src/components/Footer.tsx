@@ -15,7 +15,7 @@ export default function Footer() {
   const { total_pages } = useRouteData();
   const route = getRoute(appState.routeId).href;
 
-  const currentMovieId = rrParams.movieid ? '/' + rrParams.movieid : '';
+  const currentId = rrParams.id ? '/' + rrParams.id : '';
   const currentPage = {
     str: rrParams.page || '1',
     num: typeof rrParams.page === 'undefined' ? 1 : Number(rrParams.page)
@@ -30,11 +30,11 @@ export default function Footer() {
 
   const handlePagerClick = (navType: number, jump: number) => {
     if (navType === ENav.PAGE_ONE && currentPage.num > 1)
-      rrNavigate(`${route}${currentMovieId}/1`);
+      rrNavigate(`${route}${currentId}/1`);
     if (navType === ENav.PAGE_NEXT && currentPage.num < totalPages.num)
-      rrNavigate(`${route}${currentMovieId}/${currentPage.num + jump}`);
+      rrNavigate(`${route}${currentId}/${currentPage.num + jump}`);
     if (navType === ENav.PAGE_PREV && currentPage.num > 1)
-      rrNavigate(`${route}${currentMovieId}/${currentPage.num + (jump)}`);
+      rrNavigate(`${route}${currentId}/${currentPage.num + (jump)}`);
 
     window.scrollTo(0, 0);
   }

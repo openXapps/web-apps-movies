@@ -2,14 +2,14 @@ import {
   useState,
   useEffect,
   useContext,
-  // useRef 
+  useRef
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 // Shadcn/ui components
 import { Button } from '@/components/ui/button';
-// import { Input } from '@/components/ui/input';
+import { Input } from '@/components/ui/input';
 import {
   Sheet,
   SheetHeader,
@@ -18,19 +18,19 @@ import {
   SheetTrigger,
   SheetDescription,
 } from '@/components/ui/sheet';
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 // Lucide icons
 import {
   ArrowLeft,
   PanelLeft,
-  // Search 
+  Search
 } from 'lucide-react';
 
 // Custom components
@@ -39,15 +39,16 @@ import ModeToggle from '@/components/ModeToggle';
 import { AppContext } from '@/context/AppProvider';
 import { getRoute } from '@/lib/helper';
 import { routes } from '@/lib/routes';
+import { RouteId } from '@/lib/enums';
 
 export default function Header() {
-  const { appState } = useContext(AppContext);
+  const { appState, appDispatch } = useContext(AppContext);
   const [route, setRoute] = useState(getRoute(appState.routeId));
   const rrNavigate = useNavigate();
-  // const searchRef = useRef<HTMLInputElement>(null);
-  // const [search, setSearch] = useState<string | undefined>('');
-  // const [year, setYear] = useState<string | undefined>('');
-  // const [yearList, setYearList] = useState<string[]>([]);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [search, setSearch] = useState<string | undefined>('');
+  const [year, setYear] = useState<string | undefined>('');
+  const [yearList, setYearList] = useState<string[]>([]);
   const [sheetOpen, setSheetOpen] = useState(false);
 
   useEffect(() => {
@@ -56,43 +57,50 @@ export default function Header() {
     return () => { };
   }, [appState.routeId])
 
-  // useEffect(() => {
-  //   function genYears(): string[] {
-  //     const today = new Date();
-  //     const year = today.getFullYear();
-  //     const yearList = [];
-  //     for (let n = 0; n < 110; n++) {
-  //       yearList.push(String(year - n));
-  //     }
-  //     return yearList;
-  //   };
+  useEffect(() => {
+    function genYears(): string[] {
+      const today = new Date();
+      const year = today.getFullYear();
+      const yearList = [];
+      for (let n = 0; n < 110; n++) {
+        yearList.push(String(year - n));
+      }
+      return yearList;
+    };
 
-  //   setYearList(genYears());
+    setYearList(genYears());
 
-  //   return () => { };
-  // }, [])
+    return () => { };
+  }, [])
 
-  // const handleSearchAction = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   if (searchRef.current?.value && searchRef.current?.value.length > 3) {
-  //     setSearch(searchRef.current?.value);
-  //     setSheetOpen(false);
-  //   }
-  // }
+  const handleSearchAction = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
+    e.preventDefault();
+    if (searchRef.current?.value && searchRef.current?.value.length > 3) {
+      setSearch(searchRef.current?.value);
+      setSheetOpen(false);
+      appDispatch({ type: 'SET_SCOPE', payload: searchRef.current?.value });
+      rrNavigate(getRoute(RouteId.FILTER_BY_KEYWORD).href);
+    }
+  }
 
-  // const handleYearSelection = () => {
-  //   if (year && year?.length > 0) setSheetOpen(false);
-  // }
+  const handleYearSelection = () => {
+    if (year && year?.length > 0) {
+      setSheetOpen(false);
+      appDispatch({ type: 'SET_SCOPE', payload: String(year) });
+      rrNavigate(getRoute(RouteId.FILTER_BY_YEAR).href);
+    }
+  }
 
   const handleNavButtonClick = (routeId: number) => {
     setSheetOpen(false);
+    appDispatch({ type: 'SET_SCOPE', payload: '' });
     rrNavigate(routes[routeId].href, { replace: true });
   };
 
   return (
     <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-90 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
       <div className="flex items-center gap-1 sm:gap-2 py-2 px-2 mx-auto max-w-[1024px]">
-        <h1 className="text-xl font-bold grow">{route.header}</h1>
+        <h1 className="text-xl font-bold grow">{route.header} <span>{appState.searchScope}</span></h1>
         {route.navBack ? (
           <Button variant="ghost" size="icon" onClick={() => rrNavigate(-1)}>
             <ArrowLeft className="h-[1.2rem] w-[1.2rem]" />
@@ -125,7 +133,7 @@ export default function Header() {
                   <SheetTitle>Filter Options</SheetTitle>
                   <SheetDescription className="sr-only">App Side Menu</SheetDescription>
                 </SheetHeader>
-                {/* <div className="flex gap-2 justify-between mt-5">
+                <div className="flex gap-2 justify-between mt-5">
                   <form onSubmit={handleSearchAction}>
                     <div className="relative flex-1">
                       <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -153,7 +161,7 @@ export default function Header() {
                     </Select>
                   </div>
                   <Button variant="outline" onClick={handleYearSelection}>Apply</Button>
-                </div> */}
+                </div>
                 <div className="flex flex-col gap-2 mt-5 md:hidden">
                   {routes.map((v, i) => {
                     const isActive = v.routeId === appState.routeId
