@@ -25,7 +25,7 @@ export default function MovieActor({ movieId }: { movieId: string }) {
 
   useEffect(() => {
     function getMovieCast() {
-      getMovie({ query: 'CREDITS', movieId: movieId })
+      getMovie({ query: 'CREDITS', filter: movieId })
         .then(data => {
           const cast: TmdbMovieCastData[] = data.cast.filter((v: TmdbMovieCastData) => v.known_for_department === 'Acting')
           setMovieActor(cast);

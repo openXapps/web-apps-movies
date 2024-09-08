@@ -46,8 +46,8 @@ export default function Header() {
   const [route, setRoute] = useState(getRoute(appState.routeId));
   const rrNavigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
-  const [search, setSearch] = useState<string | undefined>('');
-  const [year, setYear] = useState<string | undefined>('');
+  // const [search, setSearch] = useState<string | undefined>('');
+  const [year, setYear] = useState<string>('2023');
   const [yearList, setYearList] = useState<string[]>([]);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -76,7 +76,7 @@ export default function Header() {
   const handleSearchAction = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     e.preventDefault();
     if (searchRef.current?.value && searchRef.current?.value.length > 3) {
-      setSearch(searchRef.current?.value);
+      // setSearch(searchRef.current?.value);
       setSheetOpen(false);
       appDispatch({ type: 'SET_SCOPE', payload: searchRef.current?.value });
       rrNavigate(getRoute(RouteId.FILTER_BY_KEYWORD).href + '/' + encodeURI(searchRef.current?.value));
@@ -84,10 +84,10 @@ export default function Header() {
   }
 
   const handleYearSelection = () => {
-    if (year && year?.length > 0) {
+    if (year && year.length > 0) {
       setSheetOpen(false);
-      appDispatch({ type: 'SET_SCOPE', payload: String(year) });
-      rrNavigate(getRoute(RouteId.FILTER_BY_YEAR).href + '/' + String(year));
+      appDispatch({ type: 'SET_SCOPE', payload: year });
+      rrNavigate(getRoute(RouteId.FILTER_BY_YEAR).href + '/' + year);
     }
   }
 
