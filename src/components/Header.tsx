@@ -79,7 +79,7 @@ export default function Header() {
       setSearch(searchRef.current?.value);
       setSheetOpen(false);
       appDispatch({ type: 'SET_SCOPE', payload: searchRef.current?.value });
-      rrNavigate(getRoute(RouteId.FILTER_BY_KEYWORD).href);
+      rrNavigate(getRoute(RouteId.FILTER_BY_KEYWORD).href + '/' + encodeURI(searchRef.current?.value));
     }
   }
 
@@ -87,7 +87,7 @@ export default function Header() {
     if (year && year?.length > 0) {
       setSheetOpen(false);
       appDispatch({ type: 'SET_SCOPE', payload: String(year) });
-      rrNavigate(getRoute(RouteId.FILTER_BY_YEAR).href);
+      rrNavigate(getRoute(RouteId.FILTER_BY_YEAR).href + '/' + String(year));
     }
   }
 
@@ -100,7 +100,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-90 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
       <div className="flex items-center gap-1 sm:gap-2 py-2 px-2 mx-auto max-w-[1024px]">
-        <h1 className="text-xl font-bold grow">{route.header} <span>{appState.searchScope}</span></h1>
+        <h1 className="text-xl font-bold grow text-ellipsis overflow-hidden text-nowrap">{route.header} <span>{appState.searchScope}</span></h1>
         {route.navBack ? (
           <Button variant="ghost" size="icon" onClick={() => rrNavigate(-1)}>
             <ArrowLeft className="h-[1.2rem] w-[1.2rem]" />

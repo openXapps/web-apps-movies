@@ -7,7 +7,7 @@ import { AppContextState, AppReducerActions } from "@/lib/types";
  */
 export default function AppReducer(state: AppContextState, action: AppReducerActions): AppContextState {
 
-  console.log('reducer: state.......', state);
+  // console.log('reducer: state.......', state);
   // console.log('reducer: action......', action);
 
   switch (action.type) {

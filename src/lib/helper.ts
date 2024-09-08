@@ -10,12 +10,12 @@ import { routes } from '@/lib/routes';
  * Helper type to define props for Movie List URL Builder
  * @param {string} query URL query path
  * @param {string} page URL query page
- * @param {string} id URL by Id
+ * @param {string} filter URL by Id
  */
 export type BuildMovieListUrlProps = {
   routeId: number;
   page: string | undefined;
-  id: string | undefined;
+  filter: string | undefined;
 }
 
 /**
@@ -23,7 +23,7 @@ export type BuildMovieListUrlProps = {
  * @param {BuildMovieListUrlProps} props Function props
  * @returns Fetch-ready URL
  */
-export function buildMovieListUrl({ routeId, page, id }: BuildMovieListUrlProps): string {
+export function buildMovieListUrl({ routeId, page, filter }: BuildMovieListUrlProps): string {
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
   // const route = getRoute(routeId);
@@ -55,7 +55,7 @@ export function buildMovieListUrl({ routeId, page, id }: BuildMovieListUrlProps)
       url += `&primary_release_date.lte=${moment.unix(fromSeconds).format('YYYY-MM-DD')}&`;
       break;
     case RouteId.SIMILAR:
-      url += `/movie/${id}/similar`;
+      url += `/movie/${filter}/similar`;
       url += '?include_adult=false&language=en-US&region=US&vote_count.gte=5&sort_by=popularity.desc&';
       break;
     // case '/favourites':
@@ -64,19 +64,17 @@ export function buildMovieListUrl({ routeId, page, id }: BuildMovieListUrlProps)
     //   url += '&';
     //   break;
     case RouteId.FILTER_BY_YEAR:
-      const searchYByYear = '2023';
       url += '/discover/movie';
       url += '?include_adult=false&language=en-US&region=US&vote_count.gte=5&sort_by=popularity.desc';
-      url += `&primary_release_year=${searchYByYear}&`;
+      url += `&primary_release_year=${filter}&`;
       break;
     case RouteId.FILTER_BY_KEYWORD:
-      const searchByKeyword = 'shark';
       url += '/search/movie';
       url += '?include_adult=false&sort_by=popularity.desc';
-      url += `&query=${searchByKeyword}&`;
+      url += `&query=${filter}&`;
       break;
     case RouteId.FILTER_BY_CAST:
-      // value passed should be { id: cast_id, name: cast_name }
+      // value passed should be { filter: cast_id, name: cast_name }
       const filterByCastId = '12345';
       url += '/discover/movie';
       url += '?include_adult=false&language=en-US&vote_count.gte=5';
@@ -94,11 +92,11 @@ export function buildMovieListUrl({ routeId, page, id }: BuildMovieListUrlProps)
 /**
  * Helper type to define props for Movie Details URL Builder
  * @param {string} query URL query option
- * @param {string} id URL by Id
+ * @param {string} filter URL by Id
  */
 export type BuildMovieDetailsUrlProps = {
   query: 'MOVIE' | 'CREDITS' | undefined;
-  id: string | undefined;
+  filter: string | undefined;
 }
 
 /**
@@ -106,16 +104,16 @@ export type BuildMovieDetailsUrlProps = {
  * @param {BuildMovieDetailsUrlProps} props Function props
  * @returns Fetch-ready URL
  */
-export function buildMovieDetailsUrl({ query, id }: BuildMovieDetailsUrlProps): string {
+export function buildMovieDetailsUrl({ query, filter }: BuildMovieDetailsUrlProps): string {
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
 
   switch (query) {
     case 'MOVIE':
-      url += `/movie/${id}`
+      url += `/movie/${filter}`
       break;
     case 'CREDITS':
-      url += `/movie/${id}/credits`;
+      url += `/movie/${filter}/credits`;
       break;
     default:
       break;

@@ -27,11 +27,11 @@ export function loaderSimilar({ params }: LoaderFunctionProps) {
 }
 
 export function loaderYear({ params }: LoaderFunctionProps) {
-  return getMovies({ routeId: RouteId.FILTER_BY_YEAR, page: params.page, filter: '' },);
+  return getMovies({ routeId: RouteId.FILTER_BY_YEAR, page: params.page, filter: params.filter },);
 }
 
 export function loaderKeyword({ params }: LoaderFunctionProps) {
-  return getMovies({ routeId: RouteId.FILTER_BY_KEYWORD, page: params.page, filter: '' },);
+  return getMovies({ routeId: RouteId.FILTER_BY_KEYWORD, page: params.page, filter: params.filter },);
 }
 
 export function loaderMovieBiography({ params }: LoaderFunctionProps) {
@@ -111,7 +111,7 @@ export const routes: RouteItem[] = [
   },
   {
     routeId: RouteId.FILTER_BY_YEAR,
-    path: 'year/:page?',
+    path: 'year/:filter/:page?',
     href: '/year',
     menuItem: '',
     header: 'Movies released',
@@ -121,7 +121,7 @@ export const routes: RouteItem[] = [
   },
   {
     routeId: RouteId.FILTER_BY_KEYWORD,
-    path: 'keyword/:page?',
+    path: 'keyword/:filter/:page?',
     href: '/keyword',
     menuItem: '',
     header: 'Keyword:',

@@ -14,9 +14,9 @@ import {
  * @param {BuildMovieListUrlProps} props Function props
  * @returns Array of movies
  */
-export async function getMovies({ routeId, page, id }: BuildMovieListUrlProps): Promise<{} | null> {
+export async function getMovies({ routeId, page, filter }: BuildMovieListUrlProps): Promise<{} | null> {
   // const { routeDispatch } = useContext(RouteContext);
-  const result = await fetch(buildMovieListUrl({ routeId: routeId, page: page, id: id }));
+  const result = await fetch(buildMovieListUrl({ routeId: routeId, page: page, filter: filter }));
 
   if (!result.ok) throw new Error('Failed to fetch movies');
 
@@ -29,8 +29,8 @@ export async function getMovies({ routeId, page, id }: BuildMovieListUrlProps): 
  * @param {BuildMovieDetailsUrlProps} props Function props
  * @returns Array of movies
  */
-export async function getMovie({ query, id }: BuildMovieDetailsUrlProps) {
-  const result = await fetch(buildMovieDetailsUrl({ query, id }));
+export async function getMovie({ query, filter }: BuildMovieDetailsUrlProps) {
+  const result = await fetch(buildMovieDetailsUrl({ query, filter }));
 
   if (!result.ok) throw new Error('Failed to fetch movie');
 

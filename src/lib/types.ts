@@ -49,7 +49,7 @@ export type RouteItem = {
 export type LoaderFunctionProps = {
   params: {
     page?: string;
-    id?: string;
+    filter?: string;
   };
   request: Request;
 }
@@ -64,8 +64,8 @@ export type TmdbMovieList = {
   };
   page: number;
   results: TmdbMovieListData[];
-  total_pages: string;
-  total_results: string;
+  total_pages: number;
+  total_results: number;
 }
 
 /**
