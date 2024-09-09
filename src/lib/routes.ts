@@ -51,7 +51,8 @@ export const routes: RouteItem[] = [
     placement: 'HEADER',
     loader: loaderNowPlaying,
     navBack: false
-  }, {
+  },
+  {
     routeId: RouteId.POPULAR,
     path: 'popular/:page?',
     href: '/popular',
@@ -60,7 +61,8 @@ export const routes: RouteItem[] = [
     placement: 'SIDE_NAV',
     loader: loaderPopular,
     navBack: false
-  }, {
+  },
+  {
     routeId: RouteId.TOP_RATED,
     path: 'toprated/:page?',
     href: '/toprated',
@@ -69,7 +71,8 @@ export const routes: RouteItem[] = [
     header: 'Top Rated Moves',
     loader: loaderTopRated,
     navBack: false
-  }, {
+  },
+  {
     routeId: RouteId.UPCOMING,
     path: 'upcoming/:page?',
     href: '/upcoming',
