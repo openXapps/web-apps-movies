@@ -74,7 +74,7 @@ export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsDa
           {/* <Button variant="secondary" size="sm" asChild onClick={() => appDispatch({ type: 'SET_ROUTEID', payload: RouteId.SIMILAR })}> */}
           <Button variant="secondary" size="sm" asChild>
             <Link
-              to={`${getRoute(RouteId.SIMILAR).href}/${movieInfo.id}`}
+              to={`${getRoute(RouteId.SIMILAR).href}/${movieInfo.id}/${encodeURI(movieInfo.title)}`}
               onClick={() => appDispatch({ type: 'SET_SCOPE', payload: movieInfo.title })}
             >Similar</Link>
           </Button>

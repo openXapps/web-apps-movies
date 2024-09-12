@@ -4,7 +4,7 @@ import {
   useContext,
   useRef
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 // Shadcn/ui components
@@ -45,14 +45,24 @@ export default function Header() {
   const { appState, appDispatch } = useContext(AppContext);
   const [route, setRoute] = useState(getRoute(appState.routeId));
   const rrNavigate = useNavigate();
+  const { filter, title } = useParams();
   const searchRef = useRef<HTMLInputElement>(null);
   // const [search, setSearch] = useState<string | undefined>('');
   const [year, setYear] = useState<string>('2023');
   const [yearList, setYearList] = useState<string[]>([]);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [subHeader, setSubHeader] = useState<string | undefined>('');
+
 
   useEffect(() => {
     setRoute(getRoute(appState.routeId));
+    setSubHeader('');
+    if (appState.routeId === RouteId.SIMILAR && title) setSubHeader(title);
+    if (
+      appState.routeId === RouteId.FILTER_BY_YEAR ||
+      appState.routeId === RouteId.FILTER_BY_KEYWORD ||
+      appState.routeId === RouteId.FILTER_BY_CAST && filter
+    ) setSubHeader(filter);
 
     return () => { };
   }, [appState.routeId])
@@ -100,7 +110,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full h-14 z-10 border-b bg-opacity-90 dark:bg-opacity-80 bg-slate-200 dark:bg-gray-600">
       <div className="flex items-center gap-1 sm:gap-2 py-2 px-2 mx-auto max-w-[1024px]">
-        <h1 className="text-xl font-bold grow text-ellipsis overflow-hidden text-nowrap">{route.header} <span>{appState.searchScope}</span></h1>
+        <h1 className="text-xl font-bold grow text-ellipsis overflow-hidden text-nowrap">{route.header} <span>{subHeader}</span></h1>
         {route.navBack ? (
           <Button variant="ghost" size="icon" onClick={() => rrNavigate(-1)}>
             <ArrowLeft className="h-[1.2rem] w-[1.2rem]" />

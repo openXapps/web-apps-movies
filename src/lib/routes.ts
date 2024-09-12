@@ -94,7 +94,7 @@ export const routes: RouteItem[] = [
   },
   {
     routeId: RouteId.SIMILAR,
-    path: 'similar/:filter/:page?',
+    path: 'similar/:filter/:title/:page?',
     href: '/similar',
     menuItem: 'Similar',
     header: 'Similar:',

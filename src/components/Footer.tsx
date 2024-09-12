@@ -16,6 +16,7 @@ export default function Footer() {
   const route = getRoute(appState.routeId).href;
 
   const pathFilter = rrParams.filter ? '/' + rrParams.filter : '';
+  const pathTitle = rrParams.title ? '/' + rrParams.title : '';
   const pathPage = {
     str: rrParams.page || '1',
     num: typeof rrParams.page === 'undefined' ? 1 : Number(rrParams.page)
@@ -44,11 +45,13 @@ export default function Footer() {
         appState.routeId === RouteId.ON_DVD
       ) url = `${route}/1`;
       if (
-        appState.routeId === RouteId.SIMILAR ||
         appState.routeId === RouteId.FILTER_BY_YEAR ||
         appState.routeId === RouteId.FILTER_BY_KEYWORD ||
         appState.routeId === RouteId.FILTER_BY_CAST
       ) url = `${route}/${pathFilter}/1`;
+      if (
+        appState.routeId === RouteId.SIMILAR
+      ) url = `${route}/${pathFilter}/${pathTitle}/1`;
     }
 
     if (navType === ENav.PAGE_NEXT && pathPage.num < totalPages.num) {
@@ -62,11 +65,13 @@ export default function Footer() {
         appState.routeId === RouteId.ON_DVD
       ) url = `${route}/${pathPage.num + jump}`;
       if (
-        appState.routeId === RouteId.SIMILAR ||
         appState.routeId === RouteId.FILTER_BY_YEAR ||
         appState.routeId === RouteId.FILTER_BY_KEYWORD ||
         appState.routeId === RouteId.FILTER_BY_CAST
       ) url = `${route}${pathFilter}/${pathPage.num + jump}`;
+      if (
+        appState.routeId === RouteId.SIMILAR
+      ) url = `${route}/${pathFilter}/${pathTitle}/${pathPage.num + jump}`;
     }
 
     if (navType === ENav.PAGE_PREV && pathPage.num > 1) {
@@ -80,11 +85,13 @@ export default function Footer() {
         appState.routeId === RouteId.ON_DVD
       ) url = `${route}/${pathPage.num + jump}`;
       if (
-        appState.routeId === RouteId.SIMILAR ||
         appState.routeId === RouteId.FILTER_BY_YEAR ||
         appState.routeId === RouteId.FILTER_BY_KEYWORD ||
         appState.routeId === RouteId.FILTER_BY_CAST
       ) url = `${route}${pathFilter}/${pathPage.num + jump}`;
+      if (
+        appState.routeId === RouteId.SIMILAR
+      ) url = `${route}/${pathFilter}/${pathTitle}/${pathPage.num + jump}`;
     }
 
     // console.log('url        :', url);
