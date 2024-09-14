@@ -47,8 +47,7 @@ export default function Header() {
   const rrNavigate = useNavigate();
   const { filter, title } = useParams();
   const searchRef = useRef<HTMLInputElement>(null);
-  // const [search, setSearch] = useState<string | undefined>('');
-  const [year, setYear] = useState<string>('2023');
+  const [year, setYear] = useState<string>(String(new Date().getFullYear() - 1));
   const [yearList, setYearList] = useState<string[]>([]);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [subHeader, setSubHeader] = useState<string | undefined>('');
@@ -57,11 +56,11 @@ export default function Header() {
   useEffect(() => {
     setRoute(getRoute(appState.routeId));
     setSubHeader('');
-    if (appState.routeId === RouteId.SIMILAR && title) setSubHeader(title);
+    if (appState.routeId === RouteId.SIMILAR ||
+      appState.routeId === RouteId.FILTER_BY_CAST && title) setSubHeader(title);
     if (
       appState.routeId === RouteId.FILTER_BY_YEAR ||
-      appState.routeId === RouteId.FILTER_BY_KEYWORD ||
-      appState.routeId === RouteId.FILTER_BY_CAST && filter
+      appState.routeId === RouteId.FILTER_BY_KEYWORD && filter
     ) setSubHeader(filter);
 
     return () => { };
@@ -143,6 +142,33 @@ export default function Header() {
                   <SheetTitle>Filter Options</SheetTitle>
                   <SheetDescription className="sr-only">App Side Menu</SheetDescription>
                 </SheetHeader>
+                <div className="flex flex-col gap-2 mt-5 md:hidden">
+                  {routes.map((v, i) => {
+                    const isActive = v.routeId === appState.routeId
+                    return (v.placement === 'HEADER' &&
+                      <Button
+                        key={i}
+                        // variant={isActive ? 'outline' : 'default'}
+                        variant={isActive ? 'default' : 'outline'}
+                        onClick={() => handleNavButtonClick(v.routeId)}
+                        className={twMerge(isActive ? 'pointer-events-none' : '')}
+                      >{v.menuItem}<span className="sr-only">{`navigate to ${v.menuItem}`}</span></Button>
+                    )
+                  })}
+                </div>
+                <div className="flex flex-col gap-2 mt-5">
+                  {routes.map((v, i) => {
+                    const isActive = v.routeId === appState.routeId
+                    return (v.placement === 'SIDE_NAV' &&
+                      <Button
+                        key={i}
+                        variant={isActive ? 'default' : 'outline'}
+                        onClick={() => handleNavButtonClick(v.routeId)}
+                        className={twMerge(isActive ? 'pointer-events-none' : '')}
+                      >{v.menuItem}<span className="sr-only">{`navigate to ${v.menuItem}`}</span></Button>
+                    )
+                  })}
+                </div>
                 <div className="flex gap-2 justify-between mt-5">
                   <form onSubmit={handleSearchAction}>
                     <div className="relative flex-1">
@@ -171,32 +197,6 @@ export default function Header() {
                     </Select>
                   </div>
                   <Button variant="outline" onClick={handleYearSelection}>Apply</Button>
-                </div>
-                <div className="flex flex-col gap-2 mt-5 md:hidden">
-                  {routes.map((v, i) => {
-                    const isActive = v.routeId === appState.routeId
-                    return (v.placement === 'HEADER' &&
-                      <Button
-                        key={i}
-                        variant={isActive ? 'outline' : 'default'}
-                        onClick={() => handleNavButtonClick(v.routeId)}
-                        className={twMerge(isActive ? 'pointer-events-none' : '')}
-                      >{v.menuItem}<span className="sr-only">{`navigate to ${v.menuItem}`}</span></Button>
-                    )
-                  })}
-                </div>
-                <div className="flex flex-col gap-2 mt-5">
-                  {routes.map((v, i) => {
-                    const isActive = v.routeId === appState.routeId
-                    return (v.placement === 'SIDE_NAV' &&
-                      <Button
-                        key={i}
-                        variant={isActive ? 'outline' : 'default'}
-                        onClick={() => handleNavButtonClick(v.routeId)}
-                        className={twMerge(isActive ? 'pointer-events-none' : '')}
-                      >{v.menuItem}<span className="sr-only">{`navigate to ${v.menuItem}`}</span></Button>
-                    )
-                  })}
                 </div>
               </SheetContent>
             </Sheet>

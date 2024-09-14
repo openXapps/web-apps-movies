@@ -46,11 +46,11 @@ export default function Footer() {
       ) url = `${route}/1`;
       if (
         appState.routeId === RouteId.FILTER_BY_YEAR ||
-        appState.routeId === RouteId.FILTER_BY_KEYWORD ||
-        appState.routeId === RouteId.FILTER_BY_CAST
+        appState.routeId === RouteId.FILTER_BY_KEYWORD
       ) url = `${route}/${pathFilter}/1`;
       if (
-        appState.routeId === RouteId.SIMILAR
+        appState.routeId === RouteId.SIMILAR ||
+        appState.routeId === RouteId.FILTER_BY_CAST
       ) url = `${route}/${pathFilter}/${pathTitle}/1`;
     }
 
@@ -66,11 +66,11 @@ export default function Footer() {
       ) url = `${route}/${pathPage.num + jump}`;
       if (
         appState.routeId === RouteId.FILTER_BY_YEAR ||
-        appState.routeId === RouteId.FILTER_BY_KEYWORD ||
-        appState.routeId === RouteId.FILTER_BY_CAST
+        appState.routeId === RouteId.FILTER_BY_KEYWORD
       ) url = `${route}${pathFilter}/${pathPage.num + jump}`;
       if (
-        appState.routeId === RouteId.SIMILAR
+        appState.routeId === RouteId.SIMILAR ||
+        appState.routeId === RouteId.FILTER_BY_CAST
       ) url = `${route}/${pathFilter}/${pathTitle}/${pathPage.num + jump}`;
     }
 
@@ -86,11 +86,11 @@ export default function Footer() {
       ) url = `${route}/${pathPage.num + jump}`;
       if (
         appState.routeId === RouteId.FILTER_BY_YEAR ||
-        appState.routeId === RouteId.FILTER_BY_KEYWORD ||
-        appState.routeId === RouteId.FILTER_BY_CAST
+        appState.routeId === RouteId.FILTER_BY_KEYWORD
       ) url = `${route}${pathFilter}/${pathPage.num + jump}`;
       if (
-        appState.routeId === RouteId.SIMILAR
+        appState.routeId === RouteId.SIMILAR ||
+        appState.routeId === RouteId.FILTER_BY_CAST
       ) url = `${route}/${pathFilter}/${pathTitle}/${pathPage.num + jump}`;
     }
 

@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { getMovie } from "@/lib/api"
-import type { TmdbMovieCastData, TmdbMovieCreditsData } from "@/lib/types"
+import { AppContext } from '@/context/AppProvider';
+import { getMovie } from '@/lib/api';
+import { RouteId } from '@/lib/enums';
+import { getRoute } from '@/lib/helper';
+import type { TmdbMovieCastData, TmdbMovieCreditsData } from '@/lib/types';
 
 const initMovieCast: TmdbMovieCastData[] = [
   {
@@ -21,6 +25,8 @@ const initMovieCast: TmdbMovieCastData[] = [
 ]
 
 export default function MovieActor({ movieId }: { movieId: string }) {
+  const { appDispatch } = useContext(AppContext);
+  const rrNavigate = useNavigate();
   const [movieActor, setMovieActor] = useState<TmdbMovieCastData[]>(initMovieCast)
 
   useEffect(() => {
@@ -37,6 +43,11 @@ export default function MovieActor({ movieId }: { movieId: string }) {
     return () => { };
   }, [movieId])
 
+  const handleCastClick = (id: number, name: string) => {
+    appDispatch({ type: 'SET_SCOPE', payload: '' });
+    rrNavigate(`${getRoute(RouteId.FILTER_BY_CAST).href}/${id}/${encodeURI(name)}`);
+  }
+
   return (
     <>
       {movieActor.length > 1 && (
@@ -44,9 +55,10 @@ export default function MovieActor({ movieId }: { movieId: string }) {
           {movieActor.map(v => v.profile_path && (
             <div className="flex flex-col gap-2 items-center" key={v.id}>
               <img
-                className="rounded-lg"
+                className="rounded-lg cursor-pointer"
                 src={`${import.meta.env.VITE_API_PERSON_POSTER_URL}/${v.profile_path}`}
                 alt={v.name}
+                onClick={() => handleCastClick(v.id, v.name)}
               />
               <div className="text-center">
                 <p className="">{v.name}</p>

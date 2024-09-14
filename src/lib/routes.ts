@@ -34,6 +34,10 @@ export function loaderKeyword({ params }: LoaderFunctionProps) {
   return getMovies({ routeId: RouteId.FILTER_BY_KEYWORD, page: params.page, filter: params.filter },);
 }
 
+export function loaderCast({ params }: LoaderFunctionProps) {
+  return getMovies({ routeId: RouteId.FILTER_BY_CAST, page: params.page, filter: params.filter },);
+}
+
 export function loaderMovieBiography({ params }: LoaderFunctionProps) {
   return getMovie({ query: 'MOVIE', filter: params.filter });
 }
@@ -130,6 +134,16 @@ export const routes: RouteItem[] = [
     header: 'Keyword:',
     placement: 'NONE',
     loader: loaderKeyword,
+    navBack: false
+  },
+  {
+    routeId: RouteId.FILTER_BY_CAST,
+    path: 'cast/:filter/:title/:page?',
+    href: '/cast',
+    menuItem: '',
+    header: 'Cast:',
+    placement: 'NONE',
+    loader: loaderCast,
     navBack: false
   },
 ]

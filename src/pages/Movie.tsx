@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 import { AppContext } from "@/context/AppProvider";
+import ghostBackdrop from '@/assets/ghost-backdrop.jpg';
 import type { TmdbMovieDetailsData } from "@/lib/types";
 
 type ActiveTabProps = 'info' | 'actors' | 'rating';
@@ -30,7 +31,13 @@ export default function Movie({ routeId }: { routeId: number }) {
       <div className="max-w-[1024px] mx-auto my-2 p-2">
         <p className="text-orange-800 dark:text-orange-400 font-bold text-xl sm:text-3xl text-ellipsis overflow-hidden text-nowrap">{movieInfo.title}</p>
         <p className="text-gray-500 dark:text-gray-400">{movieInfo.tagline}</p>
-        <img className="w-full mt-2" src={`${backdropUrl}/${movieInfo.backdrop_path}`} alt={movieInfo.title} />
+        <img
+          id="movie-backdrop"
+          className="w-full mt-2"
+          src={`${backdropUrl}/${movieInfo.backdrop_path}`}
+          alt={movieInfo.title}
+          onError={() => (document.getElementById('movie-backdrop') as HTMLImageElement).src = ghostBackdrop}
+        />
         <div className="mt-3 flex gap-3 justify-between flex-nowrap">
           <Button
             className="w-full"

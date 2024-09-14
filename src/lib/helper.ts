@@ -28,57 +28,51 @@ export function buildMovieListUrl({ routeId, page, filter }: BuildMovieListUrlPr
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
   // const route = getRoute(routeId);
 
+  // Look at the API docs to see what discover can do
+  // https://developer.themoviedb.org/reference/discover-movie
+
   switch (routeId) {
     case RouteId.NOW_PAYING:
-      url += '/movie/now_playing';
-      url += `?include_adult=false&language=en-US&region=US&`;
+      url += '/movie/now_playing?';
       break;
     case RouteId.POPULAR:
-      url += '/movie/popular';
-      url += `?include_adult=false&language=en-US&region=US&`;
+      url += '/movie/popular?';
       break;
     case RouteId.TOP_RATED:
-      url += '/movie/top_rated';
-      url += `?include_adult=false&language=en-US&region=US&`;
+      url += '/movie/top_rated?';
       break;
     case RouteId.UPCOMING:
-      url += '/movie/upcoming';
-      url += `?include_adult=false&language=en-US&region=US&`;
+      url += '/movie/upcoming?';
       break;
     case RouteId.ON_DVD:
       // 90 days back for 50 days duration
       const fromSeconds = (new Date().getTime() / 1000) - (60 * 60 * 24 * 90);
       const toSeconds = (60 * 60 * 24 * 50);
       url += '/discover/movie';
-      url += '?include_adult=false&language=en-US&region=US&vote_count.gte=5&sort_by=popularity.desc';
+      url += '?vote_count.gte=5&sort_by=popularity.desc';
       url += `&primary_release_date.gte=${moment.unix(fromSeconds - toSeconds).format('YYYY-MM-DD')}`;
       url += `&primary_release_date.lte=${moment.unix(fromSeconds).format('YYYY-MM-DD')}&`;
       break;
     case RouteId.SIMILAR:
-      url += `/movie/${filter}/similar`;
-      url += '?include_adult=false&language=en-US&region=US&vote_count.gte=5&sort_by=popularity.desc&';
+      url += `/movie/${filter}/recommendations?`;
       break;
     // case '/favourites':
     //   url += '/movie/now_playing';
-    //   url += `?language=en-US&region=US`;
+    //   url += `?language=en-US`;
     //   url += '&';
     //   break;
     case RouteId.FILTER_BY_YEAR:
       url += '/discover/movie';
-      url += '?include_adult=false&language=en-US&region=US&vote_count.gte=5&sort_by=popularity.desc';
+      url += '?vote_count.gte=5&sort_by=popularity.desc';
       url += `&primary_release_year=${filter}&`;
       break;
     case RouteId.FILTER_BY_KEYWORD:
-      url += '/search/movie';
-      url += '?include_adult=false&sort_by=popularity.desc';
-      url += `&query=${filter}&`;
+      url += `/search/movie?query=${filter}&`;
       break;
     case RouteId.FILTER_BY_CAST:
-      // value passed should be { filter: cast_id, name: cast_name }
-      const filterByCastId = '12345';
       url += '/discover/movie';
-      url += '?include_adult=false&language=en-US&vote_count.gte=5';
-      url += `&with_cast=${filterByCastId}&`;
+      url += '?vote_count.gte=5&sort_by=popularity.desc';
+      url += `&with_cast=${filter}&`;
       break;
     default:
       break;

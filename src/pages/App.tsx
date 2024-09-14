@@ -66,6 +66,11 @@ export default function App() {
           loader: getRoute(RouteId.FILTER_BY_KEYWORD).loader
         },
         {
+          path: getRoute(RouteId.FILTER_BY_CAST).path,
+          element: <Home routeId={RouteId.FILTER_BY_CAST} />,
+          loader: getRoute(RouteId.FILTER_BY_CAST).loader
+        },
+        {
           path: getRoute(RouteId.MOVIE_BIOGRAPHY).path,
           element: <Movie routeId={RouteId.MOVIE_BIOGRAPHY} />,
           loader: getRoute(RouteId.MOVIE_BIOGRAPHY).loader
