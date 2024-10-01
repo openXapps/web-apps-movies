@@ -134,7 +134,7 @@ export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsDa
             : (
               <div className="mt-4 flex gap-2">
                 <p className="text-gray-500 dark:text-gray-400 flex-none w-24">Result:</p>
-                <p className="text-orange-800 dark:text-orange-400 flex-1">Movie is too new 😊</p>
+                <p className="text-orange-800 dark:text-orange-400 flex-1">No data found 😊</p>
               </div>
             )
           )

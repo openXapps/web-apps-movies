@@ -26,6 +26,8 @@ export type BuildMovieListUrlProps = {
 export function buildMovieListUrl({ routeId, page, filter }: BuildMovieListUrlProps): string {
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
+  let fromSeconds = (new Date().getTime() / 1000);
+  let toSeconds = 0;
   // const route = getRoute(routeId);
 
   // Look at the API docs to see what discover can do
@@ -42,12 +44,18 @@ export function buildMovieListUrl({ routeId, page, filter }: BuildMovieListUrlPr
       url += '/movie/top_rated?';
       break;
     case RouteId.UPCOMING:
-      url += '/movie/upcoming?';
+      // The "upcoming" endpoint is crap
+      // url += '/movie/upcoming?';
+      // Release date 7 days from now onwards
+      fromSeconds += (60 * 60 * 24 * 7);
+      url += '/discover/movie';
+      url += '?sort_by=popularity.desc';
+      url += `&primary_release_date.gte=${moment.unix(fromSeconds).format('YYYY-MM-DD')}&`;
       break;
     case RouteId.ON_DVD:
-      // 90 days back for 50 days duration
-      const fromSeconds = (new Date().getTime() / 1000) - (60 * 60 * 24 * 90);
-      const toSeconds = (60 * 60 * 24 * 50);
+      // Release data 90 days back for 50 days duration
+      fromSeconds -= (60 * 60 * 24 * 90);
+      toSeconds = (60 * 60 * 24 * 50);
       url += '/discover/movie';
       url += '?vote_count.gte=5&sort_by=popularity.desc';
       url += `&primary_release_date.gte=${moment.unix(fromSeconds - toSeconds).format('YYYY-MM-DD')}`;
