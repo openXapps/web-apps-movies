@@ -72,7 +72,7 @@ export const routes: RouteItem[] = [
     href: '/toprated',
     menuItem: 'Top Rated',
     placement: 'HEADER',
-    header: 'Top Rated Moves',
+    header: 'Top Rated Movies',
     loader: loaderTopRated,
     navBack: false
   },
@@ -81,7 +81,7 @@ export const routes: RouteItem[] = [
     path: 'upcoming/:page?',
     href: '/upcoming',
     menuItem: 'Upcoming',
-    header: 'Upcoming Moves',
+    header: 'Upcoming Movies',
     placement: 'SIDE_NAV',
     loader: loaderUpcoming,
     navBack: false

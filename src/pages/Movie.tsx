@@ -48,7 +48,7 @@ export default function Movie({ routeId }: { routeId: number }) {
             className="w-full"
             variant={activeTab === 'actors' ? 'default' : 'ghost'}
             onClick={() => setActiveTab('actors')}
-          >Actors</Button>
+          >Cast</Button>
           {/* <Button
             className="w-full"
             variant={activeTab === 'rating' ? 'default' : 'ghost'}
@@ -59,7 +59,7 @@ export default function Movie({ routeId }: { routeId: number }) {
         <div>
           {activeTab === 'info' && <MovieInfo movieInfo={movieInfo} />}
           {activeTab === 'actors' && <MovieActor movieId={String(movieInfo.id)} />}
-          {/* {activeTab === 'rating' && <MovieRating />} */}
+          {/* {activeTab === 'rating' && <MovieRating movieId={String(movieInfo.id)} />} */}
         </div>
         < Toolbar />
       </div>
