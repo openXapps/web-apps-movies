@@ -21,4 +21,5 @@ export enum RouteId {
   FILTER_BY_YEAR = 7,
   FILTER_BY_KEYWORD = 8,
   FILTER_BY_CAST = 9,
+  ABOUT = 10,
 }

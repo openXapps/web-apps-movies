@@ -54,7 +54,8 @@ export const routes: RouteItem[] = [
     header: 'Movies Now Playing',
     placement: 'HEADER',
     loader: loaderNowPlaying,
-    navBack: false
+    navBack: false,
+    replaceHistory: true,
   },
   {
     routeId: RouteId.POPULAR,
@@ -64,7 +65,8 @@ export const routes: RouteItem[] = [
     header: 'Popular Movies',
     placement: 'SIDE_NAV',
     loader: loaderPopular,
-    navBack: false
+    navBack: false,
+    replaceHistory: true,
   },
   {
     routeId: RouteId.TOP_RATED,
@@ -74,7 +76,8 @@ export const routes: RouteItem[] = [
     placement: 'HEADER',
     header: 'Top Rated Movies',
     loader: loaderTopRated,
-    navBack: false
+    navBack: false,
+    replaceHistory: true,
   },
   {
     routeId: RouteId.UPCOMING,
@@ -84,7 +87,8 @@ export const routes: RouteItem[] = [
     header: 'Upcoming Movies',
     placement: 'SIDE_NAV',
     loader: loaderUpcoming,
-    navBack: false
+    navBack: false,
+    replaceHistory: true,
   },
   {
     routeId: RouteId.ON_DVD,
@@ -94,7 +98,8 @@ export const routes: RouteItem[] = [
     header: 'Movies On DVD',
     placement: 'HEADER',
     loader: loaderOnDvD,
-    navBack: false
+    navBack: false,
+    replaceHistory: true,
   },
   {
     routeId: RouteId.SIMILAR,
@@ -104,7 +109,8 @@ export const routes: RouteItem[] = [
     header: 'Similar:',
     placement: 'NONE',
     loader: loaderSimilar,
-    navBack: false
+    navBack: false,
+    replaceHistory: true,
   },
   {
     routeId: RouteId.MOVIE_BIOGRAPHY,
@@ -114,7 +120,8 @@ export const routes: RouteItem[] = [
     header: 'Movie Biography',
     placement: 'NONE',
     loader: loaderMovieBiography,
-    navBack: true
+    navBack: true,
+    replaceHistory: false,
   },
   {
     routeId: RouteId.FILTER_BY_YEAR,
@@ -124,7 +131,8 @@ export const routes: RouteItem[] = [
     header: 'Movies released',
     placement: 'NONE',
     loader: loaderYear,
-    navBack: false
+    navBack: false,
+    replaceHistory: false,
   },
   {
     routeId: RouteId.FILTER_BY_KEYWORD,
@@ -134,7 +142,8 @@ export const routes: RouteItem[] = [
     header: 'Keyword:',
     placement: 'NONE',
     loader: loaderKeyword,
-    navBack: false
+    navBack: false,
+    replaceHistory: false,
   },
   {
     routeId: RouteId.FILTER_BY_CAST,
@@ -144,7 +153,19 @@ export const routes: RouteItem[] = [
     header: 'Cast:',
     placement: 'NONE',
     loader: loaderCast,
-    navBack: false
+    navBack: false,
+    replaceHistory: false,
+  },
+  {
+    routeId: RouteId.ABOUT,
+    path: 'about',
+    href: '/about',
+    menuItem: 'About',
+    header: 'About',
+    placement: 'SIDE_NAV',
+    loader: undefined,
+    navBack: true,
+    replaceHistory: false,
   },
 ]
 

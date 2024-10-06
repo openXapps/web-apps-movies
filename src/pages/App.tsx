@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/context/theme-provider';
 import Layout from '@/pages/Layout';
 import Home from '@/pages/Home';
 import Movie from '@/pages/Movie';
+import About from '@/pages/About';
 import NoPage from '@/pages/NoPage';
 
 import { RouteId } from '@/lib/enums';
@@ -74,6 +75,10 @@ export default function App() {
           path: getRoute(RouteId.MOVIE_BIOGRAPHY).path,
           element: <Movie routeId={RouteId.MOVIE_BIOGRAPHY} />,
           loader: getRoute(RouteId.MOVIE_BIOGRAPHY).loader
+        },
+        {
+          path: getRoute(RouteId.ABOUT).path,
+          element: <About routeId={RouteId.ABOUT} />
         },
       ],
       errorElement: <NoPage />,

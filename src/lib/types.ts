@@ -39,8 +39,9 @@ export type RouteItem = {
   menuItem: string;
   header: string;
   placement: 'HEADER' | 'SIDE_NAV' | 'NONE';
-  loader: ({ params }: LoaderFunctionProps) => Promise<{} | null>;
+  loader?: ({ params }: LoaderFunctionProps) => Promise<{} | null>;
   navBack: boolean;
+  replaceHistory: boolean;
 }
 
 /**

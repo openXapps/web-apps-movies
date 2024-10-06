@@ -24,7 +24,7 @@ const initMovieCast: TmdbMovieCastData[] = [
   }
 ]
 
-export default function MovieActor({ movieId }: { movieId: string }) {
+export default function MovieCast({ movieId }: { movieId: string }) {
   const { appDispatch } = useContext(AppContext);
   const rrNavigate = useNavigate();
   const [movieActor, setMovieActor] = useState<TmdbMovieCastData[]>(initMovieCast)

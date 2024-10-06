@@ -56,8 +56,10 @@ export default function Header() {
   useEffect(() => {
     setRoute(getRoute(appState.routeId));
     setSubHeader('');
-    if (appState.routeId === RouteId.SIMILAR ||
-      appState.routeId === RouteId.FILTER_BY_CAST && title) setSubHeader(title);
+    if (
+      appState.routeId === RouteId.SIMILAR ||
+      appState.routeId === RouteId.FILTER_BY_CAST && title
+    ) setSubHeader(title);
     if (
       appState.routeId === RouteId.FILTER_BY_YEAR ||
       appState.routeId === RouteId.FILTER_BY_KEYWORD && filter
@@ -103,7 +105,7 @@ export default function Header() {
   const handleNavButtonClick = (routeId: number) => {
     setSheetOpen(false);
     appDispatch({ type: 'SET_SCOPE', payload: '' });
-    rrNavigate(routes[routeId].href, { replace: true });
+    rrNavigate(routes[routeId].href, { replace: routes[routeId].replaceHistory });
   };
 
   return (
