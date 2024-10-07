@@ -1,7 +1,6 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AppContext } from '@/context/AppProvider';
 import { getMovie } from '@/lib/api';
 import { RouteId } from '@/lib/enums';
 import { getRoute } from '@/lib/helper';
@@ -25,7 +24,6 @@ const initMovieCast: TmdbMovieCastData[] = [
 ]
 
 export default function MovieCast({ movieId }: { movieId: string }) {
-  const { appDispatch } = useContext(AppContext);
   const rrNavigate = useNavigate();
   const [movieActor, setMovieActor] = useState<TmdbMovieCastData[]>(initMovieCast)
 
@@ -44,7 +42,6 @@ export default function MovieCast({ movieId }: { movieId: string }) {
   }, [movieId])
 
   const handleCastClick = (id: number, name: string) => {
-    appDispatch({ type: 'SET_SCOPE', payload: '' });
     rrNavigate(`${getRoute(RouteId.FILTER_BY_CAST).href}/${id}/${encodeURI(name)}`);
   }
 

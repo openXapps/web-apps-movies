@@ -1,8 +1,7 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ghostPoster from '@/assets/ghost-poster.png';
-import { AppContext } from '@/context/AppProvider';
 import { getMovie } from '@/lib/api';
 import { RouteId } from '@/lib/enums';
 import { getRoute } from '@/lib/helper';
@@ -25,7 +24,6 @@ const initMovieCast: TmdbMovieCrewData[] = [
 ]
 
 export default function MovieCrew({ movieId }: { movieId: string }) {
-  const { appDispatch } = useContext(AppContext);
   const rrNavigate = useNavigate();
   const [movieCrew, setMovieCrew] = useState<TmdbMovieCrewData[]>(initMovieCast)
 
@@ -47,9 +45,8 @@ export default function MovieCrew({ movieId }: { movieId: string }) {
     return () => { };
   }, [movieId])
 
-  const handleCastClick = (id: number, name: string) => {
-    appDispatch({ type: 'SET_SCOPE', payload: '' });
-    rrNavigate(`${getRoute(RouteId.FILTER_BY_CAST).href}/${id}/${encodeURI(name)}`);
+  const handleCrewClick = (id: number, name: string) => {
+    rrNavigate(`${getRoute(RouteId.FILTER_BY_CREW).href}/${id}/${encodeURI(name)}`);
   }
 
   return (
@@ -66,7 +63,7 @@ export default function MovieCrew({ movieId }: { movieId: string }) {
                     className="rounded-lg cursor-pointer"
                     src={`${import.meta.env.VITE_API_PERSON_POSTER_URL}/${v.profile_path}`}
                     alt={v.name}
-                    onClick={() => handleCastClick(v.id, v.name)}
+                    onClick={() => handleCrewClick(v.id, v.name)}
                     onError={() => (document.getElementById(imgId) as HTMLImageElement).src = ghostPoster}
                   />
                 ) : (
@@ -75,7 +72,7 @@ export default function MovieCrew({ movieId }: { movieId: string }) {
                     className="rounded-lg cursor-pointer"
                     src={ghostPoster}
                     alt={v.name}
-                    onClick={() => handleCastClick(v.id, v.name)}
+                    onClick={() => handleCrewClick(v.id, v.name)}
                   />
                 )}
                 <div className="text-center">

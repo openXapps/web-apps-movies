@@ -38,6 +38,10 @@ export function loaderCast({ params }: LoaderFunctionProps) {
   return getMovies({ routeId: RouteId.FILTER_BY_CAST, page: params.page, filter: params.filter },);
 }
 
+export function loaderCrew({ params }: LoaderFunctionProps) {
+  return getMovies({ routeId: RouteId.FILTER_BY_CREW, page: params.page, filter: params.filter },);
+}
+
 export function loaderMovieBiography({ params }: LoaderFunctionProps) {
   return getMovie({ query: 'MOVIE', filter: params.filter });
 }
@@ -157,12 +161,23 @@ export const routes: RouteItem[] = [
     replaceHistory: false,
   },
   {
+    routeId: RouteId.FILTER_BY_CREW,
+    path: 'crew/:filter/:title/:page?',
+    href: '/crew',
+    menuItem: '',
+    header: 'Crew:',
+    placement: 'NONE',
+    loader: loaderCrew,
+    navBack: false,
+    replaceHistory: false,
+  },
+  {
     routeId: RouteId.ABOUT,
     path: 'about',
     href: '/about',
     menuItem: 'About',
     header: 'About',
-    placement: 'SIDE_NAV',
+    placement: 'SIDE_NAV_BOTTOM',
     loader: undefined,
     navBack: true,
     replaceHistory: false,

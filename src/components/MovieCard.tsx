@@ -1,16 +1,11 @@
-// import { useContext } from "react";
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { TmdbMovieListData } from '@/lib/types';
-import { AppContext } from '@/context/AppProvider';
 
 export default function MovieCard(movie: TmdbMovieListData) {
-  const { appDispatch } = useContext(AppContext);
   const rrNavigate = useNavigate();
 
   const handleMovieClick = () => {
-    appDispatch({ type: 'SET_SCOPE', payload: '' });
     rrNavigate(`/movie/${movie.id}`)
   }
 

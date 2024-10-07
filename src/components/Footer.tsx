@@ -50,7 +50,8 @@ export default function Footer() {
       ) url = `${route}/${pathFilter}/1`;
       if (
         appState.routeId === RouteId.SIMILAR ||
-        appState.routeId === RouteId.FILTER_BY_CAST
+        appState.routeId === RouteId.FILTER_BY_CAST ||
+        appState.routeId === RouteId.FILTER_BY_CREW
       ) url = `${route}/${pathFilter}/${pathTitle}/1`;
     }
 
@@ -70,7 +71,8 @@ export default function Footer() {
       ) url = `${route}${pathFilter}/${pathPage.num + jump}`;
       if (
         appState.routeId === RouteId.SIMILAR ||
-        appState.routeId === RouteId.FILTER_BY_CAST
+        appState.routeId === RouteId.FILTER_BY_CAST ||
+        appState.routeId === RouteId.FILTER_BY_CREW
       ) url = `${route}/${pathFilter}/${pathTitle}/${pathPage.num + jump}`;
     }
 
@@ -90,11 +92,10 @@ export default function Footer() {
       ) url = `${route}${pathFilter}/${pathPage.num + jump}`;
       if (
         appState.routeId === RouteId.SIMILAR ||
-        appState.routeId === RouteId.FILTER_BY_CAST
+        appState.routeId === RouteId.FILTER_BY_CAST ||
+        appState.routeId === RouteId.FILTER_BY_CREW
       ) url = `${route}/${pathFilter}/${pathTitle}/${pathPage.num + jump}`;
     }
-
-    // console.log('url        :', url);
 
     rrNavigate(url);
     window.scrollTo(0, 0);

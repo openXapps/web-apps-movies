@@ -1,7 +1,4 @@
 import { useContext, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-
-// import { Button } from '@/components/ui/button';
 
 import { AppContext } from '@/context/AppProvider';
 import TMDbLogo from '@/assets/tmdb-logo.svg';

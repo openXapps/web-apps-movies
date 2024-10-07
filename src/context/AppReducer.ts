@@ -16,10 +16,10 @@ export default function AppReducer(state: AppContextState, action: AppReducerAct
         ...state,
         routeId: action.payload,
       };
-    case 'SET_SCOPE':
+    case 'SET_PLACEHOLDER':
       return {
         ...state,
-        searchScope: action.payload,
+        placeholder: action.payload,
       };
     default:
       return state;

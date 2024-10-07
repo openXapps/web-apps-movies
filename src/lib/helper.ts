@@ -82,6 +82,11 @@ export function buildMovieListUrl({ routeId, page, filter }: BuildMovieListUrlPr
       url += '?vote_count.gte=5&sort_by=popularity.desc';
       url += `&with_cast=${filter}&`;
       break;
+    case RouteId.FILTER_BY_CREW:
+      url += '/discover/movie';
+      url += '?vote_count.gte=5&sort_by=popularity.desc';
+      url += `&with_crew=${filter}&`;
+      break;
     default:
       break;
   }

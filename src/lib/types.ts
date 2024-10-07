@@ -3,7 +3,7 @@
  */
 export type AppContextState = {
   routeId: number;
-  searchScope?: string;
+  placeholder?: string;
 }
 
 type AppReducerSetRoute = {
@@ -11,15 +11,16 @@ type AppReducerSetRoute = {
   payload: number;
 }
 
-type AppReducerSetScope = {
-  type: 'SET_SCOPE';
+// Placeholder context for later use
+type AppReducerSetPlaceholder = {
+  type: 'SET_PLACEHOLDER';
   payload: string;
 }
 
 /**
  * App reducer action type
  */
-export type AppReducerActions = AppReducerSetRoute | AppReducerSetScope;
+export type AppReducerActions = AppReducerSetRoute | AppReducerSetPlaceholder;
 
 /**
  * App context type
@@ -38,7 +39,7 @@ export type RouteItem = {
   href: string;
   menuItem: string;
   header: string;
-  placement: 'HEADER' | 'SIDE_NAV' | 'NONE';
+  placement: 'HEADER' | 'SIDE_NAV' | 'SIDE_NAV_BOTTOM' | 'NONE';
   loader?: ({ params }: LoaderFunctionProps) => Promise<{} | null>;
   navBack: boolean;
   replaceHistory: boolean;
