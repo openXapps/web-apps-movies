@@ -138,15 +138,15 @@ export default function Header() {
                   <span className="sr-only">toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent className='w-[360px]' side="left">
+              <SheetContent className='w-[320px]' side="left">
                 <SheetHeader>
                   <SheetTitle>Filter Options</SheetTitle>
                   <SheetDescription className="sr-only">App Side Menu</SheetDescription>
                 </SheetHeader>
-                <div className='flex flex-col gap-5'>
+                <div className='flex flex-col gap-5 mt-5'>
 
                   {/* Nav bar options on small screens */}
-                  <div className="flex flex-col gap-2 mt-5 md:hidden">
+                  <div className="flex flex-col gap-2 md:hidden">
                     {routes.map((v, i) => {
                       const isActive = v.routeId === appState.routeId
                       return (v.placement === 'HEADER' &&
