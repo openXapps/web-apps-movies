@@ -58,17 +58,17 @@ export default function Header() {
     setRoute(getRoute(appState.routeId));
     setSubHeader('');
     if (
-      appState.routeId === RouteId.SIMILAR ||
-      appState.routeId === RouteId.FILTER_BY_CAST && title ||
-      appState.routeId === RouteId.FILTER_BY_CREW && title
+      (appState.routeId === RouteId.SIMILAR ||
+        appState.routeId === RouteId.FILTER_BY_CAST ||
+        appState.routeId === RouteId.FILTER_BY_CREW) && title
     ) setSubHeader(title);
     if (
-      appState.routeId === RouteId.FILTER_BY_YEAR ||
-      appState.routeId === RouteId.FILTER_BY_KEYWORD && filter
+      (appState.routeId === RouteId.FILTER_BY_YEAR ||
+        appState.routeId === RouteId.FILTER_BY_KEYWORD) && filter
     ) setSubHeader(filter);
 
     return () => { };
-  }, [appState.routeId])
+  }, [appState.routeId, title, filter])
 
   useEffect(() => {
     function genYears(): string[] {
