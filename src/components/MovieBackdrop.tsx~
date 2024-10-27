@@ -7,6 +7,18 @@ import { getMovie } from "@/lib/api";
 import { TmdbMovieImage, TmdbMovieImageData } from '@/lib/types';
 import ghostBackdrop from '@/assets/ghost-backdrop.jpg';
 
+const initMovieImage: TmdbMovieImage[] = [
+  {
+    aspect_ratio: 0.0,
+    height: 0,
+    iso_639_1: null,
+    file_path: '',
+    vote_average: 0.0,
+    vote_count: 0,
+    width: 0
+  }
+]
+
 export default function MovieBackdrop({ movieId, fallBack }: { movieId: string, fallBack: string }) {
   // const [movieBackdrop, setMovieBackdrop] = useState<TmdbMovieImage[]>(initMovieImage);
   const [movieBackdrop, setMovieBackdrop] = useState<TmdbMovieImage[]>([]);
