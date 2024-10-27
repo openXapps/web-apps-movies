@@ -194,6 +194,29 @@ export type TmdbMovieCreditsData = {
   crew: TmdbMovieCrewData[];
 }
 
+/**
+ * Movie image backdrop, logo & poster object
+ */
+export type TmdbMovieImage = {
+  aspect_ratio: number;
+  height: number;
+  iso_639_1: string | null;
+  file_path: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
+
+/**
+ * Movie image object
+ */
+export type TmdbMovieImageData = {
+  id: number;
+  backdrops: TmdbMovieImage[];
+  logos: TmdbMovieImage[];
+  posters: TmdbMovieImage[];
+}
+
 
 /**
  * T details response object

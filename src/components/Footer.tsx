@@ -1,18 +1,18 @@
 import { useContext } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 
-import useRouteData from "@/hooks/useRouteData";
+// import useRouteData from "@/hooks/useRouteData";
 
 import { Button } from '@/components/ui/button';
 import { AppContext } from '@/context/AppProvider';
 import { getRoute } from '@/lib/helper';
 import { ENav, RouteId } from '@/lib/enums'
 
-export default function Footer() {
+export default function Footer({ totalPagesFromResult }: { totalPagesFromResult: number }) {
   const { appState } = useContext(AppContext);
   const rrNavigate = useNavigate();
   const rrParams = useParams();
-  const { total_pages } = useRouteData();
+  // const { totalPagesFromResult } = useRouteData();
   const route = getRoute(appState.routeId).href;
 
   const pathFilter = rrParams.filter ? '/' + rrParams.filter : '';
@@ -22,8 +22,8 @@ export default function Footer() {
     num: typeof rrParams.page === 'undefined' ? 1 : Number(rrParams.page)
   };
   const totalPages = {
-    str: typeof total_pages === 'undefined' ? '0' : String(total_pages),
-    num: typeof total_pages === 'undefined' ? 0 : total_pages
+    str: typeof totalPagesFromResult === 'undefined' ? '0' : String(totalPagesFromResult),
+    num: typeof totalPagesFromResult === 'undefined' ? 0 : totalPagesFromResult
   };
 
   // console.log('route      :', route);

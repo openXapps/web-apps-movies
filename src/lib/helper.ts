@@ -102,7 +102,7 @@ export function buildMovieListUrl({ routeId, page, filter }: BuildMovieListUrlPr
  * @param {string} filter URL by Id
  */
 export type BuildMovieDetailsUrlProps = {
-  query: 'MOVIE' | 'CREDITS' | undefined;
+  query: 'MOVIE' | 'CREDITS' | 'IMAGES' | undefined;
   filter: string | undefined;
 }
 
@@ -121,6 +121,9 @@ export function buildMovieDetailsUrl({ query, filter }: BuildMovieDetailsUrlProp
       break;
     case 'CREDITS':
       url += `/movie/${filter}/credits`;
+      break;
+    case 'IMAGES':
+      url += `/movie/${filter}/images`;
       break;
     default:
       break;
