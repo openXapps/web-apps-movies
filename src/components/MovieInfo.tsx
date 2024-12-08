@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loader';
+import { Check } from 'lucide-react';
 
 import type { TMovieListData, TmdbMovieDetailsData } from "@/lib/types";
 import { copyToClipboard, decryptCipher, getRoute } from "@/lib/helper";
@@ -12,6 +13,7 @@ export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsDa
   const [tHide, setTHide] = useState(true);
   const [tLoading, setTLoading] = useState(false);
   const [tData, setTData] = useState<TMovieListData[]>([]);
+  const [tCopied, setTCopied] = useState(-1);
 
   const handleTClick = () => {
     window.scrollTo(0, document.body.scrollHeight);
@@ -34,6 +36,11 @@ export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsDa
         setTData([]);
         setTLoading(false);
       });
+  }
+
+  const handleTCopy = (url: string, index: number) => {
+    copyToClipboard(url);
+    setTCopied(index);
   }
 
   return (
@@ -121,8 +128,8 @@ export default function MovieInfo({ movieInfo }: { movieInfo: TmdbMovieDetailsDa
                     <Button
                       key={i}
                       variant="secondary"
-                      onClick={() => copyToClipboard(t.url)}
-                    >{`${t.quality} (${t.size} ${t.type})`}</Button>
+                      onClick={() => handleTCopy(t.url, i)}
+                    >{`${t.quality} (${t.size} ${t.type})`}{i === tCopied ? <Check className='ml-1 dark:text-orange-400' /> : ''}</Button>
                   ))}
                 </div>
               </div>
