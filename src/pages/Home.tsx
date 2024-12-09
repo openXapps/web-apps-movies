@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 
 import { AppContext } from '@/context/AppProvider';
 import type { TmdbMovieList } from '@/lib/types';
+import { RouteId } from '@/lib/enums';
 
 export default function Home({ routeId }: { routeId: number }) {
   const { total_results, total_pages, results } = useLoaderData() as TmdbMovieList;
@@ -23,7 +24,7 @@ export default function Home({ routeId }: { routeId: number }) {
         <div className="max-w-[1024px] mx-auto my-2 p-2 grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
           {results.map(v => (
             !v.adult &&
-            v.vote_count > 4 &&
+            (v.vote_count > 4 || routeId === RouteId.UPCOMING) &&
             v.poster_path &&
             <MovieCard key={v.id} {...v} />
           ))}
