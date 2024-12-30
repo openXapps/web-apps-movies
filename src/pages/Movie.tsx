@@ -4,6 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import MovieInfo from "@/components/MovieInfo";
 import MovieCast from "@/components/MovieCast";
 import MovieCrew from "@/components/MovieCrew";
+import MovieBackdrop from "@/components/MovieBackdrop";
 import Toolbar from "@/components/Toolbar";
 // import MovieRating from "@/components/MovieRating";
 
@@ -12,13 +13,12 @@ import { Separator } from "@/components/ui/separator";
 
 import { AppContext } from "@/context/AppProvider";
 import type { TmdbMovieDetailsData } from "@/lib/types";
-import MovieBackdrop from "@/components/MovieBackdrop";
 
-type ActiveTabProps = 'info' | 'cast' | 'crew' | 'rating';
+type ActiveTabProps = 'backdrop' | 'info' | 'cast' | 'crew' | 'rating';
 
 export default function Movie({ routeId }: { routeId: number }) {
   const { appDispatch } = useContext(AppContext);
-  const [activeTab, setActiveTab] = useState<ActiveTabProps>('info');
+  const [activeTab, setActiveTab] = useState<ActiveTabProps>('backdrop');
   const movieInfo = useLoaderData() as TmdbMovieDetailsData;
 
   useEffect(() => {
@@ -31,8 +31,13 @@ export default function Movie({ routeId }: { routeId: number }) {
       <div className="max-w-[1024px] mx-auto my-2 p-2">
         <p className="text-orange-800 dark:text-orange-400 font-bold text-xl sm:text-3xl text-ellipsis overflow-hidden text-nowrap">{movieInfo.title}</p>
         <p className="text-gray-500 dark:text-gray-400">{movieInfo.tagline}</p>
-        <MovieBackdrop movieId={String(movieInfo.id)} fallBack={movieInfo.backdrop_path} />
+        {/* <MovieBackdrop movieId={String(movieInfo.id)} fallBack={movieInfo.backdrop_path} /> */}
         <div className="mt-3 flex gap-3 justify-between flex-nowrap">
+          <Button
+            className="w-full"
+            variant={activeTab === 'backdrop' ? 'default' : 'ghost'}
+            onClick={() => setActiveTab('backdrop')}
+          >Posters</Button>
           <Button
             className="w-full"
             variant={activeTab === 'info' ? 'default' : 'ghost'}
@@ -56,9 +61,10 @@ export default function Movie({ routeId }: { routeId: number }) {
         </div>
         <Separator orientation="horizontal" className="my-3" />
         <div>
+          {activeTab === 'backdrop' && <MovieBackdrop movieId={String(movieInfo.id)} fallBack={movieInfo.backdrop_path} />}
           {activeTab === 'info' && <MovieInfo movieInfo={movieInfo} />}
-          {activeTab === 'cast' && <MovieCast movieId={String(movieInfo.id)} />}
-          {activeTab === 'crew' && <MovieCrew movieId={String(movieInfo.id)} />}
+          {activeTab === 'cast' && <MovieCast movieId={String(movieInfo.id)} layout="vertical" />}
+          {activeTab === 'crew' && <MovieCrew movieId={String(movieInfo.id)} layout="vertical" />}
           {/* {activeTab === 'rating' && <MovieRating movieId={String(movieInfo.id)} />} */}
         </div>
         < Toolbar />
