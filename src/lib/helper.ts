@@ -102,7 +102,7 @@ export function buildMovieListUrl({ routeId, page, filter }: BuildMovieListUrlPr
  * @param {string} filter URL by Id
  */
 export type BuildMovieDetailsUrlProps = {
-  query: 'MOVIE' | 'CREDITS' | 'IMAGES' | undefined;
+  query: 'ALL' | 'MOVIE' | 'CREDITS' | 'IMAGES' | undefined;
   filter: string | undefined;
 }
 
@@ -115,20 +115,25 @@ export function buildMovieDetailsUrl({ query, filter }: BuildMovieDetailsUrlProp
   let url = import.meta.env.VITE_API_BASE_URL;
   const key = decryptCipher(import.meta.env.VITE_API_KEY);
 
+  // Implemented the ALL query to speed up Movie Biography route
+
   switch (query) {
-    case 'MOVIE':
-      url += `/movie/${filter}`
+    case 'ALL':
+      url += `/movie/${filter}?append_to_response=images,credits&`
       break;
-    case 'CREDITS':
-      url += `/movie/${filter}/credits`;
+    case 'MOVIE': // Not used
+      url += `/movie/${filter}?`
       break;
-    case 'IMAGES':
-      url += `/movie/${filter}/images`;
+    case 'CREDITS': // Not used
+      url += `/movie/${filter}/credits?`;
+      break;
+    case 'IMAGES': // Not used
+      url += `/movie/${filter}/images?`;
       break;
     default:
       break;
   }
-  url += `?api_key=${key}`;
+  url += `api_key=${key}`;
 
   return url;
 }

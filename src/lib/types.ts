@@ -148,6 +148,15 @@ export type TmdbMovieDetailsData = {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  credits?: {
+    cast: TmdbMovieCastData[];
+    crew: TmdbMovieCrewData[];
+  };
+  images?: {
+    backdrops: TmdbMovieImage[];
+    logos: TmdbMovieImage[];
+    posters: TmdbMovieImage[];
+  }
 }
 
 /**

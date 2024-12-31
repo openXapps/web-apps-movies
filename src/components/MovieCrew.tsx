@@ -2,55 +2,35 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import Person from './Person';
+import Person from '@/components/Person';
 
-import { getMovie } from '@/lib/api';
 import { RouteId } from '@/lib/enums';
 import { getRoute } from '@/lib/helper';
-import type { TmdbMovieCrewData, TmdbMovieCreditsData } from '@/lib/types';
-
-const initMovieCast: TmdbMovieCrewData[] = [
-  {
-    adult: false,
-    gender: 0,
-    id: 0,
-    known_for_department: '',
-    name: '',
-    original_name: '',
-    popularity: 0,
-    profile_path: '',
-    credit_id: '',
-    department: '',
-    job: '',
-  }
-]
+import type { TmdbMovieCrewData } from '@/lib/types';
 
 type MovieCrewProps = {
-  movieId: string;
+  data: TmdbMovieCrewData[];
   layout: 'horizontal' | 'vertical';
 }
 
-export default function MovieCrew({ movieId, layout }: MovieCrewProps) {
+export default function MovieCrew({ data, layout }: MovieCrewProps) {
   const rrNavigate = useNavigate();
-  const [movieCrew, setMovieCrew] = useState<TmdbMovieCrewData[]>(initMovieCast)
+  const [movieCrew, setMovieCrew] = useState<TmdbMovieCrewData[]>([])
 
   useEffect(() => {
-    function getMovieCast() {
-      getMovie({ query: 'CREDITS', filter: movieId })
-        .then(data => {
-          let crew: TmdbMovieCrewData[] = [];
-          const crewDirector: TmdbMovieCrewData[] = data.crew.filter((v: TmdbMovieCrewData) => v.job === 'Director');
-          const crewProduction: TmdbMovieCrewData[] = data.crew.filter((v: TmdbMovieCrewData) => v.department === 'Production');
-          const crewWriting: TmdbMovieCrewData[] = data.crew.filter((v: TmdbMovieCrewData) => v.department === 'Writing');
-          crew = crewDirector.concat(crewProduction).concat(crewWriting);
-          setMovieCrew(crew);
-        }) as Promise<TmdbMovieCreditsData>;
+    function getMovieCrew() {
+      let crew: TmdbMovieCrewData[] = [];
+      const crewDirector: TmdbMovieCrewData[] = data.filter((v: TmdbMovieCrewData) => v.job === 'Director');
+      const crewProduction: TmdbMovieCrewData[] = data.filter((v: TmdbMovieCrewData) => v.department === 'Production');
+      const crewWriting: TmdbMovieCrewData[] = data.filter((v: TmdbMovieCrewData) => v.department === 'Writing');
+      crew = crewDirector.concat(crewProduction).concat(crewWriting);
+      setMovieCrew(crew);
     }
 
-    getMovieCast();
+    getMovieCrew();
 
     return () => { };
-  }, [movieId])
+  }, [data])
 
   const handleCrewClick = (id: number, name: string) => {
     rrNavigate(`${getRoute(RouteId.FILTER_BY_CREW).href}/${id}/${encodeURI(name)}`);
@@ -64,7 +44,7 @@ export default function MovieCrew({ movieId, layout }: MovieCrewProps) {
             <div className="flex w-max space-x-4 p-4">
               {movieCrew.map((v, i) => {
                 const imgId = 'img-' + String(i);
-                return (
+                return v.profile_path && (
                   <Person
                     key={imgId}
                     imgId={imgId}
@@ -79,7 +59,7 @@ export default function MovieCrew({ movieId, layout }: MovieCrewProps) {
           <div className="grid gap-3 grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 justify-items-center">
             {movieCrew.map((v, i) => {
               const imgId = 'img-' + String(i);
-              return (
+              return v.profile_path && (
                 <Person
                   key={imgId}
                   imgId={imgId}

@@ -43,7 +43,8 @@ export function loaderCrew({ params }: LoaderFunctionProps) {
 }
 
 export function loaderMovieBiography({ params }: LoaderFunctionProps) {
-  return getMovie({ query: 'MOVIE', filter: params.filter });
+  // return getMovie({ query: 'MOVIE', filter: params.filter });
+  return getMovie({ query: 'ALL', filter: params.filter });
 }
 
 /**

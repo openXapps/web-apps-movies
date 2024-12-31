@@ -1,31 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { getMovie } from "@/lib/api";
-import { TmdbMovieImage, TmdbMovieImageData } from '@/lib/types';
+import { TmdbMovieImage } from '@/lib/types';
 import ghostBackdrop from '@/assets/ghost-backdrop.jpg';
 
-export default function MovieBackdrop({ movieId, fallBack }: { movieId: string, fallBack: string }) {
-  const [movieBackdrop, setMovieBackdrop] = useState<TmdbMovieImage[]>([]);
+type MovieBackdropProps = {
+  movieBackdrop: TmdbMovieImage[];
+  fallBack: string;
+}
+
+export default function MovieBackdrop({ movieBackdrop, fallBack }: MovieBackdropProps) {
   const [currentImage, setCurrentImage] = useState(0);
-  const [totalImages, setTotalImages] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    function getMovieImages() {
-      getMovie({ query: 'IMAGES', filter: movieId })
-        .then(data => {
-          setMovieBackdrop(data.backdrops);
-          setTotalImages(data.backdrops.length);
-          setIsLoading(false);
-        }) as Promise<TmdbMovieImageData>;
-    }
-
-    getMovieImages();
-
-    return () => { };
-  }, [movieId])
+  const totalImages = movieBackdrop.length;
 
   const showNextImageButton = () => {
     setCurrentImage(prevState => {
@@ -71,7 +58,7 @@ export default function MovieBackdrop({ movieId, fallBack }: { movieId: string, 
           ><ChevronRight className='h-8 w-8 text-white' /></button>
         </div>
       ) : (
-        !isLoading && <img
+        <img
           id="movie-backdrop"
           className="w-full mt-2"
           src={`${import.meta.env.VITE_API_MOVIE_BACKDROP_URL}/${fallBack}`}
