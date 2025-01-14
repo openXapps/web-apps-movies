@@ -17,7 +17,7 @@ type ActiveTabProps = 'backdrop' | 'info' | 'cast' | 'crew';
 
 export default function Movie({ routeId }: { routeId: number }) {
   const { appDispatch } = useContext(AppContext);
-  const [activeTab, setActiveTab] = useState<ActiveTabProps>('backdrop');
+  const [activeTab, setActiveTab] = useState<ActiveTabProps>('info');
   const movieInfo = useLoaderData() as TmdbMovieDetailsData;
 
   useEffect(() => {
