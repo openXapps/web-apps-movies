@@ -21,10 +21,13 @@ export default function Home({ routeId }: { routeId: number }) {
   function validateMovie(movie: TmdbMovieListData): boolean {
     const backInTime: number = Date.now() - (1000 * (60 * (60 * (24 * 30))));
     const movieDate: number = new Date(movie.release_date || '1970-01-01').getTime();
-    console.log(movieDate, backInTime);
-
+    // console.log(movieDate, backInTime);
+    // console.log(movie);
+    
     if (movie.adult) return false;
-    if (movie.poster_path.length === 0) return false;
+    // Check if a variable has any value at all before trying to process it,
+    // you can use == null to check for either null or undefined
+    if (movie.poster_path == null) return false;
     if (routeId === RouteId.NOW_PAYING && movieDate < backInTime) return false;
 
     return true;
