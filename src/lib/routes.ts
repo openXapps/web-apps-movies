@@ -49,26 +49,27 @@ export function loaderMovieBiography({ params }: LoaderFunctionProps) {
 
 /**
  * Route navigation data object
+ * Take note, the order of RouteItem array equals RouteId enum values
  */
 export const routes: RouteItem[] = [
   {
     routeId: RouteId.NOW_PAYING,
-    path: ':page?',
-    href: '/',
+    path: 'nowplaying/:page?',
+    href: '/nowplaying',
     menuItem: 'Now Playing',
     header: 'Movies Now Playing',
-    placement: 'HEADER',
+    placement: 'SIDE_NAV',
     loader: loaderNowPlaying,
     navBack: false,
     replaceHistory: true,
   },
   {
     routeId: RouteId.POPULAR,
-    path: 'popular/:page?',
-    href: '/popular',
+    path: ':page?',
+    href: '/',
     menuItem: 'Popular',
     header: 'Popular Movies',
-    placement: 'SIDE_NAV',
+    placement: 'HEADER',
     loader: loaderPopular,
     navBack: false,
     replaceHistory: true,

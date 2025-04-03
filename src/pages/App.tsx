@@ -14,6 +14,7 @@ import NoPage from '@/pages/NoPage';
 import { RouteId } from '@/lib/enums';
 import { AppProvider } from '@/context/AppProvider';
 import { getRoute } from '@/lib/helper';
+import { initAppContextState } from '@/lib/data';
 
 export default function App() {
   const router = createBrowserRouter([
@@ -23,8 +24,8 @@ export default function App() {
       children: [
         {
           index: true,
-          element: <Home routeId={RouteId.NOW_PAYING} />,
-          loader: getRoute(RouteId.NOW_PAYING).loader
+          element: <Home routeId={initAppContextState.routeId} />,
+          loader: getRoute(initAppContextState.routeId).loader
         },
         {
           path: getRoute(RouteId.NOW_PAYING).path,

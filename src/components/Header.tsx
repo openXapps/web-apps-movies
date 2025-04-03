@@ -152,7 +152,6 @@ export default function Header() {
                       return (v.placement === 'HEADER' &&
                         <Button
                           key={i}
-                          // variant={isActive ? 'outline' : 'default'}
                           variant={isActive ? 'default' : 'outline'}
                           onClick={() => handleNavButtonClick(v.routeId)}
                           className={twMerge(isActive ? 'pointer-events-none' : '')}

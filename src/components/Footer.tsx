@@ -36,10 +36,10 @@ export default function Footer({ totalPagesFromResult }: { totalPagesFromResult:
 
     if (navType === ENav.PAGE_ONE && pathPage.num > 1) {
       if (
-        appState.routeId === RouteId.NOW_PAYING
+        appState.routeId === RouteId.POPULAR
       ) url = '/1';
       if (
-        appState.routeId === RouteId.POPULAR ||
+        appState.routeId === RouteId.NOW_PAYING ||
         appState.routeId === RouteId.TOP_RATED ||
         appState.routeId === RouteId.UPCOMING ||
         appState.routeId === RouteId.ON_DVD
@@ -57,10 +57,10 @@ export default function Footer({ totalPagesFromResult }: { totalPagesFromResult:
 
     if (navType === ENav.PAGE_NEXT && pathPage.num < totalPages.num) {
       if (
-        appState.routeId === RouteId.NOW_PAYING
+        appState.routeId === RouteId.POPULAR
       ) url = `/${pathPage.num + jump}`;
       if (
-        appState.routeId === RouteId.POPULAR ||
+        appState.routeId === RouteId.NOW_PAYING ||
         appState.routeId === RouteId.TOP_RATED ||
         appState.routeId === RouteId.UPCOMING ||
         appState.routeId === RouteId.ON_DVD
@@ -78,10 +78,10 @@ export default function Footer({ totalPagesFromResult }: { totalPagesFromResult:
 
     if (navType === ENav.PAGE_PREV && pathPage.num > 1) {
       if (
-        appState.routeId === RouteId.NOW_PAYING
+        appState.routeId === RouteId.POPULAR
       ) url = `/${pathPage.num + jump}`;
       if (
-        appState.routeId === RouteId.POPULAR ||
+        appState.routeId === RouteId.NOW_PAYING ||
         appState.routeId === RouteId.TOP_RATED ||
         appState.routeId === RouteId.UPCOMING ||
         appState.routeId === RouteId.ON_DVD
